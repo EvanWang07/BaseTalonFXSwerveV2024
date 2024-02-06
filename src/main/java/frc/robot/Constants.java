@@ -17,7 +17,21 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 public final class Constants {
-    public static final double stickDeadband = 0.1;
+
+
+    public static final class Drive {
+        /* Driver Constants */
+        public static final double stickDeadband = 0.1;
+        public static final double basePercentOutput = 0.5; // The percent motor output for the swerve modules
+        public static final double percentBasePercentOutput = 0.2; // The percent amount of basePercentOutput; used in slowMode
+        public static final int slowModeButtonBinding = 2; // The button binding for slowMode; 1 = A, 2 = B, 3 = X, 4 = Y (Do NOT use ID = 4!)
+    }
+
+    public static final class Vision {
+        /* Vision Constants */
+        public static final double visionKP = -0.1;
+        public static final double visionMin_Movement = 0.05;
+    }
 
     public static final class Swerve {
         public static final int pigeonID = 1;
@@ -25,26 +39,22 @@ public final class Constants {
         public static final COTSTalonFXSwerveConstants chosenModule = 
         COTSTalonFXSwerveConstants.SDS.MK4i.Falcon500(COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios.L2);
 
-        /* Driver Constants */
-        public static final double basePercentOutput = 0.3;
-        public static final double percentBasePercentOutput = 0.333; // The percent amount of basePercentOutput; used in slowMode
-        public static final int slowModeButtonBinding = 2; // The button binding for slowMode; 1 = A, 2 = B, 3 = X, 4 = Y (Do NOT use ID = 4!)
+        /* Drivetrain Constants */
+        public static final double robotSideLength = Units.inchesToMeters(28);
+        public static final double trackWidth = Units.inchesToMeters(22.75); 
+        public static final double wheelBase = Units.inchesToMeters(22.875);
+        public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* PathPlanner Constants */
         public static final double maxModuleSpeed = 4.5; // Max module speed, in m/s
-        public static final double driveBaseRadius = 0.4; // TODO: Figure out the distance from robot center to furthest module!
+        public static final double driveBaseRadius = (robotSideLength / 2) * Math.sqrt(2);
         public static final HolonomicPathFollowerConfig pathPlannerConfig = new HolonomicPathFollowerConfig(
             new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
             new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
             maxModuleSpeed, 
-            0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+            driveBaseRadius, // Drive base radius in meters. Distance from robot center to furthest module.
             new ReplanningConfig() // Default path replanning config. See the API for the options here
         ); 
-
-        /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(22.75); 
-        public static final double wheelBase = Units.inchesToMeters(22.875);
-        public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */

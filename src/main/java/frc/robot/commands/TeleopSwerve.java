@@ -17,13 +17,13 @@ public class TeleopSwerve extends Command {
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
-    private BooleanSupplier slowMode;
+    private BooleanSupplier slowModeSup;
 
-    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier slowMode) {
+    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier slowModeSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
-        this.slowMode = slowMode;
+        this.slowModeSup = slowModeSup;
         this.robotCentricSup = robotCentricSup;
 
         this.translationSup = translationSup;
@@ -33,17 +33,17 @@ public class TeleopSwerve extends Command {
 
     @Override
     public void execute() {
-        boolean s_slowMode = slowMode.getAsBoolean();
+        boolean s_slowMode = slowModeSup.getAsBoolean();
         
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Drive.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Drive.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Drive.stickDeadband);
 
         if (s_slowMode) {
-            translationVal *= Constants.Swerve.percentBasePercentOutput;
-            strafeVal *= Constants.Swerve.percentBasePercentOutput;
-            rotationVal *= Constants.Swerve.percentBasePercentOutput;
+            translationVal *= Constants.Drive.percentBasePercentOutput;
+            strafeVal *= Constants.Drive.percentBasePercentOutput;
+            rotationVal *= Constants.Drive.percentBasePercentOutput;
         }
 
         /* Drive */
