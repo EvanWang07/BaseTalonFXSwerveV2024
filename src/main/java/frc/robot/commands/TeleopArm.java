@@ -91,7 +91,7 @@ public class TeleopArm extends Command {
                 }
             }
         } else { // Both Left & Right Motors
-            if (Math.abs(a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) < Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
+            if (Math.abs(a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
                 if ((a_Arms.getLeftArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getLeftArmPosition() >= Constants.Arms.armLowerBoundTheta) && (a_Arms.getRightArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getRightArmPosition() >= Constants.Arms.armLowerBoundTheta)) {
                     if (a_slowMode) {
                         a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
