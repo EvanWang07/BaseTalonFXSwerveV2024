@@ -33,9 +33,14 @@ public final class Constants {
         public static final int weaponController = 1;
     }
 
-    public static final class Display {
+    public static final class Display { // By default, these should be set to true
+        /* Swerve Display */
+        public static final boolean showSwerveData = true;
+
         /* Arm Display */
         public static final boolean showArmTheta = true;
+
+        /* Vision Display */
         public static final boolean showHorizontalVisionError = true;
     }
 
