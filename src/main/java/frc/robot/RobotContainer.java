@@ -21,32 +21,47 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
     /* Controllers */
-    private final Joystick driver = new Joystick(0);
+    private final Joystick driver = new Joystick(Constants.Drive.driveController);
+    private final Joystick weapons = new Joystick(Constants.Drive.weaponController);
 
     /* Drive Controls */
-    private final int translationAxis = XboxController.Axis.kLeftY.value;
-    private final int strafeAxis = XboxController.Axis.kLeftX.value;
-    private final int rotationAxis = XboxController.Axis.kRightX.value;
+    private final int d_translationAxis = XboxController.Axis.kLeftY.value;
+    private final int d_strafeAxis = XboxController.Axis.kLeftX.value;
+    private final int d_rotationAxis = XboxController.Axis.kRightX.value;
+
+    /* Weapon Controls */
+    private final int w_rotationAxis = XboxController.Axis.kLeftY.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton d_zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton d_robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton d_slowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+
+    /* Weapons Buttons */
+    private final JoystickButton w_slowMode = new JoystickButton(weapons, XboxController.Button.kRightBumper.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-
+    private final Arms a_Arms = new Arms();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
-                () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean(),
-                () -> slowMode.getAsBoolean()
+                () -> -driver.getRawAxis(d_translationAxis), 
+                () -> -driver.getRawAxis(d_strafeAxis), 
+                () -> -driver.getRawAxis(d_rotationAxis), 
+                () -> d_robotCentric.getAsBoolean(),
+                () -> d_slowMode.getAsBoolean()
+            )
+        );
+
+        a_Arms.setDefaultCommand(
+            new TeleopArm(
+                a_Arms,
+                () -> -driver.getRawAxis(w_rotationAxis),
+                () -> w_slowMode.getAsBoolean()
             )
         );
 
@@ -62,7 +77,7 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+        d_zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
     }
 
     /**

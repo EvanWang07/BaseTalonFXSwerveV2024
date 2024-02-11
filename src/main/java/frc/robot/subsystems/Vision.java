@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Vision extends SubsystemBase {
     private final NetworkTable m_limelightTable;
-    private double tv, tx, ta;
+    private double tx, ta;
     private ArrayList<Double> m_targetList;
     private final int MAX_ENTRIES = 50;
 
@@ -27,8 +27,7 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
-        tv = m_limelightTable.getEntry("tv").getDouble(0);
+        m_limelightTable.getEntry("tv").getDouble(0);
         tx = m_limelightTable.getEntry("tx").getDouble(0);
         ta = m_limelightTable.getEntry("ta").getDouble(0);
                 

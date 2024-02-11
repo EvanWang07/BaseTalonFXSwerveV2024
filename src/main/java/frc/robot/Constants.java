@@ -25,6 +25,29 @@ public final class Constants {
         public static final double basePercentOutput = 0.5; // The percent motor output for the swerve modules
         public static final double percentBasePercentOutput = 0.2; // The percent amount of basePercentOutput; used in slowMode
         public static final int slowModeButtonBinding = 2; // The button binding for slowMode; 1 = A, 2 = B, 3 = X, 4 = Y (Do NOT use ID = 4!)
+
+        /* Controller Constants */
+        public static final int driveController = 0;
+        public static final int weaponController = 1;
+    }
+
+    public static final class Display {
+        /* Arm Display */
+        public static final boolean showTheta = true;
+    }
+
+    public static final class Arms {
+        /* Arm ID Constants */
+        public static final int leftArmMotorID = 9;
+        public static final int rightArmMotorID = 10;
+
+        /* Arm Bounds Constants */
+        public static final double armMaxVoltage = 12;
+        public static final double armLowerBoundTheta = 0;
+        public static final double armUpperBoundTheta = 9000;
+
+        /* Arm Maintenance Constants */
+        public static final boolean callibrationMode = false;
     }
 
     public static final class Vision {
@@ -157,6 +180,7 @@ public final class Constants {
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
+
     }
 
     public static final class AutoConstants { // Ignore for now

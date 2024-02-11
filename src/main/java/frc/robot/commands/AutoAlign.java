@@ -25,7 +25,7 @@ public class AutoAlign extends Command {
         double min_Movement = Constants.Vision.visionMin_Movement;
         boolean m_autoAlign = autoAlign.getAsBoolean();
 
-        std::shared_ptr<NetworkTable> table = NetworkTable::GetTable("limelight");
+        // std::shared_ptr<NetworkTable> table = NetworkTable::GetTable("limelight");
         double tx = m_vision.getTX();
 
         if (m_autoAlign) { // "joystick->GetRawButton(9)"
@@ -41,8 +41,8 @@ public class AutoAlign extends Command {
                 }
             } 
             
-            left_command += steering_adjust;
-            right_command -= steering_adjust;
+            // left_command += steering_adjust;
+            // right_command -= steering_adjust;
         }
 
     }
