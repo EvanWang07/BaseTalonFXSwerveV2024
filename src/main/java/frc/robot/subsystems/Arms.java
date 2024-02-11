@@ -8,19 +8,19 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.controls.VoltageOut;
 
 public class Arms extends SubsystemBase {
-    private final VoltageOut Arm_request = new VoltageOut(0);    
-    
+    private final VoltageOut Arm_request = new VoltageOut(0);
+
     public TalonFX leftArm = new TalonFX(Constants.Arms.leftArmMotorID);
     public TalonFX rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
 
     public Arms() {
-        
+
     }
 
     public void setSpeeds(double speed) {
         leftArm.setControl(Arm_request.withOutput(Constants.Arms.armMaxVoltage * Constants.Drive.basePercentOutput));
         rightArm.setControl(Arm_request.withOutput(Constants.Arms.armMaxVoltage * Constants.Drive.basePercentOutput));
-    }  
+    }
 
     public void brakeMotors() {
         leftArm.setControl(Arm_request.withOutput(0));
