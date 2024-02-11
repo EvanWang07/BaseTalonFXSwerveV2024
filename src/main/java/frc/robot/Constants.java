@@ -22,8 +22,10 @@ public final class Constants {
     public static final class Drive {
         /* Driver Constants */
         public static final double stickDeadband = 0.1;
-        public static final double basePercentOutput = 0.5; // The percent motor output for the swerve modules
-        public static final double percentBasePercentOutput = 0.2; // The percent amount of basePercentOutput; used in slowMode
+        public static final double basePercentDriveOutput = 0.5; // The percent motor output for the swerve modules
+        public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
+        public static final double basePercentArmOutput = 0.6; // The percent motor output for the arm motors
+        public static final double percentBasePercentArmOutput = 0.5; // The percent amount of basePercentArmOutput; used in w_slowMode
         public static final int slowModeButtonBinding = 2; // The button binding for slowMode; 1 = A, 2 = B, 3 = X, 4 = Y (Do NOT use ID = 4!)
 
         /* Controller Constants */

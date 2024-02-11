@@ -19,16 +19,16 @@ public class Arms extends SubsystemBase {
     }
 
     public void setArmMotorSpeeds(double speed) {
-        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
-        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
+        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
     }
 
     public void setLeftArmMotorSpeed(double speed) { // For manual arm calibration
-        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
+        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
     }
 
     public void setRightArmMotorSpeed(double speed) { // For manual arm calibration
-        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
+        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
     }
 
     public void brakeArmMotors() {

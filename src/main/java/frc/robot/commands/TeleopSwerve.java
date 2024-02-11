@@ -41,9 +41,9 @@ public class TeleopSwerve extends Command {
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Drive.stickDeadband);
 
         if (s_slowMode) {
-            translationVal *= Constants.Drive.percentBasePercentOutput;
-            strafeVal *= Constants.Drive.percentBasePercentOutput;
-            rotationVal *= Constants.Drive.percentBasePercentOutput;
+            translationVal *= Constants.Drive.percentBasePercentDriveOutput;
+            strafeVal *= Constants.Drive.percentBasePercentDriveOutput;
+            rotationVal *= Constants.Drive.percentBasePercentDriveOutput;
         }
 
         /* Drive */
