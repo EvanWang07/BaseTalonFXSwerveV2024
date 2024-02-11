@@ -10,28 +10,37 @@ import com.ctre.phoenix6.controls.VoltageOut;
 public class Arms extends SubsystemBase {
     private final VoltageOut Arm_request = new VoltageOut(0);
 
-    public TalonFX leftArm = new TalonFX(Constants.Arms.leftArmMotorID);
-    public TalonFX rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
+    public TalonFX leftArm;
+    public TalonFX rightArm;
 
     public Arms() {
-
+        leftArm = new TalonFX(Constants.Arms.leftArmMotorID);
+        rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
     }
 
-    public void setSpeeds(double speed) {
-        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armMaxVoltage * Constants.Drive.basePercentOutput));
-        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armMaxVoltage * Constants.Drive.basePercentOutput));
+    public void setArmMotorSpeeds(double speed) {
+        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
+        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
     }
 
-    public void brakeMotors() {
+    public void setLeftArmMotorSpeed(double speed) { // For manual arm calibration
+        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
+    }
+
+    public void setRightArmMotorSpeed(double speed) { // For manual arm calibration
+        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentOutput));
+    }
+
+    public void brakeArmMotors() {
         leftArm.setControl(Arm_request.withOutput(0));
         rightArm.setControl(Arm_request.withOutput(0));
     }
 
-    public void brakeLeftMotor() { // For manual arm calibration
+    public void brakeLeftArmMotor() { // For manual arm calibration
         leftArm.setControl(Arm_request.withOutput(0));
     }
 
-    public void brakeRightMotor() { // For manual arm calibration
+    public void brakeRightArmMotor() { // For manual arm calibration
         rightArm.setControl(Arm_request.withOutput(0));
     }
 

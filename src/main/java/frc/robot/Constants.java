@@ -41,13 +41,14 @@ public final class Constants {
         public static final int leftArmMotorID = 9;
         public static final int rightArmMotorID = 10;
 
-        /* Arm Bounds Constants */
-        public static final double armMaxVoltage = 12;
+        /* Arm Bounds & Tolerance Constants */
+        public static final double armsMaxVoltage = 12;
         public static final double armLowerBoundTheta = 0;
         public static final double armUpperBoundTheta = 9000;
+        public static final double armsMaxErrorTolerance = 10;
 
         /* Arm Maintenance Constants */
-        public static final boolean callibrationMode = false;
+        public static final boolean armCalibrationMode = false;
     }
 
     public static final class Vision {

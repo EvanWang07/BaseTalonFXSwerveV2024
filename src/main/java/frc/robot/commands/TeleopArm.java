@@ -32,72 +32,106 @@ public class TeleopArm extends Command {
         double a_speed = speedSup.getAsDouble();
         boolean a_slowMode = slowModeSup.getAsBoolean();
 
-        if (Constants.Arms.callibrationMode) {
+        if (Constants.Arms.armCalibrationMode) { // For calibrating the arm motors
             /* Left Arm Motor */
-            if (a_Arms.getLeftArmPosition() <= 9000 && a_Arms.getLeftArmPosition() >= 0) {
+            if (a_Arms.getLeftArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getLeftArmPosition() >= Constants.Arms.armLowerBoundTheta) {
                 if (a_slowMode) {
-                    a_Arms.setSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                    a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentOutput);
                 } else {
-                    a_Arms.setSpeeds(a_speed);
+                    a_Arms.setLeftArmMotorSpeed(a_speed);
                 }
-            } else if (a_Arms.getLeftArmPosition() > 9000) {
+            } else if (a_Arms.getLeftArmPosition() > Constants.Arms.armUpperBoundTheta) {
                 if (a_speed < 0) {
                     if (a_slowMode) {
-                        a_Arms.setSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                        a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentOutput);
                     } else {
-                        a_Arms.setSpeeds(a_speed);
+                        a_Arms.setLeftArmMotorSpeed(a_speed);
                     }
                 } else {
-                    a_Arms.brakeLeftMotor();
+                    a_Arms.brakeLeftArmMotor();
                 }
             } else {
                 if (a_speed > 0) {
                     if (a_slowMode) {
-                        a_Arms.setSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                        a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentOutput);
                     } else {
-                        a_Arms.setSpeeds(a_speed);
+                        a_Arms.setLeftArmMotorSpeed(a_speed);
                     }
                 } else {
-                    a_Arms.brakeLeftMotor();
+                    a_Arms.brakeLeftArmMotor();
                 }
             }
 
             /* Right Arm Motor */
-            if (a_Arms.getRightArmPosition() <= 9000 && a_Arms.getRightArmPosition() >= 0) {
+            if (a_Arms.getRightArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getRightArmPosition() >= Constants.Arms.armLowerBoundTheta) {
                 if (a_slowMode) {
-                    a_Arms.setSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                    a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentOutput);
                 } else {
-                    a_Arms.setSpeeds(a_speed);
+                    a_Arms.setRightArmMotorSpeed(a_speed);
                 }
-            } else if (a_Arms.getRightArmPosition() > 9000) {
+            } else if (a_Arms.getRightArmPosition() > Constants.Arms.armUpperBoundTheta) {
                 if (a_speed < 0) {
                     if (a_slowMode) {
-                        a_Arms.setSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                        a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentOutput);
                     } else {
-                        a_Arms.setSpeeds(a_speed);
+                        a_Arms.setRightArmMotorSpeed(a_speed);
                     }
                 } else {
-                    a_Arms.brakeRightMotor();
+                    a_Arms.brakeRightArmMotor();
                 }
             } else {
                 if (a_speed > 0) {
                     if (a_slowMode) {
-                        a_Arms.setSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                        a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentOutput);
                     } else {
-                        a_Arms.setSpeeds(a_speed);
+                        a_Arms.setRightArmMotorSpeed(a_speed);
                     }
                 } else {
-                    a_Arms.brakeRightMotor();
+                    a_Arms.brakeRightArmMotor();
                 }
             }
-        } else {
-
+        } else { // Both Left & Right Motors
+            if (Math.abs(a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) < Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
+                if ((a_Arms.getLeftArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getLeftArmPosition() >= Constants.Arms.armLowerBoundTheta) && (a_Arms.getRightArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getRightArmPosition() >= Constants.Arms.armLowerBoundTheta)) {
+                    if (a_slowMode) {
+                        a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                    } else {
+                        a_Arms.setArmMotorSpeeds(a_speed);
+                    }
+                } else if ((a_Arms.getLeftArmPosition() > Constants.Arms.armUpperBoundTheta) && (a_Arms.getRightArmPosition() > Constants.Arms.armUpperBoundTheta)) {
+                    if (a_speed < 0) {
+                        if (a_slowMode) {
+                            a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                        } else {
+                            a_Arms.setArmMotorSpeeds(a_speed);
+                        }
+                    } else {
+                        a_Arms.brakeArmMotors();
+                    }
+                } else if ((a_Arms.getLeftArmPosition() < Constants.Arms.armLowerBoundTheta) && (a_Arms.getRightArmPosition() < Constants.Arms.armLowerBoundTheta)) {
+                    if (a_speed > 0) {
+                        if (a_slowMode) {
+                            a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentBasePercentOutput);
+                        } else {
+                            a_Arms.setArmMotorSpeeds(a_speed);
+                        }
+                    } else {
+                        a_Arms.brakeArmMotors();
+                    }
+                } else {
+                    a_Arms.brakeArmMotors();
+                    System.out.println("ERROR: Potential arm code error! Check your if-else statements!");
+                }
+            } else {
+                a_Arms.brakeArmMotors();
+                System.out.println("WARNING: Arms need calibration!");
+            }
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        a_Arms.brakeMotors();
+        a_Arms.brakeArmMotors();
         if (Constants.Display.showTheta) {
             System.out.println("Left Arm (ID: 9): " + a_Arms.getLeftArmPosition());
             System.out.println("Right Arm (ID: 10): " + a_Arms.getRightArmPosition());
