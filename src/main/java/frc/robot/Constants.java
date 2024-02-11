@@ -48,7 +48,7 @@ public final class Constants {
         public static final double armsMaxVoltage = 12;
         public static final double armsMinimumRotation = 0; // Needs to be in degrees of VISIBLE rotation
         public static final double armsMaximumRotation = 360; // Needs to be in degrees of VISIBLE rotation
-        public static final double armsMaxAngleDiscrepancy = 0.1; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMaxAngleDiscrepancy = 0.05; // Needs to be in degrees of VISIBLE rotation
 
         public static final double armLowerBoundTheta = armsMinimumRotation * armMotorGearRatio;
         public static final double armUpperBoundTheta = armsMaximumRotation * armMotorGearRatio;

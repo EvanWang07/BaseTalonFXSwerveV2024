@@ -133,8 +133,8 @@ public class TeleopArm extends Command {
     public void end(boolean interrupted) {
         a_Arms.brakeArmMotors();
         if (Constants.Display.showTheta) {
-            System.out.println("Left Arm (ID: 9): " + a_Arms.getLeftArmPosition());
-            System.out.println("Right Arm (ID: 10): " + a_Arms.getRightArmPosition());
+            System.out.println("Left Arm (ID: 9): " + (a_Arms.getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+            System.out.println("Right Arm (ID: 10): " + (a_Arms.getRightArmPosition() / Constants.Arms.armMotorGearRatio));
         }
     }
 

@@ -59,8 +59,8 @@ public class Arms extends SubsystemBase {
     @Override
     public void periodic() {
         if (Constants.Display.showTheta) {
-            System.out.println("Left Arm (ID: 9): " + getLeftArmPosition());
-            System.out.println("Right Arm (ID: 10): " + getRightArmPosition());
+            System.out.println("Left Arm (ID: 9): " + (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+            System.out.println("Right Arm (ID: 10): " + (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
         }
     }
 }
