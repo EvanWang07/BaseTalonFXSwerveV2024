@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -58,9 +59,9 @@ public class Arms extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (Constants.Display.showTheta) {
-            System.out.println("Left Arm (ID: 9): " + (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
-            System.out.println("Right Arm (ID: 10): " + (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
+        if (Constants.Display.showArmTheta) {
+            SmartDashboard.putNumber("Arm Positions", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Arm Positions", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
         }
     }
 }

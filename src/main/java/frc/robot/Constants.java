@@ -35,7 +35,8 @@ public final class Constants {
 
     public static final class Display {
         /* Arm Display */
-        public static final boolean showTheta = true;
+        public static final boolean showArmTheta = true;
+        public static final boolean showHorizontalVisionError = true;
     }
 
     public static final class Arms {

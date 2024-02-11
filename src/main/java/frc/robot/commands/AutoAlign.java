@@ -44,6 +44,5 @@ public class AutoAlign extends Command {
             // left_command += steering_adjust;
             // right_command -= steering_adjust;
         }
-
     }
 }

@@ -8,7 +8,6 @@ import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-
 public class TeleopArm extends Command {
     private Arms a_Arms;
     private DoubleSupplier speedSup;
@@ -132,10 +131,6 @@ public class TeleopArm extends Command {
     @Override
     public void end(boolean interrupted) {
         a_Arms.brakeArmMotors();
-        if (Constants.Display.showTheta) {
-            System.out.println("Left Arm (ID: 9): " + (a_Arms.getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
-            System.out.println("Right Arm (ID: 10): " + (a_Arms.getRightArmPosition() / Constants.Arms.armMotorGearRatio));
-        }
     }
 
     @Override

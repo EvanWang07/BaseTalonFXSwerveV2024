@@ -36,6 +36,10 @@ public class Vision extends SubsystemBase {
         }
         
         m_targetList.add(ta);
+
+        if (Constants.Display.showHorizontalVisionError) {
+            SmartDashboard.putNumber("Horizontal Error", getTX());
+        }
     }
 
     public double getTX() {
@@ -55,5 +59,4 @@ public class Vision extends SubsystemBase {
         NetworkTableEntry tv = m_limelightTable.getEntry("tv");
         return tv.getDouble(0) >= 1.0; //tv represents whether it has a vision target
     }
-
 }
