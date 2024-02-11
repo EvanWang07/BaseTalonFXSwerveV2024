@@ -49,9 +49,9 @@ public final class Constants {
         public static final int leftArmMotorID = 9;
         public static final int rightArmMotorID = 10;
         public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
+        public static final double armsMaxVoltage = 12;
 
         /* Arm Bounds & Tolerance Constants */
-        public static final double armsMaxVoltage = 12;
         public static final double armsMinimumRotation = 0; // Needs to be in degrees of VISIBLE rotation
         public static final double armsMaximumRotation = 360; // Needs to be in degrees of VISIBLE rotation
         public static final double armsMaxAngleDiscrepancy = 0.05; // Needs to be in degrees of VISIBLE rotation
@@ -59,6 +59,10 @@ public final class Constants {
         public static final double armLowerBoundTheta = armsMinimumRotation * armMotorGearRatio;
         public static final double armUpperBoundTheta = armsMaximumRotation * armMotorGearRatio;
         public static final double armsMaxErrorTolerance = armsMaxAngleDiscrepancy * armMotorGearRatio;
+
+        /* Arm Offset Constants */
+        public static final double leftArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
+        public static final double rightArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
 
         /* Arm Maintenance Constants */
         public static final boolean armCalibrationMode = false;
