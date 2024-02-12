@@ -38,6 +38,10 @@ public class RobotContainer {
     private final JoystickButton d_slowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
 
     /* Weapons Buttons */
+    private final JoystickButton w_resetArm = new JoystickButton(weapons, XboxController.Button.kY.value);
+    private final JoystickButton w_trapAutoArm = new JoystickButton(weapons, XboxController.Button.kA.value);
+    private final JoystickButton w_ampAutoArm = new JoystickButton(weapons, XboxController.Button.kB.value);
+    private final JoystickButton w_speakerAutoArm = new JoystickButton(weapons, XboxController.Button.kX.value);
     private final JoystickButton w_slowMode = new JoystickButton(weapons, XboxController.Button.kRightBumper.value);
 
     /* Subsystems */
@@ -78,6 +82,12 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         d_zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+
+        /* Weapon Buttons */
+        w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(0)));
+        w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.armThetaFromStartToAmp)));
+        w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.armThetaFromStartToSpeaker)));
+        w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.armThetaFromStartToTrap)));
     }
 
     /**

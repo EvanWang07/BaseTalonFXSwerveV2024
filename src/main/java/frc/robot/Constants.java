@@ -67,6 +67,15 @@ public final class Constants {
         public static final double leftArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
         public static final double rightArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
 
+        /* Automatic Arm  Constants */
+        public static final double armKP = 0.3;
+        public static final double armKI = 0.1;
+        public static final double armKD = 0.01;
+        public static final double percentAutomaticArmOutput = 0.2;
+        public static final double armThetaFromStartToAmp = 30; // TODO: Needs to be changed!
+        public static final double armThetaFromStartToSpeaker = 60; // TODO: Needs to be changed!
+        public static final double armThetaFromStartToTrap = 90; // TODO: Needs to be changed!
+
         /* Arm Maintenance Constants */
         public static final boolean armCalibrationMode = false;
     }
