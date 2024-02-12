@@ -68,6 +68,9 @@ public final class Constants {
         public static final double leftArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
         public static final double rightArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
 
+        public static final double calculatedLeftArmThetaOffset = leftArmThetaOffset * armMotorGearRatio;
+        public static final double calculatedRightArmThetaOffset = rightArmThetaOffset * armMotorGearRatio;
+
         /* Automatic Arm  Constants */
         public static final double armKP = 0.3;
         public static final double armKI = 0.1;

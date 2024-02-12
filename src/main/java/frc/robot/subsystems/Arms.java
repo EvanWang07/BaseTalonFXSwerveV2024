@@ -47,13 +47,13 @@ public class Arms extends SubsystemBase {
 
     public double getLeftArmPosition() {
         var leftPositionSignal = leftArm.getPosition();
-        double leftAnglePosition = leftPositionSignal.getValueAsDouble() + Constants.Arms.leftArmThetaOffset;
+        double leftAnglePosition = leftPositionSignal.getValueAsDouble() + Constants.Arms.calculatedLeftArmThetaOffset;
         return Units.rotationsToDegrees(leftAnglePosition);
     }
 
     public double getRightArmPosition() {
         var rightPositionSignal = rightArm.getPosition();
-        double rightAnglePosition = rightPositionSignal.getValueAsDouble() + Constants.Arms.rightArmThetaOffset;
+        double rightAnglePosition = rightPositionSignal.getValueAsDouble() + Constants.Arms.calculatedRightArmThetaOffset;
         return Units.rotationsToDegrees(rightAnglePosition);
     }
 
