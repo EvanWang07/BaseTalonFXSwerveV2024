@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Vision extends SubsystemBase {
     private final NetworkTable m_limelightTable;
-    private double tx, ta;
+    private double tx, ty, ta;
     private ArrayList<Double> m_targetList;
     private final int MAX_ENTRIES = 50;
 
@@ -29,6 +29,7 @@ public class Vision extends SubsystemBase {
     public void periodic() {
         m_limelightTable.getEntry("tv").getDouble(0);
         tx = m_limelightTable.getEntry("tx").getDouble(0);
+        ty = m_limelightTable.getEntry("ty").getDouble(0);
         ta = m_limelightTable.getEntry("ta").getDouble(0);
                 
         if (m_targetList.size() >= MAX_ENTRIES) {
@@ -38,12 +39,24 @@ public class Vision extends SubsystemBase {
         m_targetList.add(ta);
 
         if (Constants.Display.showHorizontalVisionError) {
-            SmartDashboard.putNumber("Horizontal Error", getTX());
+            SmartDashboard.putNumber("Vision Data", getTX());
+        }
+
+        if (Constants.Display.showVerticalVisionError) {
+            SmartDashboard.putNumber("Vision Data", getTY());
+        }
+
+        if (Constants.Display.showDistanceVisionError) {
+            SmartDashboard.putNumber("Vision Data", getTA()); // Might need to be changed
         }
     }
 
     public double getTX() {
         return tx;
+    }
+
+    public double getTY() {
+        return ty;
     }
 
     public double getTA() {

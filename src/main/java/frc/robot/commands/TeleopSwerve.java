@@ -36,9 +36,9 @@ public class TeleopSwerve extends Command {
         boolean s_slowMode = slowModeSup.getAsBoolean();
         
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Drive.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Drive.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Drive.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.Drive.driveStickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Drive.driveStickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Drive.driveStickDeadband);
 
         if (s_slowMode) {
             translationVal *= Constants.Drive.percentBasePercentDriveOutput;

@@ -21,7 +21,8 @@ public final class Constants {
 
     public static final class Drive {
         /* Driver Constants */
-        public static final double stickDeadband = 0.1;
+        public static final double driveStickDeadband = 0.1;
+        public static final double armStickDeadband = 0.05;
         public static final double basePercentDriveOutput = 0.5; // The percent motor output for the swerve modules
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double basePercentArmOutput = 0.6; // The percent motor output for the arm motors
@@ -42,6 +43,8 @@ public final class Constants {
 
         /* Vision Display */
         public static final boolean showHorizontalVisionError = true;
+        public static final boolean showVerticalVisionError = true;
+        public static final boolean showDistanceVisionError = true;
     }
 
     public static final class Arms {

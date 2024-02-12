@@ -5,6 +5,7 @@ import frc.robot.subsystems.Arms;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.BooleanSupplier;
+import edu.wpi.first.math.MathUtil;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -28,7 +29,7 @@ public class TeleopArm extends Command {
 
     @Override
     public void execute() {
-        double a_speed = speedSup.getAsDouble();
+        double a_speed = MathUtil.applyDeadband(speedSup.getAsDouble(), Constants.Drive.armStickDeadband);
         boolean a_slowMode = slowModeSup.getAsBoolean();
 
         if (Constants.Arms.armCalibrationMode) { // For calibrating the arm motors
