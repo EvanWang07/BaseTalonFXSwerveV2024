@@ -17,19 +17,20 @@ public class Arms extends SubsystemBase {
     public Arms() {
         leftArm = new TalonFX(Constants.Arms.leftArmMotorID);
         rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
+        rightArm.getInverted();
     }
 
     public void setArmMotorSpeeds(double speed) {
-        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
-        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        leftArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
     }
 
     public void setLeftArmMotorSpeed(double speed) { // For manual arm calibration
-        leftArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        leftArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
     }
 
     public void setRightArmMotorSpeed(double speed) { // For manual arm calibration
-        rightArm.setControl(Arm_request.withOutput(Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
     }
 
     public void brakeArmMotors() {
@@ -62,15 +63,19 @@ public class Arms extends SubsystemBase {
         return averageArmPosition;
     }
 
+    public double returnSpeed(double speed) {
+        return speed;
+    }
+
     public void autoSetArmPosition(double setPoint) {
         PIDController a_PIDController = new PIDController(Constants.Arms.armKP, Constants.Arms.armKI, Constants.Arms.armKD);
         a_PIDController.setSetpoint(setPoint);
         if (Math.abs(getLeftArmPosition() - getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
             a_PIDController.reset();
             while ((getAverageArmPosition() > (setPoint + (Constants.Arms.armsMaxErrorTolerance / 2))) || (getAverageArmPosition() < (setPoint - (Constants.Arms.armsMaxErrorTolerance / 2)))) {
-                double newLeftArmSpeed = a_PIDController.calculate(getLeftArmPosition());
+                double newLeftArmSpeed = a_PIDController.calculate(getAverageArmPosition());
                 setLeftArmMotorSpeed(newLeftArmSpeed * Constants.Arms.percentAutomaticArmOutput);
-                double newRightArmSpeed = a_PIDController.calculate(getRightArmPosition());
+                double newRightArmSpeed = a_PIDController.calculate(getAverageArmPosition());
                 setRightArmMotorSpeed(newRightArmSpeed * Constants.Arms.percentAutomaticArmOutput);
             }
             brakeArmMotors();
@@ -86,5 +91,7 @@ public class Arms extends SubsystemBase {
             SmartDashboard.putNumber("Arm Positions", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
             SmartDashboard.putNumber("Arm Positions", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
         }
+        // System.out.println("Left Arm Position: " + (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+        // System.out.println("Right Arm Position: " + (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
     }
 }

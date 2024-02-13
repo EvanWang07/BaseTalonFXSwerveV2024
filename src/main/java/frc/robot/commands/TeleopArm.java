@@ -32,6 +32,8 @@ public class TeleopArm extends Command {
         double a_speed = MathUtil.applyDeadband(speedSup.getAsDouble(), Constants.Drive.armStickDeadband);
         boolean a_slowMode = slowModeSup.getAsBoolean();
 
+        System.out.println(a_speed);
+
         if (Constants.Arms.armCalibrationMode) { // For calibrating the arm motors
             /* Left Arm Motor */
             if (a_Arms.getLeftArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getLeftArmPosition() >= Constants.Arms.armLowerBoundTheta) {
@@ -90,6 +92,7 @@ public class TeleopArm extends Command {
                     a_Arms.brakeRightArmMotor();
                 }
             }
+            System.out.println((a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) / Constants.Arms.armMotorGearRatio);
         } else { // Both Left & Right Motors
             if (Math.abs(a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
                 if ((a_Arms.getLeftArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getLeftArmPosition() >= Constants.Arms.armLowerBoundTheta) && (a_Arms.getRightArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getRightArmPosition() >= Constants.Arms.armLowerBoundTheta)) {
@@ -126,7 +129,9 @@ public class TeleopArm extends Command {
                 a_Arms.brakeArmMotors();
                 System.out.println("WARNING: Arms need calibration!");
             }
+            
         }
+        
     }
 
     @Override

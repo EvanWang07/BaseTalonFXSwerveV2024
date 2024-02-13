@@ -23,7 +23,7 @@ public final class Constants {
     public static final class Drive {
         /* Driver Constants */
         public static final double driveStickDeadband = 0.1;
-        public static final double armStickDeadband = 0.05;
+        public static final double armStickDeadband = 0.1;
         public static final double basePercentDriveOutput = 0.5; // The percent motor output for the swerve modules
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double basePercentArmOutput = 0.6; // The percent motor output for the arm motors
@@ -58,15 +58,15 @@ public final class Constants {
         /* Arm Bounds & Tolerance Constants */
         public static final double armsMinimumRotation = 0; // Needs to be in degrees of VISIBLE rotation
         public static final double armsMaximumRotation = 360; // Needs to be in degrees of VISIBLE rotation
-        public static final double armsMaxAngleDiscrepancy = 0.05; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMaxAngleDiscrepancy = 5; // Needs to be in degrees of VISIBLE rotation
 
         public static final double armLowerBoundTheta = armsMinimumRotation * armMotorGearRatio;
         public static final double armUpperBoundTheta = armsMaximumRotation * armMotorGearRatio;
         public static final double armsMaxErrorTolerance = armsMaxAngleDiscrepancy * armMotorGearRatio;
 
         /* Arm Offset Constants */
-        public static final double leftArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
-        public static final double rightArmThetaOffset = 0; // Do NOT change unless you know what you are doing!
+        public static final double leftArmThetaOffset = 0; // BUGGED: Do NOT change unless you know what you are doing!
+        public static final double rightArmThetaOffset = 0; // BUGGED: Do NOT change unless you know what you are doing!
 
         public static final double calculatedLeftArmThetaOffset = leftArmThetaOffset * armMotorGearRatio;
         public static final double calculatedRightArmThetaOffset = rightArmThetaOffset * armMotorGearRatio;
@@ -74,14 +74,18 @@ public final class Constants {
         /* Automatic Arm  Constants */
         public static final double armKP = 0.3;
         public static final double armKI = 0.1;
-        public static final double armKD = 0.01;
+        public static final double armKD = 0.03;
         public static final double percentAutomaticArmOutput = 0.2;
-        public static final double armThetaFromStartToAmp = 30; // TODO: Needs to be changed!
-        public static final double armThetaFromStartToSpeaker = 60; // TODO: Needs to be changed!
-        public static final double armThetaFromStartToTrap = 90; // TODO: Needs to be changed!
+        public static final double armThetaToTrap = 315; // TODO: Needs to be changed!
+        public static final double armThetaToAmp = 45; // TODO: Needs to be changed!
+        public static final double armThetaToSpeaker = 90; // TODO: Needs to be changed!
+
+        public static final double calculatedArmThetaToTrap = armThetaToTrap * armMotorGearRatio;
+        public static final double calculatedArmThetaToAmp = armThetaToAmp * armMotorGearRatio;
+        public static final double calculatedArmThetaToSpeaker = armThetaToSpeaker * armMotorGearRatio;
 
         /* Arm Maintenance Constants */
-        public static final boolean armCalibrationMode = false;
+        public static final boolean armCalibrationMode = true;
     }
 
     public static final class Vision {

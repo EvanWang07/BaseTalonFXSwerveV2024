@@ -64,7 +64,7 @@ public class RobotContainer {
         a_Arms.setDefaultCommand(
             new TeleopArm(
                 a_Arms,
-                () -> -driver.getRawAxis(w_rotationAxis),
+                () -> -weapons.getRawAxis(w_rotationAxis),
                 () -> w_slowMode.getAsBoolean()
             )
         );
@@ -85,9 +85,9 @@ public class RobotContainer {
 
         /* Weapon Buttons */
         w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(0)));
-        w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.armThetaFromStartToAmp)));
-        w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.armThetaFromStartToSpeaker)));
-        w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.armThetaFromStartToTrap)));
+        w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaToTrap)));
+        w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaToAmp)));
+        w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaToSpeaker)));
     }
 
     /**
