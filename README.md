@@ -1,11 +1,11 @@
 **CHANGELOG**:  <br> 
-    1. Fixed errors in Arms.java subsystem and TeleopArm.java  <br>   
+    1. Fixed the right arm motor being inverted   <br> 
+    2. Fixed errors in Arms.java subsystem and TeleopArm.java  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
     1. Potential issue with arm angle offset values bugging the code   <br> 
     2. PID within the Arms.java instant command method needs to be tuned   <br>
-    3. Issue with right arm motor being inverted   <br> 
-    4. Autonomous code experiencing errors (might be a NullPointer error)  <br> 
-    5. Vision subsystem and AutoAlign command currently do not work <br>   
+    3. Autonomous code experiencing errors (might be a NullPointer error)  <br> 
+    4. Vision subsystem and AutoAlign command currently do not work <br>   
 **TODO LIST**:  <br> 
     1. FIX Vision subsystem and AutoAlign command  <br> 
     2. CREATE a viable vision code  <br> 

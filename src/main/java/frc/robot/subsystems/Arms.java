@@ -17,7 +17,7 @@ public class Arms extends SubsystemBase {
     public Arms() {
         leftArm = new TalonFX(Constants.Arms.leftArmMotorID);
         rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
-        rightArm.getInverted();
+        rightArm.setInverted(true);
     }
 
     public void setArmMotorSpeeds(double speed) {
