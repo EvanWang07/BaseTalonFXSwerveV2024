@@ -52,6 +52,8 @@ public final class Constants {
         /* Arm Motor & Gearbox Constants */
         public static final int leftArmMotorID = 9;
         public static final int rightArmMotorID = 10;
+        public static final boolean leftArmMotorInverted = false;
+        public static final boolean rightArmMotorInverted = true;
         public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 

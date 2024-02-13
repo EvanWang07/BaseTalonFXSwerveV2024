@@ -29,9 +29,9 @@ public class AutoArm extends Command { // While not currently used, this might b
 
     @Override
     public void execute() {
-        double newLeftArmSpeed = a_PIDController.calculate(a_Arms.getLeftArmPosition());
+        double newLeftArmSpeed = a_PIDController.calculate(a_Arms.getAverageArmPosition());
         a_Arms.setLeftArmMotorSpeed(newLeftArmSpeed * Constants.Arms.percentAutomaticArmOutput);
-        double newRightArmSpeed = a_PIDController.calculate(a_Arms.getRightArmPosition());
+        double newRightArmSpeed = a_PIDController.calculate(a_Arms.getAverageArmPosition());
         a_Arms.setRightArmMotorSpeed(newRightArmSpeed * Constants.Arms.percentAutomaticArmOutput);
     }
 
