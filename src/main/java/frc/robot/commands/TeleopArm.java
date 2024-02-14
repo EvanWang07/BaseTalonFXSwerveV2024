@@ -32,20 +32,18 @@ public class TeleopArm extends Command {
         double a_speed = MathUtil.applyDeadband(speedSup.getAsDouble(), Constants.Drive.armStickDeadband);
         boolean a_slowMode = slowModeSup.getAsBoolean();
 
-        System.out.println(a_speed);
-
         if (Constants.Arms.armCalibrationMode) { // For calibrating the arm motors
             /* Left Arm Motor */
             if (a_Arms.getLeftArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getLeftArmPosition() >= Constants.Arms.armLowerBoundTheta) {
                 if (a_slowMode) {
-                    a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                    a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                 } else {
                     a_Arms.setLeftArmMotorSpeed(a_speed);
                 }
             } else if (a_Arms.getLeftArmPosition() > Constants.Arms.armUpperBoundTheta) {
                 if (a_speed < 0) {
                     if (a_slowMode) {
-                        a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                        a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                     } else {
                         a_Arms.setLeftArmMotorSpeed(a_speed);
                     }
@@ -55,7 +53,7 @@ public class TeleopArm extends Command {
             } else {
                 if (a_speed > 0) {
                     if (a_slowMode) {
-                        a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                        a_Arms.setLeftArmMotorSpeed(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                     } else {
                         a_Arms.setLeftArmMotorSpeed(a_speed);
                     }
@@ -67,14 +65,14 @@ public class TeleopArm extends Command {
             /* Right Arm Motor */
             if (a_Arms.getRightArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getRightArmPosition() >= Constants.Arms.armLowerBoundTheta) {
                 if (a_slowMode) {
-                    a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                    a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                 } else {
                     a_Arms.setRightArmMotorSpeed(a_speed);
                 }
             } else if (a_Arms.getRightArmPosition() > Constants.Arms.armUpperBoundTheta) {
                 if (a_speed < 0) {
                     if (a_slowMode) {
-                        a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                        a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                     } else {
                         a_Arms.setRightArmMotorSpeed(a_speed);
                     }
@@ -84,7 +82,7 @@ public class TeleopArm extends Command {
             } else {
                 if (a_speed > 0) {
                     if (a_slowMode) {
-                        a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                        a_Arms.setRightArmMotorSpeed(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                     } else {
                         a_Arms.setRightArmMotorSpeed(a_speed);
                     }
@@ -92,19 +90,18 @@ public class TeleopArm extends Command {
                     a_Arms.brakeRightArmMotor();
                 }
             }
-            System.out.println((a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) / Constants.Arms.armMotorGearRatio);
         } else { // Both Left & Right Motors
             if (Math.abs(a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
                 if ((a_Arms.getLeftArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getLeftArmPosition() >= Constants.Arms.armLowerBoundTheta) && (a_Arms.getRightArmPosition() <= Constants.Arms.armUpperBoundTheta && a_Arms.getRightArmPosition() >= Constants.Arms.armLowerBoundTheta)) {
                     if (a_slowMode) {
-                        a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                        a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                     } else {
                         a_Arms.setArmMotorSpeeds(a_speed);
                     }
                 } else if ((a_Arms.getLeftArmPosition() > Constants.Arms.armUpperBoundTheta) && (a_Arms.getRightArmPosition() > Constants.Arms.armUpperBoundTheta)) {
                     if (a_speed < 0) {
                         if (a_slowMode) {
-                            a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                            a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                         } else {
                             a_Arms.setArmMotorSpeeds(a_speed);
                         }
@@ -114,7 +111,7 @@ public class TeleopArm extends Command {
                 } else if ((a_Arms.getLeftArmPosition() < Constants.Arms.armLowerBoundTheta) && (a_Arms.getRightArmPosition() < Constants.Arms.armLowerBoundTheta)) {
                     if (a_speed > 0) {
                         if (a_slowMode) {
-                            a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentBasePercentArmOutput);
+                            a_Arms.setArmMotorSpeeds(a_speed * Constants.Drive.percentMaxBasePercentArmOutput);
                         } else {
                             a_Arms.setArmMotorSpeeds(a_speed);
                         }

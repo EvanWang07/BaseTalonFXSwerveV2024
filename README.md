@@ -1,18 +1,18 @@
 **CHANGELOG**:  <br> 
-    1. Fixed the right arm motor being inverted   <br> 
-    2. Fixed errors in Arms.java subsystem and TeleopArm.java  <br>   
+    1. ADDED the getScaledPercentArmOutput method to Arms.java, heavily decreasing error when manually moving the arms  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
-    1. Potential issue with arm angle offset values bugging the code   <br> 
-    2. PID within the Arms.java instant command method needs to be tuned   <br>
-    3. Autonomous code experiencing errors (might be a NullPointer error)  <br> 
-    4. Vision subsystem and AutoAlign command currently do not work <br>   
+    1. Potential issue with arm angle offset values bugging the code  <br> 
+    2. PID within the Arms.java instant command method needs to be tuned  <br> 
+    3. Potential issue with the swerve subsystem's instant command not functioning properly  <br> 
+    4. Vision subsystem and AutoAlign command currently do not work  <br>   
 **TODO LIST**:  <br> 
     1. FIX Vision subsystem and AutoAlign command  <br> 
     2. CREATE a viable vision code  <br> 
-    3. FIX the BASIC autonomous code  <br> 
-    4. CREATE a viable autonomous path (and possibly more to accomodate for different match-ups)  <br> 
-    5. CREATE an Intake subsystem and a TeleopIntake command  <br> 
-    6. CREATE a Hanger subsystem and a TeleopHanger command  <br>   
+    3. FIX the PID instant command within the Arms.java subsystem  <br> 
+    4. CREATE an Intake subsystem and a TeleopIntake command  <br> 
+    5. INVESTIGATE the issue with the swerve subsystem's instant command  <br> 
+    5. CREATE a Hanger subsystem and a TeleopHanger command  <br>   
 **NOTES**:  <br> 
-    1. **ALL** code *ABSOLUTELY* needs to be peer-reviewed!!!  <br>   
-**LAST UPDATED**: 2/12/24
+    1. Ethan is currently working on the autonomous code; as such, issues and to-dos relating to the autonomous code has been removed  <br> 
+    2. **ALL** code *ABSOLUTELY* needs to be peer-reviewed!!!  <br>   
+**LAST UPDATED**: 2/13/24

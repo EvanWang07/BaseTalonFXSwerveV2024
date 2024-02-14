@@ -21,17 +21,24 @@ public class Arms extends SubsystemBase {
         rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
     }
 
+    public double getScaledPercentArmOutput(double oldOutput) {
+        double angleBoundsAdapter = 360 / Constants.Arms.armsMaximumRotation;
+        double armOutputMultiplier = 0.1 + 0.9 * Math.abs(Math.sin(Math.toRadians(0.5 * (getAverageArmPosition() / Constants.Arms.armMotorGearRatio) * angleBoundsAdapter)));
+        double newArmOutput = armOutputMultiplier * oldOutput;
+        return newArmOutput;
+    }
+
     public void setArmMotorSpeeds(double speed) {
-        leftArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
-        rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        leftArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * getScaledPercentArmOutput(Constants.Drive.maxBasePercentArmOutput)));
+        rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * getScaledPercentArmOutput(Constants.Drive.maxBasePercentArmOutput)));
     }
 
     public void setLeftArmMotorSpeed(double speed) { // For manual arm calibration
-        leftArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        leftArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * getScaledPercentArmOutput(Constants.Drive.maxBasePercentArmOutput)));
     }
 
     public void setRightArmMotorSpeed(double speed) { // For manual arm calibration
-        rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * Constants.Drive.basePercentArmOutput));
+        rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * getScaledPercentArmOutput(Constants.Drive.maxBasePercentArmOutput)));
     }
 
     public void brakeArmMotors() {
@@ -73,7 +80,7 @@ public class Arms extends SubsystemBase {
         a_PIDController.setSetpoint(setPoint);
         if (Math.abs(getLeftArmPosition() - getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
             a_PIDController.reset();
-            while ((getAverageArmPosition() > (setPoint + (Constants.Arms.armsMaxErrorTolerance / 2))) || (getAverageArmPosition() < (setPoint - (Constants.Arms.armsMaxErrorTolerance / 2)))) {
+            while ((getAverageArmPosition() > (setPoint + Constants.Arms.calculatedMaxPIDArmThetaOffset)) || ((getAverageArmPosition() < (setPoint - Constants.Arms.calculatedMaxPIDArmThetaOffset)))) {
                 double newLeftArmSpeed = a_PIDController.calculate(getAverageArmPosition());
                 setLeftArmMotorSpeed(newLeftArmSpeed * Constants.Arms.percentAutomaticArmOutput);
                 double newRightArmSpeed = a_PIDController.calculate(getAverageArmPosition());
@@ -89,8 +96,9 @@ public class Arms extends SubsystemBase {
     @Override
     public void periodic() {
         if (Constants.Display.showArmTheta) {
-            SmartDashboard.putNumber("Arm Positions", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
-            SmartDashboard.putNumber("Arm Positions", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
         }
         // System.out.println("Left Arm Position: " + (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
         // System.out.println("Right Arm Position: " + (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
