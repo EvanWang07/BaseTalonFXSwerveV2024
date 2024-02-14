@@ -23,7 +23,7 @@ public class Arms extends SubsystemBase {
 
     public double getScaledPercentArmOutput(double oldOutput) {
         double angleBoundsAdapter = 360 / Constants.Arms.armsMaximumRotation;
-        double armOutputMultiplier = 0.1 + 0.9 * Math.abs(Math.sin(Math.toRadians(0.5 * (getAverageArmPosition() / Constants.Arms.armMotorGearRatio) * angleBoundsAdapter)));
+        double armOutputMultiplier = 0.075 + 0.925 * Math.abs(Math.sin(Math.toRadians(0.5 * (getAverageArmPosition() / Constants.Arms.armMotorGearRatio) * angleBoundsAdapter)));
         double newArmOutput = armOutputMultiplier * oldOutput;
         return newArmOutput;
     }
