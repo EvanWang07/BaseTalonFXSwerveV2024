@@ -41,6 +41,22 @@ public class Arms extends SubsystemBase {
         rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * getScaledPercentArmOutput(Constants.Drive.maxBasePercentArmOutput)));
     }
 
+    public void correctArmMotorPositions() {
+        if (getAverageArmPosition() > (Constants.Arms.armUpperBoundTheta + 25)) {
+            while (getAverageArmPosition() > (Constants.Arms.armUpperBoundTheta + 25)) {
+                leftArm.setControl(Arm_request.withOutput(0.05 * Constants.Arms.armsMaxVoltage));
+                rightArm.setControl(Arm_request.withOutput(0.05 * Constants.Arms.armsMaxVoltage));
+            }
+            brakeArmMotors();
+        } else if (getAverageArmPosition() < (Constants.Arms.armLowerBoundTheta - 25)) {
+            while (getAverageArmPosition() < (Constants.Arms.armLowerBoundTheta - 25)) {
+                leftArm.setControl(Arm_request.withOutput(-0.05 * Constants.Arms.armsMaxVoltage));
+                leftArm.setControl(Arm_request.withOutput(-0.05 * Constants.Arms.armsMaxVoltage));
+            }
+            brakeArmMotors();
+        }
+    }
+
     public void brakeArmMotors() {
         leftArm.setControl(Arm_request.withOutput(0));
         rightArm.setControl(Arm_request.withOutput(0));
@@ -86,7 +102,7 @@ public class Arms extends SubsystemBase {
                 double newRightArmSpeed = a_PIDController.calculate(getAverageArmPosition());
                 setRightArmMotorSpeed(newRightArmSpeed * Constants.Arms.percentAutomaticArmOutput);
             }
-            brakeArmMotors();
+            brakeArmMotors(); // Might be subject for removal
             a_PIDController.close();
         } else {
             System.out.println("WARNING: Arms need calibration!");
@@ -98,6 +114,7 @@ public class Arms extends SubsystemBase {
         if (Constants.Display.showArmTheta) {
             SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
             SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
             SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
         }
         // System.out.println("Left Arm Position: " + (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));

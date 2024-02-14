@@ -60,7 +60,7 @@ public final class Constants {
         /* Arm Bounds & Tolerance Constants */
         public static final double armsMinimumRotation = 0; // Needs to be in degrees of VISIBLE rotation
         public static final double armsMaximumRotation = 115; // Needs to be in degrees of VISIBLE rotation
-        public static final double armsMaxAngleDiscrepancy = 5; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMaxAngleDiscrepancy = 1; // Needs to be in degrees of VISIBLE rotation
 
         public static final double armLowerBoundTheta = armsMinimumRotation * armMotorGearRatio;
         public static final double armUpperBoundTheta = armsMaximumRotation * armMotorGearRatio;
