@@ -130,7 +130,7 @@ public class TeleopArm extends Command {
         }
 
         /* Out-of-Bounds Error Adjustment */
-        a_Arms.correctArmMotorPositions(); // Possible issue involving conflicts with the PID instant command
+        // a_Arms.correctArmMotorPositions(); // Possible issue involving conflicts with the PID instant command
         
     }
 

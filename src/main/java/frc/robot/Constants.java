@@ -26,7 +26,7 @@ public final class Constants {
         public static final double armStickDeadband = 0.1;
         public static final double basePercentDriveOutput = 0.5; // The percent motor output for the swerve modules
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
-        public static final double maxBasePercentArmOutput = 0.6; // The percent motor output for the arm motors
+        public static final double maxBasePercentArmOutput = 0.4; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
         public static final int slowModeButtonBinding = 2; // The button binding for slowMode; 1 = A, 2 = B, 3 = X, 4 = Y (Do NOT use ID = 4!)
 
@@ -58,8 +58,8 @@ public final class Constants {
         public static final double armsMaxVoltage = 12;
 
         /* Arm Bounds & Tolerance Constants */
-        public static final double armsMinimumRotation = 0; // Needs to be in degrees of VISIBLE rotation
-        public static final double armsMaximumRotation = 115; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMinimumRotation = 0 + 1; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMaximumRotation = 115 - 1; // Needs to be in degrees of VISIBLE rotation
         public static final double armsMaxAngleDiscrepancy = 1; // Needs to be in degrees of VISIBLE rotation
 
         public static final double armLowerBoundTheta = armsMinimumRotation * armMotorGearRatio;
@@ -74,19 +74,23 @@ public final class Constants {
         public static final double calculatedRightArmThetaOffset = rightArmThetaOffset * armMotorGearRatio;
 
         /* Automatic Arm  Constants */
-        public static final double armKP = 0.3;
-        public static final double armKI = 0.1;
-        public static final double armKD = 0.01;
-        public static final double percentAutomaticArmOutput = 0.2;
-        public static final double maxPIDArmThetaOffset = 0.25; // Note that the range will be this value multiplied by two!
-        public static final double armThetaToTrap = 45; // TODO: Needs to be changed!
-        public static final double armThetaToAmp = 90; // TODO: Needs to be changed!
-        public static final double armThetaToSpeaker = 115; // TODO: Needs to be changed!
+        public static final double armKP = 0.025;
+        public static final double armKI = 0.005;
+        public static final double armKD = 0.0025;
+        public static final double percentAutomaticArmOutput = 0.1;
+        public static final double maxPIDArmThetaOffset = 0.25;
+        public static final double maxPIDArmIntegrationZone = 5;
+        public static final double armThetaAtDefault = 3.5;
+        public static final double armThetaAtTrap = 45; // TODO: Needs to be changed!
+        public static final double armThetaAtAmp = 97;
+        public static final double armThetaAtSpeaker = 29; // TODO: Needs to be changed!
 
         public static final double calculatedMaxPIDArmThetaOffset = maxPIDArmThetaOffset * armMotorGearRatio;
-        public static final double calculatedArmThetaToTrap = armThetaToTrap * armMotorGearRatio;
-        public static final double calculatedArmThetaToAmp = armThetaToAmp * armMotorGearRatio;
-        public static final double calculatedArmThetaToSpeaker = armThetaToSpeaker * armMotorGearRatio;
+        public static final double calculatedMaxPIDArmIntegrationZone = maxPIDArmIntegrationZone * armMotorGearRatio;
+        public static final double calculatedArmThetaAtDefault = armThetaAtDefault * armMotorGearRatio;
+        public static final double calculatedArmThetaAtTrap = armThetaAtTrap * armMotorGearRatio;
+        public static final double calculatedArmThetaAtAmp = armThetaAtAmp * armMotorGearRatio;
+        public static final double calculatedArmThetaAtSpeaker = armThetaAtSpeaker * armMotorGearRatio;
 
         /* Arm Maintenance Constants */
         public static final boolean armCalibrationMode = true;
