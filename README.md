@@ -1,5 +1,5 @@
 **CHANGELOG**:  <br> 
-    1. ADDED the getScaledPercentArmOutput method to Arms.java, heavily decreasing error when manually moving the arms  <br>   
+    1. ADDED experimental methods to test the arm motors  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
     1. Potential issue with arm angle offset values bugging the code  <br> 
     2. PID within the Arms.java instant command method needs to be tuned  <br> 
@@ -15,4 +15,4 @@
 **NOTES**:  <br> 
     1. Ethan is currently working on the autonomous code; as such, issues and to-dos relating to the autonomous code has been removed  <br> 
     2. **ALL** code *ABSOLUTELY* needs to be peer-reviewed!!!  <br>   
-**LAST UPDATED**: 2/13/24
+**LAST UPDATED**: 2/22/24
