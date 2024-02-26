@@ -1,16 +1,20 @@
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
-import edu.wpi.first.math.util.Units;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.controls.VoltageOut;
+import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class Arms extends SubsystemBase {
-    private final VoltageOut Arm_request = new VoltageOut(0);
+    public final VoltageOut Arm_request = new VoltageOut(0);
     public TalonFX leftArm;
     public TalonFX rightArm;
 
@@ -19,6 +23,9 @@ public class Arms extends SubsystemBase {
         rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
         leftArm.setInverted(Constants.Arms.leftArmMotorInverted);
         rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
+
+        leftArm.getConfigurator().apply(Robot.ctreConfigs.armTalonFXConfigs);
+        rightArm.getConfigurator().apply(Robot.ctreConfigs.armTalonFXConfigs);
     }
 
     public double getScaledPercentArmOutput(double oldOutput) {
@@ -41,7 +48,7 @@ public class Arms extends SubsystemBase {
         rightArm.setControl(Arm_request.withOutput(speed * Constants.Arms.armsMaxVoltage * getScaledPercentArmOutput(Constants.Drive.maxBasePercentArmOutput)));
     }
 
-    public void correctArmMotorPositions() {
+    public void correctArmMotorPositions() { // Not used as of right now
         if (getAverageArmPosition() > (Constants.Arms.armUpperBoundTheta + 25)) {
             while (getAverageArmPosition() > (Constants.Arms.armUpperBoundTheta + 25)) {
                 leftArm.setControl(Arm_request.withOutput(0.05 * Constants.Arms.armsMaxVoltage));
@@ -58,16 +65,20 @@ public class Arms extends SubsystemBase {
     }
 
     public void brakeArmMotors() {
-        leftArm.setControl(Arm_request.withOutput(0));
-        rightArm.setControl(Arm_request.withOutput(0));
+        // leftArm.setControl(Arm_request.withOutput(0));
+        // rightArm.setControl(Arm_request.withOutput(0));
+        leftArm.setNeutralMode(NeutralModeValue.Brake);
+        rightArm.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public void brakeLeftArmMotor() { // For manual arm calibration
-        leftArm.setControl(Arm_request.withOutput(0));
+        // leftArm.setControl(Arm_request.withOutput(0));
+        leftArm.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public void brakeRightArmMotor() { // For manual arm calibration
-        rightArm.setControl(Arm_request.withOutput(0));
+        // rightArm.setControl(Arm_request.withOutput(0));
+        rightArm.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public double getLeftArmPosition() {
@@ -89,6 +100,20 @@ public class Arms extends SubsystemBase {
 
     public double returnSpeed(double speed) {
         return speed;
+    }
+
+    public void motionMagicAutoSetArmPosition(double setPoint) {
+        double setPointInRotations = setPoint / 360;
+        double setTolerance = Constants.Arms.calculatedMaxPIDArmThetaOffset / 360;
+        System.out.println("Magic PID rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+        final MotionMagicVoltage Magic_arm_request = new MotionMagicVoltage(0);
+        while ((Magic_arm_request.Position < (setPointInRotations - setTolerance)) && (Magic_arm_request.Position > (setPointInRotations + setTolerance))) {
+            leftArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
+            rightArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
+        }
+        brakeArmMotors();
+        System.out.println("Magic PID finished rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+        System.out.println("An error of " + (Math.abs(getAverageArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
     }
 
     public void autoSetArmPosition(double setPoint) {

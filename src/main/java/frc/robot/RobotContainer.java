@@ -31,6 +31,8 @@ public class RobotContainer {
 
     /* Weapon Controls */
     private final int w_rotationAxis = XboxController.Axis.kLeftY.value;
+    private final int w_climbUpAxis = XboxController.Axis.kLeftTrigger.value;
+    private final int w_climbDownAxis = XboxController.Axis.kRightTrigger.value;
 
     /* Driver Buttons */
     private final JoystickButton d_zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
@@ -42,12 +44,16 @@ public class RobotContainer {
     private final JoystickButton w_trapAutoArm = new JoystickButton(weapons, XboxController.Button.kA.value);
     private final JoystickButton w_ampAutoArm = new JoystickButton(weapons, XboxController.Button.kB.value);
     private final JoystickButton w_speakerAutoArm = new JoystickButton(weapons, XboxController.Button.kX.value);
-    private final JoystickButton w_slowMode = new JoystickButton(weapons, XboxController.Button.kRightBumper.value);
+    private final JoystickButton w_shootNote = new JoystickButton(weapons, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton w_intakeNote = new JoystickButton(weapons, XboxController.Button.kRightBumper.value);
+    private final JoystickButton w_slowMode = new JoystickButton(weapons, XboxController.Button.kLeftStick.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final Arms a_Arms = new Arms();
-    private final Vision m_Vision = new Vision();
+    private final Jukebox j_Jukebox = new Jukebox();
+    private final Climbers c_Climbers = new Climbers();
+    // private final Vision m_Vision = new Vision();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -70,6 +76,21 @@ public class RobotContainer {
             )
         );
 
+        j_Jukebox.setDefaultCommand(
+            new TeleopIntake(
+                j_Jukebox,
+                () -> w_intakeNote.getAsBoolean() ? 1.0 : 0.0
+            )
+        );
+
+        c_Climbers.setDefaultCommand(
+            new TeleopClimb(
+                c_Climbers,
+                () -> weapons.getRawAxis(w_climbUpAxis),
+                () -> weapons.getRawAxis(w_climbDownAxis)
+            )
+        );
+
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -85,14 +106,11 @@ public class RobotContainer {
         d_zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
         /* Weapon Buttons */
-        w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
-        w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
-        w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
-        w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
-        w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
-        w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
-        w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
-        w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
+        w_resetArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
+        w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+        w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
+        w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
+        w_shootNote.onTrue(new InstantCommand(() -> j_Jukebox.runJukebox(Constants.Jukebox.shooterSpeed)));
     }
 
     /**

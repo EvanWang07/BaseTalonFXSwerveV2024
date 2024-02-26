@@ -28,7 +28,9 @@ public final class Constants {
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double maxBasePercentArmOutput = 0.4; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
-        public static final int slowModeButtonBinding = 2; // The button binding for slowMode; 1 = A, 2 = B, 3 = X, 4 = Y (Do NOT use ID = 4!)
+        public static final double basePercentClimberOutput = 0.3; // The percent motor output for the climber motors
+
+        public static final int intakeButtonID = 6; // 6 = RB. For reference, use: https://joytokey.net/en/posts/button-mapping-for-xbox-controller/
 
         /* Controller Constants */
         public static final int driveController = 0;
@@ -46,6 +48,37 @@ public final class Constants {
         public static final boolean showHorizontalVisionError = true;
         public static final boolean showVerticalVisionError = true;
         public static final boolean showDistanceVisionError = true;
+
+        /* Jukebox Display */
+        public static final boolean showJukeboxInfo = true;
+
+        /* Climbers Display */
+        public static final boolean showClimberHeight = true;
+    }
+
+    public static final class Climbers {
+        /* Climber Motor Constants */
+        public static final int leftClimberMotorID = 11;
+        public static final int rightClimberMotorID = 12;
+        public static final boolean leftClimberMotorInverted = false;
+        public static final boolean rightClimberMotorInverted = false;
+        public static final double climbersMaxVoltage = 12;
+    }
+
+    public static final class Jukebox {
+        /* Intake & Shooting Motor Constants */
+        public static final int DJMotorID = 0; // TODO: Needs to be changed
+        public static final int leftShooterMotorID = 0; // TODO: Needs to be changed
+        public static final int rightShooterMotorID = 0; // TODO: Needs to be changed
+        public static final boolean DJMotorInverted = false; // TODO: Needs to be changed
+        public static final boolean leftShooterMotorInverted = false; // TODO: Needs to be changed
+        public static final boolean rightShooterMotorInverted = false; // TODO: Needs to be changed
+
+        /* Intake Sensor Constants */
+        public static final int intakeSensorPort = 0;
+
+        /* Shooter Constants */
+        public static final double shooterSpeed = 1;
     }
 
     public static final class Arms {
@@ -53,7 +86,7 @@ public final class Constants {
         public static final int leftArmMotorID = 9;
         public static final int rightArmMotorID = 10;
         public static final boolean leftArmMotorInverted = false;
-        public static final boolean rightArmMotorInverted = true;
+        public static final boolean rightArmMotorInverted = false;
         public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 
@@ -74,16 +107,22 @@ public final class Constants {
         public static final double calculatedRightArmThetaOffset = rightArmThetaOffset * armMotorGearRatio;
 
         /* Automatic Arm  Constants */
+        public static final double armKS = 0.25;
+        public static final double armKV = 0.12;
+        public static final double armKA = 0.01;
         public static final double armKP = 0.025;
         public static final double armKI = 0.005;
         public static final double armKD = 0.0025;
+        public static final double maxAutoArmSpeed = 15; // Units in rotations per second
+        public static final double autoArmArmAcceleration = 30; // Units in rotations per second^2
+        public static final double autoArmJerk = 300; // Units in rotations per second^3
         public static final double percentAutomaticArmOutput = 0.1;
         public static final double maxPIDArmThetaOffset = 0.25;
         public static final double maxPIDArmIntegrationZone = 5;
         public static final double armThetaAtDefault = 3.5;
+        public static final double armThetaAtSpeaker = 29; // TODO: Needs to be changed!
         public static final double armThetaAtTrap = 45; // TODO: Needs to be changed!
         public static final double armThetaAtAmp = 97;
-        public static final double armThetaAtSpeaker = 29; // TODO: Needs to be changed!
 
         public static final double calculatedMaxPIDArmThetaOffset = maxPIDArmThetaOffset * armMotorGearRatio;
         public static final double calculatedMaxPIDArmIntegrationZone = maxPIDArmIntegrationZone * armMotorGearRatio;

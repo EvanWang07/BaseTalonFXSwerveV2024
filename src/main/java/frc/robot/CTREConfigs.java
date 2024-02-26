@@ -8,6 +8,8 @@ public final class CTREConfigs {
     public TalonFXConfiguration swerveDriveFXConfig = new TalonFXConfiguration();
     public CANcoderConfiguration swerveCANcoderConfig = new CANcoderConfiguration();
 
+    public TalonFXConfiguration armTalonFXConfigs = new TalonFXConfiguration();
+
     public CTREConfigs(){
         /** Swerve CANCoder Configuration */
         swerveCANcoderConfig.MagnetSensor.SensorDirection = Constants.Swerve.cancoderInvert;
@@ -46,7 +48,7 @@ public final class CTREConfigs {
         swerveDriveFXConfig.CurrentLimits.SupplyCurrentThreshold = Constants.Swerve.driveCurrentThreshold;
         swerveDriveFXConfig.CurrentLimits.SupplyTimeThreshold = Constants.Swerve.driveCurrentThresholdTime;
 
-        /* PID Config */
+        /* Swerve PID Config */
         swerveDriveFXConfig.Slot0.kP = Constants.Swerve.driveKP;
         swerveDriveFXConfig.Slot0.kI = Constants.Swerve.driveKI;
         swerveDriveFXConfig.Slot0.kD = Constants.Swerve.driveKD;
@@ -57,5 +59,19 @@ public final class CTREConfigs {
 
         swerveDriveFXConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = Constants.Swerve.closedLoopRamp;
         swerveDriveFXConfig.ClosedLoopRamps.VoltageClosedLoopRampPeriod = Constants.Swerve.closedLoopRamp;
+
+        /** Arm Motor Configurations */
+        /* Arm PID Config */
+        armTalonFXConfigs.Slot0.kS = Constants.Arms.armKS;
+        armTalonFXConfigs.Slot0.kV = Constants.Arms.armKV;
+        armTalonFXConfigs.Slot0.kA = Constants.Arms.armKA;
+        armTalonFXConfigs.Slot0.kP = Constants.Arms.armKP;
+        armTalonFXConfigs.Slot0.kI = Constants.Arms.armKI;
+        armTalonFXConfigs.Slot0.kD = Constants.Arms.armKD;
+
+        /* Motion Magic Profiling */
+        armTalonFXConfigs.MotionMagic.MotionMagicCruiseVelocity = Constants.Arms.maxAutoArmSpeed;
+        armTalonFXConfigs.MotionMagic.MotionMagicAcceleration = Constants.Arms.autoArmArmAcceleration;
+        armTalonFXConfigs.MotionMagic.MotionMagicJerk = Constants.Arms.autoArmJerk;
     }
 }
