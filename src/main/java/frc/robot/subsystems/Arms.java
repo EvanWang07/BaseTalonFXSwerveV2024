@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.NeutralModeValue;
+// import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
@@ -65,20 +65,20 @@ public class Arms extends SubsystemBase {
     }
 
     public void brakeArmMotors() {
-        // leftArm.setControl(Arm_request.withOutput(0));
-        // rightArm.setControl(Arm_request.withOutput(0));
-        leftArm.setNeutralMode(NeutralModeValue.Brake);
-        rightArm.setNeutralMode(NeutralModeValue.Brake);
+        leftArm.setControl(Arm_request.withOutput(0));
+        rightArm.setControl(Arm_request.withOutput(0));
+        // leftArm.setNeutralMode(NeutralModeValue.Brake);
+        // rightArm.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public void brakeLeftArmMotor() { // For manual arm calibration
-        // leftArm.setControl(Arm_request.withOutput(0));
-        leftArm.setNeutralMode(NeutralModeValue.Brake);
+        leftArm.setControl(Arm_request.withOutput(0));
+        // leftArm.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public void brakeRightArmMotor() { // For manual arm calibration
-        // rightArm.setControl(Arm_request.withOutput(0));
-        rightArm.setNeutralMode(NeutralModeValue.Brake);
+        rightArm.setControl(Arm_request.withOutput(0));
+        // rightArm.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public double getLeftArmPosition() {
@@ -104,10 +104,10 @@ public class Arms extends SubsystemBase {
 
     public void motionMagicAutoSetArmPosition(double setPoint) {
         double setPointInRotations = setPoint / 360;
-        double setTolerance = Constants.Arms.calculatedMaxPIDArmThetaOffset / 360;
+        double setToleranceInRotations = Constants.Arms.calculatedMaxPIDArmThetaOffset / 360;
         System.out.println("Magic PID rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
-        final MotionMagicVoltage Magic_arm_request = new MotionMagicVoltage(0);
-        while ((Magic_arm_request.Position < (setPointInRotations - setTolerance)) && (Magic_arm_request.Position > (setPointInRotations + setTolerance))) {
+        MotionMagicVoltage Magic_arm_request = new MotionMagicVoltage(0);
+        while ((Magic_arm_request.Position < (setPointInRotations - setToleranceInRotations)) && (Magic_arm_request.Position > (setPointInRotations + setToleranceInRotations))) {
             leftArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
             rightArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
         }

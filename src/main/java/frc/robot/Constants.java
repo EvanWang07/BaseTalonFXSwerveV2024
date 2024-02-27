@@ -28,7 +28,7 @@ public final class Constants {
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double maxBasePercentArmOutput = 0.4; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
-        public static final double basePercentClimberOutput = 0.3; // The percent motor output for the climber motors
+        public static final double basePercentClimberOutput = 0.1; // The percent motor output for the climber motors
 
         public static final int intakeButtonID = 6; // 6 = RB. For reference, use: https://joytokey.net/en/posts/button-mapping-for-xbox-controller/
 
@@ -67,9 +67,9 @@ public final class Constants {
 
     public static final class Jukebox {
         /* Intake & Shooting Motor Constants */
-        public static final int DJMotorID = 0; // TODO: Needs to be changed
-        public static final int leftShooterMotorID = 0; // TODO: Needs to be changed
-        public static final int rightShooterMotorID = 0; // TODO: Needs to be changed
+        public static final int DJMotorID = 3;
+        public static final int leftShooterMotorID = 1;
+        public static final int rightShooterMotorID = 2;
         public static final boolean DJMotorInverted = false; // TODO: Needs to be changed
         public static final boolean leftShooterMotorInverted = false; // TODO: Needs to be changed
         public static final boolean rightShooterMotorInverted = false; // TODO: Needs to be changed

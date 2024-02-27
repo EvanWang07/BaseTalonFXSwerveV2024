@@ -72,12 +72,17 @@ public class Jukebox extends SubsystemBase {
 
     @Override
     public void periodic() {
+        String sensorStatusMessage;
+        double intakeSpeeds = DJMotor.get();
         if (!(intakeSensor.get())) {
             brakeIntakeMotors();
+            sensorStatusMessage = "Object Detected!";
+        } else {
+            sensorStatusMessage = "Nothing Detected";
         }
-        double intakeSpeeds = DJMotor.get();
         if (Constants.Display.showJukeboxInfo) {
             SmartDashboard.putNumber("Intake Speed", intakeSpeeds);
+            SmartDashboard.putString("Sensor Status", sensorStatusMessage);
         }
     }
 }
