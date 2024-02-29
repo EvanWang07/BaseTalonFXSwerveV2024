@@ -28,6 +28,8 @@ public final class Constants {
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double maxBasePercentArmOutput = 0.4; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
+        public static final double basePercentDJMotorOutput = 0.1; // The percent motor output for the DJ motor
+        public static final double basePercentShooterMotorOutput = 0.1; // The percent motor output for the shooter motors
         public static final double basePercentClimberOutput = 0.1; // The percent motor output for the climber motors
 
         public static final int intakeButtonID = 6; // 6 = RB. For reference, use: https://joytokey.net/en/posts/button-mapping-for-xbox-controller/
@@ -86,7 +88,7 @@ public final class Constants {
         public static final int leftArmMotorID = 9;
         public static final int rightArmMotorID = 10;
         public static final boolean leftArmMotorInverted = false;
-        public static final boolean rightArmMotorInverted = false;
+        public static final boolean rightArmMotorInverted = true;
         public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 

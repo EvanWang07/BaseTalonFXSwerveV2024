@@ -16,7 +16,7 @@ public class Jukebox extends SubsystemBase {
     public CANSparkMax leftShooterMotor;
     public CANSparkMax rightShooterMotor;
     public DigitalInput intakeSensor;
-    public Timer jukeboxTimer = new Timer();
+    public Timer jukeboxTimer;
 
     public Jukebox() {
         DJMotor = new CANSparkMax(Constants.Jukebox.DJMotorID, MotorType.kBrushless);
@@ -27,10 +27,12 @@ public class Jukebox extends SubsystemBase {
         rightShooterMotor.setInverted(Constants.Jukebox.rightShooterMotorInverted);
 
         intakeSensor = new DigitalInput(Constants.Jukebox.intakeSensorPort);
+        jukeboxTimer = new Timer();
+        jukeboxTimer.start();
     }
 
     public void setIntakeMotorSpeeds(double speed) {
-        DJMotor.set(speed);
+        DJMotor.set(speed * Constants.Drive.basePercentDJMotorOutput);
     }
 
     public void brakeIntakeMotors() {
@@ -42,8 +44,8 @@ public class Jukebox extends SubsystemBase {
     }
 
     public void setShooterMotorSpeeds(double speed) {
-        leftShooterMotor.set(speed);
-        rightShooterMotor.set(speed);
+        leftShooterMotor.set(speed * Constants.Drive.basePercentShooterMotorOutput);
+        rightShooterMotor.set(speed * Constants.Drive.basePercentShooterMotorOutput);
     }
 
     public void brakeShooterMotors() {
@@ -58,13 +60,14 @@ public class Jukebox extends SubsystemBase {
 
     public void runJukebox(double setSpeed) {
         jukeboxTimer.reset();
-        while (jukeboxTimer.get() <= 3) {
-            if (jukeboxTimer.get() <= 1.5) {
+        while (!(jukeboxTimer.hasElapsed(3))) {
+            if (!(jukeboxTimer.hasElapsed(1.5))) {
                 setShooterMotorSpeeds(setSpeed);
             } else {
                 setShooterMotorSpeeds(setSpeed);
                 setIntakeMotorSpeeds(setSpeed);
             }
+            System.out.println(jukeboxTimer.get());
         }
         brakeIntakeMotors();
         brakeShooterMotors();

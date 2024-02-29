@@ -23,7 +23,7 @@ public class AutoArm extends Command { // While not currently used, this might b
         if (Math.abs(a_Arms.getLeftArmPosition() - a_Arms.getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
             a_PIDController.reset();
         } else {
-            System.out.println("WARNING: Arms need calibration!");
+            System.out.println("WARNING: Arms need calibration! [AutoArm]");
         }
     }
 

@@ -120,11 +120,11 @@ public class TeleopArm extends Command {
                     }
                 } else {
                     a_Arms.brakeArmMotors();
-                    System.out.println("ERROR: Potential arm code error! Check your if-else statements!");
+                    System.out.println("ERROR: Potential arm code error! Check your if-else statements! [TeleopArm]");
                 }
             } else {
                 a_Arms.brakeArmMotors();
-                System.out.println("WARNING: Arms need calibration!");
+                System.out.println("WARNING: Arms need calibration! [TeleopArm]");
             }
             
         }

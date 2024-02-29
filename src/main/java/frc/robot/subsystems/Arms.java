@@ -15,6 +15,7 @@ import frc.robot.Robot;
 
 public class Arms extends SubsystemBase {
     public final VoltageOut Arm_request = new VoltageOut(0);
+    MotionMagicVoltage Magic_arm_request = new MotionMagicVoltage(0);
     public TalonFX leftArm;
     public TalonFX rightArm;
 
@@ -105,21 +106,21 @@ public class Arms extends SubsystemBase {
     public void motionMagicAutoSetArmPosition(double setPoint) {
         double setPointInRotations = setPoint / 360;
         double setToleranceInRotations = Constants.Arms.calculatedMaxPIDArmThetaOffset / 360;
-        System.out.println("Magic PID rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
-        MotionMagicVoltage Magic_arm_request = new MotionMagicVoltage(0);
-        while ((Magic_arm_request.Position < (setPointInRotations - setToleranceInRotations)) && (Magic_arm_request.Position > (setPointInRotations + setToleranceInRotations))) {
+        System.out.println("[Magic PID] Rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+        while ((Magic_arm_request.Position < (setPointInRotations - setToleranceInRotations)) || (Magic_arm_request.Position > (setPointInRotations + setToleranceInRotations))) {
             leftArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
             rightArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
+            System.out.println("[Magic PID] Running. Current position: " + getAverageArmPosition() / Constants.Arms.armMotorGearRatio);
         }
         brakeArmMotors();
-        System.out.println("Magic PID finished rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
-        System.out.println("An error of " + (Math.abs(getAverageArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
+        System.out.println("[Magic PID] Finished rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+        System.out.println("[Magic PID] An error of " + (Math.abs(getAverageArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
     }
 
     public void autoSetArmPosition(double setPoint) {
         PIDController a_PIDController = new PIDController(Constants.Arms.armKP, Constants.Arms.armKI, Constants.Arms.armKD);
         a_PIDController.setSetpoint(setPoint);
-        System.out.println("PID rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+        System.out.println("[PID] Rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
         a_PIDController.setTolerance(Constants.Arms.calculatedMaxPIDArmThetaOffset);
         a_PIDController.setIZone(Constants.Arms.calculatedMaxPIDArmIntegrationZone);
         if (Math.abs(getLeftArmPosition() - getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
@@ -127,21 +128,21 @@ public class Arms extends SubsystemBase {
             while (!(a_PIDController.atSetpoint())) {
                 double newArmSpeed = a_PIDController.calculate(getAverageArmPosition());
                 setArmMotorSpeeds(newArmSpeed * Constants.Arms.percentAutomaticArmOutput);
-                System.out.println("PID Running. Current position: " + getAverageArmPosition() / Constants.Arms.armMotorGearRatio);
+                System.out.println("[PID] Running. Current position: " + getAverageArmPosition() / Constants.Arms.armMotorGearRatio);
             }
             brakeArmMotors();
             a_PIDController.close();
-            System.out.println("PID finished rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
-            System.out.println("An error of " + (Math.abs(getAverageArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
+            System.out.println("[PID] Finished rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+            System.out.println("[PID] An error of " + (Math.abs(getAverageArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
         } else {
-            System.out.println("WARNING: Arms need calibration!");
+            System.out.println("WARNING: Arms need calibration! [PID]");
         }
     }
 
     public void autoSetLeftArmPosition(double setPoint) {
         PIDController a_PIDController = new PIDController(Constants.Arms.armKP, Constants.Arms.armKI, Constants.Arms.armKD);
         a_PIDController.setSetpoint(setPoint);
-        System.out.println("PID rotating the left arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+        System.out.println("[PID] Rotating the left arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
         a_PIDController.setTolerance(Constants.Arms.calculatedMaxPIDArmThetaOffset);
         a_PIDController.setIZone(Constants.Arms.calculatedMaxPIDArmIntegrationZone);
         if (Math.abs(getLeftArmPosition() - getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
@@ -149,21 +150,21 @@ public class Arms extends SubsystemBase {
             while (!(a_PIDController.atSetpoint())) {
                 double newLeftArmSpeed = a_PIDController.calculate(getLeftArmPosition());
                 setArmMotorSpeeds(newLeftArmSpeed * Constants.Arms.percentAutomaticArmOutput);
-                System.out.println("PID Running. Current left arm position: " + getLeftArmPosition() / Constants.Arms.armMotorGearRatio);
+                System.out.println("[PID] Running. Current left arm position: " + getLeftArmPosition() / Constants.Arms.armMotorGearRatio);
             }
             brakeLeftArmMotor();
             a_PIDController.close();
-            System.out.println("PID finished rotating the left arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
-            System.out.println("An error of " + (Math.abs(getLeftArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
+            System.out.println("[PID] Finished rotating the left arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+            System.out.println("[PID] An error of " + (Math.abs(getLeftArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
         } else {
-            System.out.println("WARNING: Arms need calibration!");
+            System.out.println("WARNING: Arms need calibration! [PID Left]");
         }
     }
 
     public void autoSetRightArmPosition(double setPoint) {
         PIDController a_PIDController = new PIDController(Constants.Arms.armKP, Constants.Arms.armKI, Constants.Arms.armKD);
         a_PIDController.setSetpoint(setPoint);
-        System.out.println("PID rotating the right arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+        System.out.println("[PID] Rotating the right arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
         a_PIDController.setTolerance(Constants.Arms.calculatedMaxPIDArmThetaOffset);
         a_PIDController.setIZone(Constants.Arms.calculatedMaxPIDArmIntegrationZone);
         if (Math.abs(getLeftArmPosition() - getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
@@ -171,14 +172,14 @@ public class Arms extends SubsystemBase {
             while (!(a_PIDController.atSetpoint())) {
                 double newRightArmSpeed = a_PIDController.calculate(getRightArmPosition());
                 setArmMotorSpeeds(newRightArmSpeed * Constants.Arms.percentAutomaticArmOutput);
-                System.out.println("PID Running. Current right arm position: " + getRightArmPosition() / Constants.Arms.armMotorGearRatio);
+                System.out.println("[PID] Running. Current right arm position: " + getRightArmPosition() / Constants.Arms.armMotorGearRatio);
             }
             brakeRightArmMotor();
             a_PIDController.close();
-            System.out.println("PID finished rotating the right arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
-            System.out.println("An error of " + (Math.abs(getRightArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
+            System.out.println("[PID] finished rotating the right arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+            System.out.println("[PID] An error of " + (Math.abs(getRightArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
         } else {
-            System.out.println("WARNING: Arms need calibration!");
+            System.out.println("WARNING: Arms need calibration! [PID Right]");
         }
     }
 
