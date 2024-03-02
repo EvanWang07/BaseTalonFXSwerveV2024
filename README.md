@@ -1,7 +1,8 @@
 **CHANGELOG**:  <br> 
 &ensp;&ensp;1. ADDED new debugging information for the Jukebox sensor  <br> 
-&ensp;&ensp;2. REMOVED annoying (and completely useless) Git files  <br> 
-&ensp;&ensp;3. ADDED the appropriate motor IDs for the Jukebox motors  <br>   
+&ensp;&ensp;2. ADDED a potential fix to the arm invert issue  <br> 
+&ensp;&ensp;3. ADDED a new option to toggle the PID arm method used  <br> 
+&ensp;&ensp;4. REMOVED annoying (and completely useless) Git files  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
 &ensp;&ensp;1. *Potential* issue with arm angle offset values bugging the code  <br> 
 &ensp;&ensp;2. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 
@@ -9,9 +10,9 @@
 &ensp;&ensp;4. *Potential* issue with the swerve subsystem's instant command not functioning properly  <br> 
 &ensp;&ensp;5. Vision subsystem and AutoAlign command currently **do not work**  <br>   
 **TODO LIST**:  <br> 
-&ensp;&ensp;1. FIX the new MotionMagic PID instant command within the Arms.java subsystem  <br> 
-&ensp;&ensp;2. TEST the new Jukebox subsystem and TeleopIntake command  <br> 
-&ensp;&ensp;3. TEST the new Climbers subsystem and TeleopClimb command  <br> 
+&ensp;&ensp;1. TEST the fix to the arm invert issue  <br> 
+&ensp;&ensp;2. FIX the new MotionMagic PID instant command within the Arms.java subsystem  <br> 
+&ensp;&ensp;3. FIX the runJukebox instant command  <br> 
 &ensp;&ensp;4. FIX Vision subsystem and AutoAlign command  <br> 
 &ensp;&ensp;5. CREATE a viable vision code  <br>   
 **UNUSED CODE**:  <br>
@@ -45,4 +46,4 @@
 &ensp;&ensp;&ensp;&ensp;* Climber Upwards Movement: *HOLD* Left Trigger  <br> 
 &ensp;&ensp;&ensp;&ensp;* Climber Downwards Movement: *HOLD* Right Trigger  <br>   
 
-**LAST UPDATED**: 2/26/24
+**LAST UPDATED**: 3/1/24
