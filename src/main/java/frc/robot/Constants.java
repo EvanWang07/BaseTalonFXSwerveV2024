@@ -47,6 +47,7 @@ public final class Constants {
 
         /* Arm Display */
         public static final boolean showArmTheta = true;
+        public static final boolean showArmDebugInfo = true;
 
         /* Vision Display */
         public static final boolean showHorizontalVisionError = true;

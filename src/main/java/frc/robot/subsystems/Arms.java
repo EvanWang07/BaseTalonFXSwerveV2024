@@ -206,11 +206,11 @@ public class Arms extends SubsystemBase {
             SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
             SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
             SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
-            SmartDashboard.putNumber("PID Target Position", PIDTargetPosition);
         }
-        System.out.println("LEFT: " + leftArm.getInverted());
-        System.out.println("RIGHT: " + rightArm.getInverted());
-        leftArm.setInverted(Constants.Arms.leftArmMotorInverted);
-        rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
+        if (Constants.Display.showArmDebugInfo) {
+            SmartDashboard.putNumber("PID Target Position", PIDTargetPosition);
+            SmartDashboard.putBoolean("Left Arm Invert", leftArm.getInverted());
+            SmartDashboard.putBoolean("Left Arm Invert", rightArm.getInverted());
+        }
     }
 }
