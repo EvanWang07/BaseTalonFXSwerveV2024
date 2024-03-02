@@ -35,6 +35,7 @@ public class RobotContainer {
     private final int w_climbDownAxis = XboxController.Axis.kRightTrigger.value;
 
     /* Driver Buttons */
+    private final JoystickButton d_angleAlign = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton d_zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton d_robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton d_slowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
@@ -53,7 +54,7 @@ public class RobotContainer {
     private final Arms a_Arms = new Arms();
     private final Jukebox j_Jukebox = new Jukebox();
     private final Climbers c_Climbers = new Climbers();
-    // private final Vision m_Vision = new Vision();
+    private final Vision v_Vision = new Vision();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -88,6 +89,14 @@ public class RobotContainer {
                 c_Climbers,
                 () -> weapons.getRawAxis(w_climbUpAxis),
                 () -> weapons.getRawAxis(w_climbDownAxis)
+            )
+        );
+
+        v_Vision.setDefaultCommand(
+            new AutoAlign(
+                v_Vision, 
+                s_Swerve, 
+                () -> d_angleAlign.getAsBoolean()
             )
         );
 

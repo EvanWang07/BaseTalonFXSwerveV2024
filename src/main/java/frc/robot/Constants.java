@@ -32,8 +32,6 @@ public final class Constants {
         public static final double basePercentShooterMotorOutput = 0.1; // The percent motor output for the shooter motors
         public static final double basePercentClimberOutput = 0.4; // The percent motor output for the climber motors
 
-        public static final int intakeButtonID = 6; // 6 = RB. For reference, use: https://joytokey.net/en/posts/button-mapping-for-xbox-controller/
-
         /* Controller Constants */
         public static final int driveController = 0;
         public static final int weaponController = 1;
@@ -143,8 +141,11 @@ public final class Constants {
 
     public static final class Vision {
         /* Vision Constants */
-        public static final double visionKP = -0.1;
-        public static final double visionMin_Movement = 0.05;
+        public static final double visionKP = 0.035;
+        public static final double visionMin_Movement = 0.01;
+
+        /* Automatic Align Constants */
+        public static final double maxHorizontalAngleAlignError = 1.0; // In degrees; MUST BE POSITIVE
     }
 
     public static final class Swerve {
