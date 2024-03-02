@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
+// import frc.robot.Constants;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -44,16 +44,16 @@ public class Vision extends SubsystemBase {
         ty = m_limelightTable.getEntry("ty").getDouble(0);
         ta = m_limelightTable.getEntry("ta").getDouble(0);
 
-        if (Constants.Display.showHorizontalVisionError) {
-            SmartDashboard.putNumber("Horizontal Offset", getTX());
-        }
+        // if (Constants.Display.showHorizontalVisionError) {
+        SmartDashboard.putNumber("Horizontal Offset", getTX());
+        // }
 
-        if (Constants.Display.showVerticalVisionError) {
-            SmartDashboard.putNumber("Vertical Offset", getTY()); // Might be unnecessary
-        }
+        // if (Constants.Display.showVerticalVisionError) {
+        SmartDashboard.putNumber("Vertical Offset", getTY()); // Might be unnecessary
+        // }
 
-        if (Constants.Display.showDistanceVisionError) {
-            SmartDashboard.putNumber("Frame Area", getTA());
-        }
+        // if (Constants.Display.showDistanceVisionError) {
+        SmartDashboard.putNumber("Frame Area", getTA());
+        // }
     }
 }

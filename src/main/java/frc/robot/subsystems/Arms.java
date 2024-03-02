@@ -39,7 +39,7 @@ public class Arms extends SubsystemBase {
 
     public double getScaledPercentArmOutput(double oldOutput) {
         double angleBoundsAdapter = 360 / Constants.Arms.armsMaximumRotation;
-        double armOutputMultiplier = 0.075 + 0.925 * Math.abs(Math.sin(Math.toRadians(0.5 * (getAverageArmPosition() / Constants.Arms.armMotorGearRatio) * angleBoundsAdapter)));
+        double armOutputMultiplier = 0.05 + 0.95 * Math.abs(Math.sin(Math.toRadians(0.5 * (getAverageArmPosition() / Constants.Arms.armMotorGearRatio) * angleBoundsAdapter)));
         double newArmOutput = armOutputMultiplier * oldOutput;
         return newArmOutput;
     }
@@ -201,16 +201,16 @@ public class Arms extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (Constants.Display.showArmTheta) {
-            SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
-            SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
-            SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
-            SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
-        }
+        //if (Constants.Display.showArmTheta) {
+        SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+        SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
+        SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
+        SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
+        //}
         if (Constants.Display.showArmDebugInfo) {
             SmartDashboard.putNumber("PID Target Position", PIDTargetPosition);
             SmartDashboard.putBoolean("Left Arm Invert", leftArm.getInverted());
-            SmartDashboard.putBoolean("Left Arm Invert", rightArm.getInverted());
+            SmartDashboard.putBoolean("Right Arm Invert", rightArm.getInverted());
         }
     }
 }

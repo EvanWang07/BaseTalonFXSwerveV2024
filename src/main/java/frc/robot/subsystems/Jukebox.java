@@ -70,7 +70,7 @@ public class Jukebox extends SubsystemBase {
                 setIntakeMotorSpeeds(setSpeed);
             }
             currentTime = jukeboxTimer.get();
-            // System.out.println(jukeboxTimer.get());
+            System.out.println(currentTime - startTime);
         }
         System.out.println("Brake!!!");
         brakeIntakeMotors();
@@ -87,10 +87,10 @@ public class Jukebox extends SubsystemBase {
         } else {
             sensorStatusMessage = "Nothing Detected";
         }
-        if (Constants.Display.showJukeboxInfo) {
-            SmartDashboard.putNumber("Intake Speed", intakeSpeeds);
-            SmartDashboard.putNumber("Shooting Debug Timer", jukeboxTimer.get());
-            SmartDashboard.putString("Sensor Status", sensorStatusMessage);
-        }
+        // if (Constants.Display.showJukeboxInfo) {
+        SmartDashboard.putNumber("Intake Speed", intakeSpeeds);
+        SmartDashboard.putNumber("Shooting Debug Timer", jukeboxTimer.get());
+        SmartDashboard.putString("Sensor Status", sensorStatusMessage);
+        // }
     }
 }

@@ -26,7 +26,7 @@ public final class Constants {
         public static final double armStickDeadband = 0.1;
         public static final double basePercentDriveOutput = 0.5; // The percent motor output for the swerve modules
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
-        public static final double maxBasePercentArmOutput = 0.4; // The percent motor output for the arm motors
+        public static final double maxBasePercentArmOutput = 0.5; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
         public static final double basePercentDJMotorOutput = 0.1; // The percent motor output for the DJ motor
         public static final double basePercentShooterMotorOutput = 0.1; // The percent motor output for the shooter motors
@@ -38,7 +38,7 @@ public final class Constants {
 
         /* PID Usage Settings */
         public static final boolean useMotionMagicPID = false; // MotionMagic PID is BUGGED for now
-        public static final boolean useIndividualMotorPID = true;
+        public static final boolean useIndividualMotorPID = false;
     }
 
     public static final class Display { // By default, these should be set to true
@@ -92,13 +92,13 @@ public final class Constants {
         public static final int rightArmMotorID = 10;
         public static final boolean leftArmMotorInverted = true;
         public static final boolean rightArmMotorInverted = false;
-        public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
+        public static final double armMotorGearRatio = 300; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 
         /* Arm Bounds & Tolerance Constants */
-        public static final double armsMinimumRotation = 0 + 1; // Needs to be in degrees of VISIBLE rotation
-        public static final double armsMaximumRotation = 115 - 1; // Needs to be in degrees of VISIBLE rotation
-        public static final double armsMaxAngleDiscrepancy = 1; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMinimumRotation = 0 + 2.5; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMaximumRotation = 115 - 2.5; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMaxAngleDiscrepancy = 2.5; // Needs to be in degrees of VISIBLE rotation
 
         public static final double armLowerBoundTheta = armsMinimumRotation * armMotorGearRatio;
         public static final double armUpperBoundTheta = armsMaximumRotation * armMotorGearRatio;
@@ -115,16 +115,16 @@ public final class Constants {
         public static final double armKS = 0.25;
         public static final double armKV = 0.12;
         public static final double armKA = 0.01;
-        public static final double armKP = 0.025;
-        public static final double armKI = 0.005;
-        public static final double armKD = 0.0025;
+        public static final double armKP = 0.01; // 0.025
+        public static final double armKI = 0.0; // 0.005
+        public static final double armKD = 0.0; // 0.0025
         public static final double maxAutoArmSpeed = 15; // Units in rotations per second
         public static final double autoArmArmAcceleration = 30; // Units in rotations per second^2
         public static final double autoArmJerk = 300; // Units in rotations per second^3
         public static final double percentAutomaticArmOutput = 0.1;
         public static final double maxPIDArmThetaOffset = 0.25;
         public static final double maxPIDArmIntegrationZone = 5;
-        public static final double armThetaAtDefault = 3.5; // TODO: Needs to be changed!
+        public static final double armThetaAtDefault = 10; // TODO: Needs to be changed! Originally 3.5
         public static final double armThetaAtSpeaker = 29; // TODO: Needs to be changed!
         public static final double armThetaAtTrap = 45; // TODO: Needs to be changed!
         public static final double armThetaAtAmp = 97;
