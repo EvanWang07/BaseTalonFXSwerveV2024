@@ -30,13 +30,17 @@ public final class Constants {
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
         public static final double basePercentDJMotorOutput = 0.1; // The percent motor output for the DJ motor
         public static final double basePercentShooterMotorOutput = 0.1; // The percent motor output for the shooter motors
-        public static final double basePercentClimberOutput = 0.1; // The percent motor output for the climber motors
+        public static final double basePercentClimberOutput = 0.4; // The percent motor output for the climber motors
 
         public static final int intakeButtonID = 6; // 6 = RB. For reference, use: https://joytokey.net/en/posts/button-mapping-for-xbox-controller/
 
         /* Controller Constants */
         public static final int driveController = 0;
         public static final int weaponController = 1;
+
+        /* PID Usage Settings */
+        public static final boolean useMotionMagicPID = false; // MotionMagic PID is BUGGED for now
+        public static final boolean useIndividualMotorPID = true;
     }
 
     public static final class Display { // By default, these should be set to true
@@ -87,8 +91,8 @@ public final class Constants {
         /* Arm Motor & Gearbox Constants */
         public static final int leftArmMotorID = 9;
         public static final int rightArmMotorID = 10;
-        public static final boolean leftArmMotorInverted = false;
-        public static final boolean rightArmMotorInverted = true;
+        public static final boolean leftArmMotorInverted = true;
+        public static final boolean rightArmMotorInverted = false;
         public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 
@@ -121,7 +125,7 @@ public final class Constants {
         public static final double percentAutomaticArmOutput = 0.1;
         public static final double maxPIDArmThetaOffset = 0.25;
         public static final double maxPIDArmIntegrationZone = 5;
-        public static final double armThetaAtDefault = 3.5;
+        public static final double armThetaAtDefault = 3.5; // TODO: Needs to be changed!
         public static final double armThetaAtSpeaker = 29; // TODO: Needs to be changed!
         public static final double armThetaAtTrap = 45; // TODO: Needs to be changed!
         public static final double armThetaAtAmp = 97;

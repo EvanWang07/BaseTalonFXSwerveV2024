@@ -176,3 +176,15 @@ logs/
 
 # Folder that has CTRE Phoenix Sim device config storage
 ctre_sim/
+
+# CUSTOM GIT IGNORES:
+usr/
+mingw64/
+cmd/
+dev/
+etc/
+LICENSE.txt
+unins000.dat
+unins000.exe
+unins000.msg
+ReleaseNotes.html

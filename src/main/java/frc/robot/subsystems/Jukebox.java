@@ -60,15 +60,19 @@ public class Jukebox extends SubsystemBase {
 
     public void runJukebox(double setSpeed) {
         jukeboxTimer.reset();
-        while (!(jukeboxTimer.hasElapsed(3))) {
-            if (!(jukeboxTimer.hasElapsed(1.5))) {
+        double startTime = jukeboxTimer.get();
+        double currentTime = 0;
+        while ((currentTime - startTime) <= 3) { // (!(jukeboxTimer.hasElapsed(3))) {
+            if ((currentTime - startTime) <= 1.5) { // (!(jukeboxTimer.hasElapsed(1.5))) {
                 setShooterMotorSpeeds(setSpeed);
             } else {
                 setShooterMotorSpeeds(setSpeed);
                 setIntakeMotorSpeeds(setSpeed);
             }
-            System.out.println(jukeboxTimer.get());
+            currentTime = jukeboxTimer.get();
+            // System.out.println(jukeboxTimer.get());
         }
+        System.out.println("Brake!!!");
         brakeIntakeMotors();
         brakeShooterMotors();
     }
@@ -85,6 +89,7 @@ public class Jukebox extends SubsystemBase {
         }
         if (Constants.Display.showJukeboxInfo) {
             SmartDashboard.putNumber("Intake Speed", intakeSpeeds);
+            SmartDashboard.putNumber("Shooting Debug Timer", jukeboxTimer.get());
             SmartDashboard.putString("Sensor Status", sensorStatusMessage);
         }
     }

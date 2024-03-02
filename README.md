@@ -1,6 +1,7 @@
 **CHANGELOG**:  <br> 
 &ensp;&ensp;1. ADDED new debugging information for the Jukebox sensor  <br> 
-&ensp;&ensp;2. ADDED the appropriate motor IDs for the Jukebox motors  <br>   
+&ensp;&ensp;2. REMOVED annoying (and completely useless) Git files  <br> 
+&ensp;&ensp;3. ADDED the appropriate motor IDs for the Jukebox motors  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
 &ensp;&ensp;1. *Potential* issue with arm angle offset values bugging the code  <br> 
 &ensp;&ensp;2. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 

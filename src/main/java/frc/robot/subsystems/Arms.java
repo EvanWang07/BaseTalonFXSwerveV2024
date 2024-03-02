@@ -18,15 +18,23 @@ public class Arms extends SubsystemBase {
     MotionMagicVoltage Magic_arm_request = new MotionMagicVoltage(0);
     public TalonFX leftArm;
     public TalonFX rightArm;
+    public double PIDTargetPosition;
 
     public Arms() {
         leftArm = new TalonFX(Constants.Arms.leftArmMotorID);
         rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
-        leftArm.setInverted(Constants.Arms.leftArmMotorInverted);
-        rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
 
         leftArm.getConfigurator().apply(Robot.ctreConfigs.armTalonFXConfigs);
         rightArm.getConfigurator().apply(Robot.ctreConfigs.armTalonFXConfigs);
+
+        new Thread(() -> {
+        try {
+            Thread.sleep(1000);
+            leftArm.setInverted(Constants.Arms.leftArmMotorInverted);
+            rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
+        } catch (Exception e) {
+        }
+        }).start();
     }
 
     public double getScaledPercentArmOutput(double oldOutput) {
@@ -59,27 +67,31 @@ public class Arms extends SubsystemBase {
         } else if (getAverageArmPosition() < (Constants.Arms.armLowerBoundTheta - 25)) {
             while (getAverageArmPosition() < (Constants.Arms.armLowerBoundTheta - 25)) {
                 leftArm.setControl(Arm_request.withOutput(-0.05 * Constants.Arms.armsMaxVoltage));
-                leftArm.setControl(Arm_request.withOutput(-0.05 * Constants.Arms.armsMaxVoltage));
+                rightArm.setControl(Arm_request.withOutput(-0.05 * Constants.Arms.armsMaxVoltage));
             }
             brakeArmMotors();
         }
     }
 
     public void brakeArmMotors() {
-        leftArm.setControl(Arm_request.withOutput(0));
-        rightArm.setControl(Arm_request.withOutput(0));
+        // leftArm.setControl(Arm_request.withOutput(0));
+        // rightArm.setControl(Arm_request.withOutput(0));
         // leftArm.setNeutralMode(NeutralModeValue.Brake);
         // rightArm.setNeutralMode(NeutralModeValue.Brake);
+        leftArm.stopMotor();
+        rightArm.stopMotor();
     }
 
     public void brakeLeftArmMotor() { // For manual arm calibration
-        leftArm.setControl(Arm_request.withOutput(0));
+        // leftArm.setControl(Arm_request.withOutput(0));
         // leftArm.setNeutralMode(NeutralModeValue.Brake);
+        leftArm.stopMotor();
     }
 
     public void brakeRightArmMotor() { // For manual arm calibration
-        rightArm.setControl(Arm_request.withOutput(0));
+        // rightArm.setControl(Arm_request.withOutput(0));
         // rightArm.setNeutralMode(NeutralModeValue.Brake);
+        rightArm.stopMotor();
     }
 
     public double getLeftArmPosition() {
@@ -104,6 +116,7 @@ public class Arms extends SubsystemBase {
     }
 
     public void motionMagicAutoSetArmPosition(double setPoint) {
+        PIDTargetPosition = setPoint / Constants.Arms.armMotorGearRatio;
         double setPointInRotations = setPoint / 360;
         double setToleranceInRotations = Constants.Arms.calculatedMaxPIDArmThetaOffset / 360;
         System.out.println("[Magic PID] Rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
@@ -118,6 +131,7 @@ public class Arms extends SubsystemBase {
     }
 
     public void autoSetArmPosition(double setPoint) {
+        PIDTargetPosition = setPoint / Constants.Arms.armMotorGearRatio;
         PIDController a_PIDController = new PIDController(Constants.Arms.armKP, Constants.Arms.armKI, Constants.Arms.armKD);
         a_PIDController.setSetpoint(setPoint);
         System.out.println("[PID] Rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
@@ -140,6 +154,7 @@ public class Arms extends SubsystemBase {
     }
 
     public void autoSetLeftArmPosition(double setPoint) {
+        PIDTargetPosition = setPoint / Constants.Arms.armMotorGearRatio;
         PIDController a_PIDController = new PIDController(Constants.Arms.armKP, Constants.Arms.armKI, Constants.Arms.armKD);
         a_PIDController.setSetpoint(setPoint);
         System.out.println("[PID] Rotating the left arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
@@ -162,6 +177,7 @@ public class Arms extends SubsystemBase {
     }
 
     public void autoSetRightArmPosition(double setPoint) {
+        PIDTargetPosition = setPoint / Constants.Arms.armMotorGearRatio;
         PIDController a_PIDController = new PIDController(Constants.Arms.armKP, Constants.Arms.armKI, Constants.Arms.armKD);
         a_PIDController.setSetpoint(setPoint);
         System.out.println("[PID] Rotating the right arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
@@ -190,6 +206,11 @@ public class Arms extends SubsystemBase {
             SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
             SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
             SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("PID Target Position", PIDTargetPosition);
         }
+        System.out.println("LEFT: " + leftArm.getInverted());
+        System.out.println("RIGHT: " + rightArm.getInverted());
+        leftArm.setInverted(Constants.Arms.leftArmMotorInverted);
+        rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
     }
 }

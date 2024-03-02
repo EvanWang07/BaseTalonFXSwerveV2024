@@ -106,10 +106,28 @@ public class RobotContainer {
         d_zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
         /* Weapon Buttons */
-        w_resetArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
-        w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
-        w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
-        w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
+        if (Constants.Drive.useMotionMagicPID) {
+            w_resetArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
+            w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+            w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
+            w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
+        } else {
+            if (Constants.Drive.useIndividualMotorPID) {
+                w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
+                w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
+                w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+                w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+                w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
+                w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
+                w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
+                w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
+            } else {
+                w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
+                w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+                w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
+                w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
+            }
+        }
         w_shootNote.onTrue(new InstantCommand(() -> j_Jukebox.runJukebox(Constants.Jukebox.shooterSpeed)));
     }
 
