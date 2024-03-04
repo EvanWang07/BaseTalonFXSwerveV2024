@@ -21,27 +21,31 @@ public final class Constants {
 
 
     public static final class Drive {
-        /* Driver Constants */
+        /* Motor Output Constants */
         public static final double driveStickDeadband = 0.1;
         public static final double armStickDeadband = 0.1;
+        public static final double climberTriggerDeadband = 0.1;
         public static final double basePercentDriveOutput = 0.5; // The percent motor output for the swerve modules
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
-        public static final double maxBasePercentArmOutput = 0.5; // The percent motor output for the arm motors
+        public static final double maxBasePercentArmOutput = 0.6; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
         public static final double basePercentDJMotorOutput = 0.1; // The percent motor output for the DJ motor
-        public static final double basePercentShooterMotorOutput = 0.1; // The percent motor output for the shooter motors
+        public static final double basePercentShooterMotorOutput = 0.2; // The percent motor output for the shooter motors
         public static final double basePercentClimberOutput = 0.4; // The percent motor output for the climber motors
+
+        /* Base Motor Positioning Constants */
+        public static final double armMotorStartPosition = 10; // Measurement in degrees
 
         /* Controller Constants */
         public static final int driveController = 0;
         public static final int weaponController = 1;
 
         /* PID Usage Settings */
-        public static final boolean useMotionMagicPID = false; // MotionMagic PID is BUGGED for now
+        public static final boolean useMotionMagicPID = false; // MotionMagic PID is BUGGED for now; keep this set to false
         public static final boolean useIndividualMotorPID = false;
     }
 
-    public static final class Display { // By default, these should be set to true
+    public static final class Display { // Not used for the most part; set to true unless told not to
         /* Swerve Display */
         public static final boolean showSwerveData = true;
 
@@ -72,12 +76,12 @@ public final class Constants {
 
     public static final class Jukebox {
         /* Intake & Shooting Motor Constants */
-        public static final int DJMotorID = 3;
-        public static final int leftShooterMotorID = 1;
-        public static final int rightShooterMotorID = 2;
-        public static final boolean DJMotorInverted = false; // TODO: Needs to be changed
-        public static final boolean leftShooterMotorInverted = false; // TODO: Needs to be changed
-        public static final boolean rightShooterMotorInverted = false; // TODO: Needs to be changed
+        public static final int DJMotorID = 15;
+        public static final int leftShooterMotorID = 13;
+        public static final int rightShooterMotorID = 14;
+        public static final boolean DJMotorInverted = false;
+        public static final boolean leftShooterMotorInverted = false;
+        public static final boolean rightShooterMotorInverted = false;
 
         /* Intake Sensor Constants */
         public static final int intakeSensorPort = 0;
@@ -90,15 +94,15 @@ public final class Constants {
         /* Arm Motor & Gearbox Constants */
         public static final int leftArmMotorID = 9;
         public static final int rightArmMotorID = 10;
-        public static final boolean leftArmMotorInverted = true;
-        public static final boolean rightArmMotorInverted = false;
+        public static final boolean leftArmMotorInverted = false;
+        public static final boolean rightArmMotorInverted = true;
         public static final double armMotorGearRatio = 300; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 
         /* Arm Bounds & Tolerance Constants */
         public static final double armsMinimumRotation = 0 + 2.5; // Needs to be in degrees of VISIBLE rotation
         public static final double armsMaximumRotation = 115 - 2.5; // Needs to be in degrees of VISIBLE rotation
-        public static final double armsMaxAngleDiscrepancy = 2.5; // Needs to be in degrees of VISIBLE rotation
+        public static final double armsMaxAngleDiscrepancy = 100; // Needs to be in degrees of VISIBLE rotation
 
         public static final double armLowerBoundTheta = armsMinimumRotation * armMotorGearRatio;
         public static final double armUpperBoundTheta = armsMaximumRotation * armMotorGearRatio;
@@ -115,19 +119,19 @@ public final class Constants {
         public static final double armKS = 0.25;
         public static final double armKV = 0.12;
         public static final double armKA = 0.01;
-        public static final double armKP = 0.01; // 0.025
-        public static final double armKI = 0.0; // 0.005
-        public static final double armKD = 0.0; // 0.0025
+        public static final double armKP = 0.007; // No Chain/Arm: 0.025
+        public static final double armKI = 0.0001; // No Chain/Arm: 0.005
+        public static final double armKD = 0.0001; // No Chain/Arm: 0.0025
         public static final double maxAutoArmSpeed = 15; // Units in rotations per second
         public static final double autoArmArmAcceleration = 30; // Units in rotations per second^2
         public static final double autoArmJerk = 300; // Units in rotations per second^3
         public static final double percentAutomaticArmOutput = 0.1;
-        public static final double maxPIDArmThetaOffset = 0.25;
+        public static final double maxPIDArmThetaOffset = 2.5;
         public static final double maxPIDArmIntegrationZone = 5;
-        public static final double armThetaAtDefault = 10; // TODO: Needs to be changed! Originally 3.5
-        public static final double armThetaAtSpeaker = 29; // TODO: Needs to be changed!
-        public static final double armThetaAtTrap = 45; // TODO: Needs to be changed!
-        public static final double armThetaAtAmp = 97;
+        public static final double armThetaAtDefault = 10; // TODO: Potentially needs to be changed!
+        public static final double armThetaAtSpeaker = 29; // TODO: Potentially needs to be changed!
+        public static final double armThetaAtTrap = 45; // TODO: Potentially needs to be changed!
+        public static final double armThetaAtAmp = 97; // TODO: Potentially needs to be changed!
 
         public static final double calculatedMaxPIDArmThetaOffset = maxPIDArmThetaOffset * armMotorGearRatio;
         public static final double calculatedMaxPIDArmIntegrationZone = maxPIDArmIntegrationZone * armMotorGearRatio;

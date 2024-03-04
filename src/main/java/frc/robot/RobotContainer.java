@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -58,6 +59,10 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        
+        /* PathPlanner Registered Commands */
+        NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> j_Jukebox.runJukebox(Constants.Jukebox.shooterSpeed)));
+
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -147,6 +152,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // The "BASIC Autonomous Path" will run
-        return new PathPlannerAuto("BASIC Autonomous Path");
+        return new PathPlannerAuto("jorge");
     }
 }

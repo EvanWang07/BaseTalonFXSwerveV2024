@@ -1,25 +1,23 @@
 **CHANGELOG**:  <br> 
-&ensp;&ensp;1. ADDED new debugging information for the Jukebox sensor  <br> 
-&ensp;&ensp;2. ADDED a potential fix to the arm invert issue  <br> 
+&ensp;&ensp;1. CHANGED many arm constants to relate to the newly attached arm  <br> 
+&ensp;&ensp;2. CHANGED the brake methods within Arms.java to use NeutralMode instead of StopMotor  <br> 
 &ensp;&ensp;3. ADDED a new option to toggle the PID arm method used  <br> 
-&ensp;&ensp;4. CHANGED Vision.java to become adapted to swerve drive, but only for tx  <br> 
-&ensp;&ensp;5. REMOVED annoying (and completely useless) Git files  <br>   
+&ensp;&ensp;4. CHANGED Vision.java to become adapted to swerve drive, but only for tx  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
 &ensp;&ensp;1. *Potential* issue with arm angle offset values bugging the code  <br> 
 &ensp;&ensp;2. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 
 &ensp;&ensp;3. The new MotionMagic PID **does not run** its PID, instead only returning a message  <br> 
-&ensp;&ensp;4. *Potential* issue with the swerve subsystem's instant command not functioning properly  <br> 
-&ensp;&ensp;5. Vision subsystem and AutoAlign command currently **do not work**  <br>   
+&ensp;&ensp;4. *Potential* issue with the swerve subsystem's instant command not functioning properly  <br>   
 **TODO LIST**:  <br> 
-&ensp;&ensp;1. TEST the fix to the arm invert issue  <br> 
-&ensp;&ensp;2. FIX the new MotionMagic PID instant command within the Arms.java subsystem  <br> 
-&ensp;&ensp;3. FIX the runJukebox instant command  <br> 
-&ensp;&ensp;4. TEST the Vision subsystem and AutoAlign command  <br> 
-&ensp;&ensp;5. CREATE a viable vision code  <br>   
-**UNUSED CODE**:  <br>
+&ensp;&ensp;1. FIX the new MotionMagic PID instant command within the Arms.java subsystem  <br> 
+&ensp;&ensp;2. FIX the runJukebox instant command  <br> 
+&ensp;&ensp;3. TEST the Vision subsystem and AutoAlign command  <br> 
+&ensp;&ensp;4. CREATE a viable vision code  <br>   
+**UNUSED CODE**:  <br> 
 &ensp;&ensp;1. correctArmMotorPositions() METHOD within Arms.java  <br> 
 &ensp;&ensp;2. returnSpeed(double speed) METHOD within Arms.java  <br> 
-&ensp;&ensp;3. AutoArm.java COMMAND  <br>   
+&ensp;&ensp;3. AutoArm.java COMMAND  <br> 
+&ensp;&ensp;4. The majority of the display constants within Constants.Display.java  <br>   
 **NOTES**:  <br> 
 &ensp;&ensp;1. Ethan is currently working on the autonomous code; as such, issues and to-dos relating to the autonomous code has been removed  <br> 
 &ensp;&ensp;2. **ALL** code *ABSOLUTELY* needs to be peer-reviewed **AND** tested!!!  <br>   
@@ -48,4 +46,4 @@
 &ensp;&ensp;&ensp;&ensp;* Climber Upwards Movement: *HOLD* Left Trigger  <br> 
 &ensp;&ensp;&ensp;&ensp;* Climber Downwards Movement: *HOLD* Right Trigger  <br>   
 
-**LAST UPDATED**: 3/1/24
+**LAST UPDATED**: 3/3/24

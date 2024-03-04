@@ -1,9 +1,11 @@
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Climbers;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class TeleopClimb extends Command {
@@ -26,8 +28,8 @@ public class TeleopClimb extends Command {
 
     @Override
     public void execute() {
-        double c_upSpeed = speedUpSup.getAsDouble();
-        double c_downSpeed = speedDownSup.getAsDouble();
+        double c_upSpeed = MathUtil.applyDeadband(speedUpSup.getAsDouble(), Constants.Drive.climberTriggerDeadband);
+        double c_downSpeed = MathUtil.applyDeadband(speedDownSup.getAsDouble(), Constants.Drive.climberTriggerDeadband);
         c_Climbers.setClimberMotorSpeeds(c_upSpeed - c_downSpeed);
     }
 

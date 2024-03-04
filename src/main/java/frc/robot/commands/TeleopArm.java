@@ -126,12 +126,7 @@ public class TeleopArm extends Command {
                 a_Arms.brakeArmMotors();
                 System.out.println("WARNING: Arms need calibration! [TeleopArm]");
             }
-            
-        }
-
-        /* Out-of-Bounds Error Adjustment */
-        // a_Arms.correctArmMotorPositions(); // Possible issue involving conflicts with the PID instant command
-        
+        }        
     }
 
     @Override
