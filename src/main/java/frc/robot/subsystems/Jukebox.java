@@ -17,6 +17,7 @@ public class Jukebox extends SubsystemBase {
     public CANSparkMax rightShooterMotor;
     public DigitalInput intakeSensor;
     public Timer jukeboxTimer;
+    String sensorStatusMessage;
 
     public Jukebox() {
         DJMotor = new CANSparkMax(Constants.Jukebox.DJMotorID, MotorType.kBrushless);
@@ -31,8 +32,12 @@ public class Jukebox extends SubsystemBase {
         jukeboxTimer.start();
     }
 
-    public void setIntakeMotorSpeeds(double speed) {
-        DJMotor.set(speed * Constants.Drive.basePercentDJMotorOutput);
+    public void setIntakeMotorSpeeds(double speed, boolean ignoreIntakeSensor) {
+        if ((!(intakeSensor.get())) || ignoreIntakeSensor) {
+            DJMotor.set(speed * Constants.Drive.basePercentDJMotorOutput);
+        } else {
+            brakeShooterMotors();
+        }
     }
 
     public void brakeIntakeMotors() {
@@ -67,7 +72,7 @@ public class Jukebox extends SubsystemBase {
                 setShooterMotorSpeeds(setSpeed);
             } else {
                 setShooterMotorSpeeds(setSpeed);
-                setIntakeMotorSpeeds(setSpeed);
+                setIntakeMotorSpeeds(setSpeed, true);
             }
             currentTime = jukeboxTimer.get();
             System.out.println(currentTime - startTime);
@@ -77,20 +82,20 @@ public class Jukebox extends SubsystemBase {
         brakeShooterMotors();
     }
 
-    @Override
-    public void periodic() {
-        String sensorStatusMessage;
-        double intakeSpeeds = DJMotor.get();
+    public void displayJukeboxInfoSnapshot() {
         if (!(intakeSensor.get())) {
-            brakeIntakeMotors();
             sensorStatusMessage = "Object Detected!";
         } else {
             sensorStatusMessage = "Nothing Detected";
         }
-        // if (Constants.Display.showJukeboxInfo) {
-        SmartDashboard.putNumber("Intake Speed", intakeSpeeds);
-        SmartDashboard.putNumber("Shooting Debug Timer", jukeboxTimer.get());
-        SmartDashboard.putString("Sensor Status", sensorStatusMessage);
-        // }
+        if (Constants.Display.showJukeboxInfo) {
+            SmartDashboard.putNumber("Shooting Debug Timer", jukeboxTimer.get());
+            SmartDashboard.putString("Sensor Status", sensorStatusMessage);
+        }
+    }
+
+    @Override
+    public void periodic() {
+        
     }
 }

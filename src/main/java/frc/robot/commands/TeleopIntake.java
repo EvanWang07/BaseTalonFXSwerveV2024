@@ -25,7 +25,7 @@ public class TeleopIntake extends Command {
     @Override
     public void execute() {
         double j_speed = speedSup.getAsDouble();
-        j_Jukebox.setIntakeMotorSpeeds(j_speed);
+        j_Jukebox.setIntakeMotorSpeeds(j_speed, false);
     }
 
     @Override

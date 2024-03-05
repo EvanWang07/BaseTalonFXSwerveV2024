@@ -34,6 +34,16 @@ public class Arms extends SubsystemBase {
             rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
             leftArm.setPosition(Units.degreesToRotations(Constants.Drive.armMotorStartPosition));
             rightArm.setPosition(Units.degreesToRotations(Constants.Drive.armMotorStartPosition));
+            if (Constants.Display.showArmTheta) {
+                SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+                SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
+                SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
+                SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
+            }
+            if (Constants.Display.showArmDebugInfo) {
+                SmartDashboard.putBoolean("Left Arm Invert", leftArm.getInverted());
+                SmartDashboard.putBoolean("Right Arm Invert", rightArm.getInverted());
+            }
         } catch (Exception e) {
         }
         }).start();
@@ -109,10 +119,6 @@ public class Arms extends SubsystemBase {
         return averageArmPosition;
     }
 
-    public double returnSpeed(double speed) {
-        return speed;
-    }
-
     public void motionMagicAutoSetArmPosition(double setPoint) {
         PIDTargetPosition = setPoint / Constants.Arms.armMotorGearRatio;
         double setPointInRotations = setPoint / 360;
@@ -120,6 +126,9 @@ public class Arms extends SubsystemBase {
 
         if ((Constants.Arms.leftArmMotorInverted == leftArm.getInverted()) && (Constants.Arms.rightArmMotorInverted == rightArm.getInverted())) {
             System.out.println("[Magic PID] Rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+            if (Constants.Display.showArmDebugInfo) {
+                SmartDashboard.putNumber("PID Target Position", PIDTargetPosition);
+            }
             while ((Magic_arm_request.Position < (setPointInRotations - setToleranceInRotations)) || (Magic_arm_request.Position > (setPointInRotations + setToleranceInRotations))) {
                 leftArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
                 rightArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
@@ -143,6 +152,9 @@ public class Arms extends SubsystemBase {
         if ((Constants.Arms.leftArmMotorInverted == leftArm.getInverted()) && (Constants.Arms.rightArmMotorInverted == rightArm.getInverted())) {
             if (Math.abs(getLeftArmPosition() - getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
                 System.out.println("[PID] Rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
+                if (Constants.Display.showArmDebugInfo) {
+                    SmartDashboard.putNumber("PID Target Position", PIDTargetPosition);
+                }
                 a_PIDController.reset();
                 while (!(a_PIDController.atSetpoint())) {
                     double newArmSpeed = a_PIDController.calculate(getAverageArmPosition());
@@ -217,18 +229,21 @@ public class Arms extends SubsystemBase {
         }
     }
 
-    @Override
-    public void periodic() {
-        //if (Constants.Display.showArmTheta) {
-        SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
-        SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
-        SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
-        SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
-        //}
+    public void displayArmInfoSnapshot() {
+        if (Constants.Display.showArmTheta) {
+            SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Average Arm Position", (getAverageArmPosition() / Constants.Arms.armMotorGearRatio));
+            SmartDashboard.putNumber("Arm Position Discrepancy", Math.abs((getLeftArmPosition() - getRightArmPosition()) / Constants.Arms.armMotorGearRatio));
+        }
         if (Constants.Display.showArmDebugInfo) {
-            SmartDashboard.putNumber("PID Target Position", PIDTargetPosition);
             SmartDashboard.putBoolean("Left Arm Invert", leftArm.getInverted());
             SmartDashboard.putBoolean("Right Arm Invert", rightArm.getInverted());
         }
+    }
+
+    @Override
+    public void periodic() {
+
     }
 }

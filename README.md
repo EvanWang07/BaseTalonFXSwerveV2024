@@ -1,4 +1,5 @@
 **CHANGELOG**:  <br> 
+&ensp;&ensp;1. CHANGED many of the subsystems to potentially reduce lag and CAN utilization  <br> 
 &ensp;&ensp;1. CHANGED many arm constants to relate to the newly attached arm  <br> 
 &ensp;&ensp;2. CHANGED the brake methods within Arms.java to use NeutralMode instead of StopMotor  <br> 
 &ensp;&ensp;3. ADDED a new option to toggle the PID arm method used  <br> 
@@ -14,10 +15,7 @@
 &ensp;&ensp;3. TEST the Vision subsystem and AutoAlign command  <br> 
 &ensp;&ensp;4. CREATE a viable vision code  <br>   
 **UNUSED CODE**:  <br> 
-&ensp;&ensp;1. correctArmMotorPositions() METHOD within Arms.java  <br> 
-&ensp;&ensp;2. returnSpeed(double speed) METHOD within Arms.java  <br> 
-&ensp;&ensp;3. AutoArm.java COMMAND  <br> 
-&ensp;&ensp;4. The majority of the display constants within Constants.Display.java  <br>   
+&ensp;&ensp;1. AutoArm.java COMMAND  <br>   
 **NOTES**:  <br> 
 &ensp;&ensp;1. Ethan is currently working on the autonomous code; as such, issues and to-dos relating to the autonomous code has been removed  <br> 
 &ensp;&ensp;2. **ALL** code *ABSOLUTELY* needs to be peer-reviewed **AND** tested!!!  <br>   
@@ -34,6 +32,7 @@
 &ensp;&ensp;&ensp;&ensp;* Slow-Mode (ALL Driving & ALL Strafing): *HOLD* Right Bumper + *USE* Driving/Strafing Controls  <br> 
 &ensp;&ensp;&ensp;&ensp;* Reset Gyro (Field-Centric Driving ONLY): *PRESS* Y-Button  <br> 
 &ensp;&ensp;&ensp;&ensp;* Align to Target: *HOLD* X-Button  <br> 
+&ensp;&ensp;&ensp;&ensp;* Get Driver Info: *PRESS* Start-Button  <br> 
 &ensp;&ensp;2. **WEAPONS CONTROLLER** (**PORT 1**): <br> 
 &ensp;&ensp;&ensp;&ensp;* Arm Movement: *MOVE* Left Joystick (y)  <br> 
 &ensp;&ensp;&ensp;&ensp;* Slow-Mode (Arm ONLY): *HOLD* Left Joystick **BUTTON**  <br> 
@@ -44,6 +43,7 @@
 &ensp;&ensp;&ensp;&ensp;* Intake Note: *HOLD* Right Bumper  <br> 
 &ensp;&ensp;&ensp;&ensp;* Shoot Note: *PRESS* Left Bumper  <br> 
 &ensp;&ensp;&ensp;&ensp;* Climber Upwards Movement: *HOLD* Left Trigger  <br> 
-&ensp;&ensp;&ensp;&ensp;* Climber Downwards Movement: *HOLD* Right Trigger  <br>   
+&ensp;&ensp;&ensp;&ensp;* Climber Downwards Movement: *HOLD* Right Trigger  <br> 
+&ensp;&ensp;&ensp;&ensp;* Get Weapons Info: *PRESS* Start-Button  <br>   
 
-**LAST UPDATED**: 3/3/24
+**LAST UPDATED**: 3/4/24

@@ -32,4 +32,9 @@ public class Climbers extends SubsystemBase {
         leftClimberMotor.setNeutralMode(NeutralModeValue.Brake);
         rightClimberMotor.setNeutralMode(NeutralModeValue.Brake);
     }
+
+    @Override
+    public void periodic() {
+
+    }
 }

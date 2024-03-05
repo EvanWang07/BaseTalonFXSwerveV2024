@@ -40,6 +40,7 @@ public class RobotContainer {
     private final JoystickButton d_zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton d_robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton d_slowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton d_getDriveInfoSnapshot = new JoystickButton(driver, XboxController.Button.kStart.value);
 
     /* Weapons Buttons */
     private final JoystickButton w_resetArm = new JoystickButton(weapons, XboxController.Button.kY.value);
@@ -49,6 +50,7 @@ public class RobotContainer {
     private final JoystickButton w_shootNote = new JoystickButton(weapons, XboxController.Button.kLeftBumper.value);
     private final JoystickButton w_intakeNote = new JoystickButton(weapons, XboxController.Button.kRightBumper.value);
     private final JoystickButton w_slowMode = new JoystickButton(weapons, XboxController.Button.kLeftStick.value);
+    private final JoystickButton w_getWeaponInfoSnapshot = new JoystickButton(weapons, XboxController.Button.kStart.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -118,8 +120,14 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         d_zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+        d_getDriveInfoSnapshot.onTrue(new InstantCommand(() -> s_Swerve.displaySwerveInfoSnapshot()));
+        d_getDriveInfoSnapshot.onTrue(new InstantCommand(() -> v_Vision.displayVisionInfoSnapshot()));
 
         /* Weapon Buttons */
+        w_shootNote.onTrue(new InstantCommand(() -> j_Jukebox.runJukebox(Constants.Jukebox.shooterSpeed)));
+        w_getWeaponInfoSnapshot.onTrue(new InstantCommand(() -> a_Arms.displayArmInfoSnapshot()));
+        w_getWeaponInfoSnapshot.onTrue(new InstantCommand(() -> j_Jukebox.displayJukeboxInfoSnapshot()));
+
         if (Constants.Drive.useMotionMagicPID) {
             w_resetArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
             w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
@@ -142,7 +150,6 @@ public class RobotContainer {
                 w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
             }
         }
-        w_shootNote.onTrue(new InstantCommand(() -> j_Jukebox.runJukebox(Constants.Jukebox.shooterSpeed)));
     }
 
     /**
