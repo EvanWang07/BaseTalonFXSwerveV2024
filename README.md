@@ -1,9 +1,10 @@
 **CHANGELOG**:  <br> 
-&ensp;&ensp;1. CHANGED many of the subsystems to potentially reduce lag and CAN utilization  <br> 
-&ensp;&ensp;1. CHANGED many arm constants to relate to the newly attached arm  <br> 
-&ensp;&ensp;2. CHANGED the brake methods within Arms.java to use NeutralMode instead of StopMotor  <br> 
-&ensp;&ensp;3. ADDED a new option to toggle the PID arm method used  <br> 
-&ensp;&ensp;4. CHANGED Vision.java to become adapted to swerve drive, but it is likely VERY bad as or right now  <br>   
+&ensp;&ensp;1. CHANGED (and subsequently, FIXED) the non-arm-callibration mode for arm movement  <br> 
+&ensp;&ensp;2. CHANGED many of the subsystems to potentially reduce lag and CAN utilization  <br> 
+&ensp;&ensp;3. CHANGED many arm constants to relate to the newly attached arm  <br> 
+&ensp;&ensp;4. CHANGED the brake methods within Arms.java to use NeutralMode instead of StopMotor  <br> 
+&ensp;&ensp;5. ADDED a new option to toggle the PID arm method used  <br> 
+&ensp;&ensp;6. CHANGED Vision.java to become adapted to swerve drive, but it is likely VERY bad as or right now  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
 &ensp;&ensp;1. *Potential* issue with arm angle offset values bugging the code  <br> 
 &ensp;&ensp;2. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 
@@ -46,4 +47,4 @@
 &ensp;&ensp;&ensp;&ensp;* Climber Downwards Movement: *HOLD* Right Trigger  <br> 
 &ensp;&ensp;&ensp;&ensp;* Get Weapons Info: *PRESS* Start-Button  <br>   
 
-**LAST UPDATED**: 3/4/24
+**LAST UPDATED**: 3/5/24

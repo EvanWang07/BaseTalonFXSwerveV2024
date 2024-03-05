@@ -141,7 +141,7 @@ public final class Constants {
         public static final double calculatedArmThetaAtSpeaker = armThetaAtSpeaker * armMotorGearRatio;
 
         /* Arm Maintenance Constants */
-        public static final boolean armCalibrationMode = true;
+        public static final boolean armCalibrationMode = false;
     }
 
     public static final class Vision {
