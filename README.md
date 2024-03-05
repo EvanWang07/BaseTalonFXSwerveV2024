@@ -3,7 +3,7 @@
 &ensp;&ensp;1. CHANGED many arm constants to relate to the newly attached arm  <br> 
 &ensp;&ensp;2. CHANGED the brake methods within Arms.java to use NeutralMode instead of StopMotor  <br> 
 &ensp;&ensp;3. ADDED a new option to toggle the PID arm method used  <br> 
-&ensp;&ensp;4. CHANGED Vision.java to become adapted to swerve drive, but only for tx  <br>   
+&ensp;&ensp;4. CHANGED Vision.java to become adapted to swerve drive, but it is likely VERY bad as or right now  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
 &ensp;&ensp;1. *Potential* issue with arm angle offset values bugging the code  <br> 
 &ensp;&ensp;2. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 

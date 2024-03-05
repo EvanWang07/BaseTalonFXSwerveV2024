@@ -146,11 +146,14 @@ public final class Constants {
 
     public static final class Vision {
         /* Vision Constants */
-        public static final double visionKP = 0.035;
-        public static final double visionMin_Movement = 0.01;
+        public static final double visionRotationKP = 0.035;
+        public static final double visionTranslationKP = 0.035;
+        public static final double visionMinimumRotationalMovement = 0.01;
+        public static final double visionMinimumTranslationalMovement = 0.01;
 
         /* Automatic Align Constants */
         public static final double maxHorizontalAngleAlignError = 1.0; // In degrees; MUST BE POSITIVE
+        public static final double distanceAlignSetpoint = 10.0; // TODO: NEEDS TO BE CHANGED!
     }
 
     public static final class Swerve {
