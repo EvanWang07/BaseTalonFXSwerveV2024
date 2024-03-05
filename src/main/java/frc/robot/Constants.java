@@ -153,7 +153,7 @@ public final class Constants {
 
         /* Automatic Align Constants */
         public static final double maxHorizontalAngleAlignError = 1.0; // In degrees; MUST BE POSITIVE
-        public static final double distanceAlignSetpoint = 10.0; // TODO: NEEDS TO BE CHANGED!
+        public static final double distanceAlignSetpoint = 5.0; // TODO: NEEDS TO BE CHANGED!
     }
 
     public static final class Swerve {

@@ -34,24 +34,28 @@ public class AutoAlign extends Command {
             if (v_Vision.hasTarget()) {
                 double headingError = v_Vision.getTX();
                 double distanceError = v_Vision.getTY();
-                double rotationAdjustment = 0.0;
+                double rotationalAdjustment = 0.0;
                 double translationalAdjustment = 0.0;
                 boolean autoAlignCompleted = false;
 
                 if (Math.abs(headingError) > Constants.Vision.maxHorizontalAngleAlignError) {
                     if (headingError < 0) {
-                        rotationAdjustment = headingAlignVelocity + Constants.Vision.visionMinimumRotationalMovement;
+                        rotationalAdjustment = headingAlignVelocity + Constants.Vision.visionMinimumRotationalMovement;
                     } else {
-                        rotationAdjustment = headingAlignVelocity - Constants.Vision.visionMinimumRotationalMovement;
+                        rotationalAdjustment = headingAlignVelocity - Constants.Vision.visionMinimumRotationalMovement;
                     }
                     s_Swerve.drive(
                         new Translation2d(0, 0), 
-                        rotationAdjustment * Constants.Swerve.maxAngularVelocity, 
+                        rotationalAdjustment * Constants.Swerve.maxAngularVelocity, 
                         false, 
                         false
                     );
                 } else if (Math.abs(distanceError) > Constants.Vision.distanceAlignSetpoint) {
-                    translationalAdjustment = -distanceAlignVelocity - Constants.Vision.visionMinimumTranslationalMovement;
+                    if (distanceError < 0) {
+                        translationalAdjustment = distanceAlignVelocity + Constants.Vision.visionMinimumTranslationalMovement;
+                    } else {
+                        translationalAdjustment = distanceAlignVelocity - Constants.Vision.visionMinimumTranslationalMovement;
+                    }
                     s_Swerve.drive(
                         new Translation2d(0, translationalAdjustment), 
                         0, 
