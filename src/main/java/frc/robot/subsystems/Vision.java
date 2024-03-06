@@ -20,19 +20,23 @@ public class Vision extends SubsystemBase {
     }
 
     public double getTX() {
+        tx = m_limelightTable.getEntry("tx").getDouble(0);
         return tx;
     }
 
     public double getTY() {
+        ty = m_limelightTable.getEntry("ty").getDouble(0);
         return ty;
     }
 
     public double getTA() {
+        ta = m_limelightTable.getEntry("ta").getDouble(0);
         return ta;
     }
 
     public boolean hasTarget() {
         NetworkTableEntry tv = m_limelightTable.getEntry("tv");
+        m_limelightTable.getEntry("tv").getDouble(0);
         return tv.getDouble(0) >= 1.0; // tv represents whether it has a vision target (returns 0 or 1)
     }
 
@@ -50,9 +54,6 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        m_limelightTable.getEntry("tv").getDouble(0);
-        tx = m_limelightTable.getEntry("tx").getDouble(0);
-        ty = m_limelightTable.getEntry("ty").getDouble(0);
-        ta = m_limelightTable.getEntry("ta").getDouble(0);
+        
     }
 }
