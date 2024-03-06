@@ -33,7 +33,7 @@ public class Jukebox extends SubsystemBase {
     }
 
     public void setIntakeMotorSpeeds(double speed, boolean ignoreIntakeSensor) {
-        if ((!(intakeSensor.get())) || ignoreIntakeSensor) {
+        if (intakeSensor.get() || ignoreIntakeSensor) {
             DJMotor.set(speed * Constants.Drive.basePercentDJMotorOutput);
         } else {
             brakeShooterMotors();
@@ -65,17 +65,13 @@ public class Jukebox extends SubsystemBase {
 
     public void runJukebox(double setSpeed) {
         jukeboxTimer.reset();
-        double startTime = jukeboxTimer.get();
-        double currentTime = 0;
-        while ((currentTime - startTime) <= 3) { // (!(jukeboxTimer.hasElapsed(3))) {
-            if ((currentTime - startTime) <= 1.5) { // (!(jukeboxTimer.hasElapsed(1.5))) {
-                setShooterMotorSpeeds(setSpeed);
-            } else {
-                setShooterMotorSpeeds(setSpeed);
+        double elapsedTime = jukeboxTimer.get();
+        while (!(jukeboxTimer.hasElapsed(3))) {
+            setShooterMotorSpeeds(setSpeed);
+            System.out.println(elapsedTime);
+            if (elapsedTime > 1.5) {
                 setIntakeMotorSpeeds(setSpeed, true);
             }
-            currentTime = jukeboxTimer.get();
-            System.out.println(currentTime - startTime);
         }
         System.out.println("Brake!!!");
         brakeIntakeMotors();

@@ -45,6 +45,7 @@ public class Arms extends SubsystemBase {
                 SmartDashboard.putBoolean("Right Arm Invert", rightArm.getInverted());
             }
         } catch (Exception e) {
+            
         }
         }).start();
     }
