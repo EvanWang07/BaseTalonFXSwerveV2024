@@ -34,7 +34,7 @@ public final class Constants {
         public static final double basePercentClimberOutput = 0.4; // The percent motor output for the climber motors
 
         /* Base Motor Positioning Constants */
-        public static final double armMotorStartPosition = 10; // Measurement in degrees
+        public static final double armMotorStartPosition = 10; // TODO: NEEDS TO BE CHANGED!!!
 
         /* Controller Constants */
         public static final int driveController = 0;
@@ -43,6 +43,9 @@ public final class Constants {
         /* PID Usage Settings */
         public static final boolean useMotionMagicPID = false; // MotionMagic PID is BUGGED for now; keep this set to false
         public static final boolean useIndividualMotorPID = false;
+
+        /* CANbus Constants */
+        public static final String CANBusName = "CANivor<3";
     }
 
     public static final class Display { // Not used for the most part; set to true unless told not to
@@ -153,7 +156,7 @@ public final class Constants {
 
         /* Automatic Align Constants */
         public static final double maxHorizontalAngleAlignError = 1.0; // In degrees; MUST BE POSITIVE
-        public static final double distanceAlignSetpoint = 5.0; // TODO: NEEDS TO BE CHANGED!
+        public static final double distanceAlignSetpoint = 5.0; // TODO: Potentially needs to be changed!
     }
 
     public static final class Swerve {

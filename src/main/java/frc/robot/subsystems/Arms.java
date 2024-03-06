@@ -21,8 +21,8 @@ public class Arms extends SubsystemBase {
     public double PIDTargetPosition;
 
     public Arms() {
-        leftArm = new TalonFX(Constants.Arms.leftArmMotorID);
-        rightArm = new TalonFX(Constants.Arms.rightArmMotorID);
+        leftArm = new TalonFX(Constants.Arms.leftArmMotorID, Constants.Drive.CANBusName);
+        rightArm = new TalonFX(Constants.Arms.rightArmMotorID, Constants.Drive.CANBusName);
 
         leftArm.getConfigurator().apply(Robot.ctreConfigs.armTalonFXConfigs);
         rightArm.getConfigurator().apply(Robot.ctreConfigs.armTalonFXConfigs);

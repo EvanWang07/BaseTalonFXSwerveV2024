@@ -1,15 +1,13 @@
 **CHANGELOG**:  <br> 
-&ensp;&ensp;1. CHANGED (and subsequently, FIXED) the non-arm-callibration mode for arm movement  <br> 
-&ensp;&ensp;2. CHANGED many of the subsystems to potentially reduce lag and CAN utilization  <br> 
-&ensp;&ensp;3. CHANGED many arm constants to relate to the newly attached arm  <br> 
-&ensp;&ensp;4. CHANGED the brake methods within Arms.java to use NeutralMode instead of StopMotor  <br> 
-&ensp;&ensp;5. ADDED a new option to toggle the PID arm method used  <br> 
-&ensp;&ensp;6. CHANGED Vision.java to become adapted to swerve drive, but it is likely VERY bad as or right now  <br>   
+&ensp;&ensp;1. INTEGRATED the CANivore to the robot code (includes all TalonFXs and CANCoders)  <br> 
+&ensp;&ensp;2. CHANGED (and subsequently, FIXED) the non-arm-calibration mode for arm movement  <br> 
+&ensp;&ensp;3. CHANGED Vision.java to become adapted to swerve drive, but it is likely VERY bad as of right now  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
-&ensp;&ensp;1. *Potential* issue with arm angle offset values bugging the code  <br> 
-&ensp;&ensp;2. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 
-&ensp;&ensp;3. The new MotionMagic PID **does not run** its PID, instead only returning a message  <br> 
-&ensp;&ensp;4. *Potential* issue with the swerve subsystem's instant command not functioning properly  <br>   
+&ensp;&ensp;1. The current default position **is incorrect**  <br> 
+&ensp;&ensp;2. *Potential* issue with arm angle offset values bugging the code  <br> 
+&ensp;&ensp;3. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 
+&ensp;&ensp;4. The new MotionMagic PID **does not run** its PID, instead only returning a message  <br> 
+&ensp;&ensp;5. *Potential* issue with the swerve subsystem's instant command not functioning properly  <br>   
 **TODO LIST**:  <br> 
 &ensp;&ensp;1. FIX the new MotionMagic PID instant command within the Arms.java subsystem  <br> 
 &ensp;&ensp;2. FIX the runJukebox instant command  <br> 

@@ -14,8 +14,8 @@ public class Climbers extends SubsystemBase {
     public TalonFX rightClimberMotor;
 
     public Climbers() {
-        leftClimberMotor = new TalonFX(Constants.Climbers.leftClimberMotorID);
-        rightClimberMotor = new TalonFX(Constants.Climbers.rightClimberMotorID);
+        leftClimberMotor = new TalonFX(Constants.Climbers.leftClimberMotorID, Constants.Drive.CANBusName);
+        rightClimberMotor = new TalonFX(Constants.Climbers.rightClimberMotorID, Constants.Drive.CANBusName);
 
         leftClimberMotor.setInverted(Constants.Climbers.leftClimberMotorInverted);
         rightClimberMotor.setInverted(Constants.Climbers.rightClimberMotorInverted);
