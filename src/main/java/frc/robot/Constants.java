@@ -28,9 +28,9 @@ public final class Constants {
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double maxBasePercentArmOutput = 0.6; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
-        public static final double basePercentDJMotorOutput = 0.2; // The percent motor output for the DJ motor
-        public static final double basePercentShooterMotorOutput = 0.3; // The percent motor output for the shooter motors
-        public static final double basePercentClimberOutput = 0.4; // The percent motor output for the climber motors
+        public static final double basePercentDJMotorOutput = 0.4; // The percent motor output for the DJ motor
+        public static final double basePercentShooterMotorOutput = 0.6; // The percent motor output for the shooter motors
+        public static final double basePercentClimberOutput = 0.5; // The percent motor output for the climber motors
 
         /* Base Motor Positioning Constants */
         public static final double armMotorStartPosition = 10; // TODO: NEEDS TO BE CHANGED!!!
@@ -40,6 +40,7 @@ public final class Constants {
         public static final int weaponController = 1;
 
         /* PID Usage Settings */
+        public static final boolean useInstantPID = false;
         public static final boolean useMotionMagicPID = false; // MotionMagic PID is BUGGED for now; keep this set to false
         public static final boolean useIndividualMotorPID = false;
 
@@ -117,7 +118,7 @@ public final class Constants {
         public static final double calculatedLeftArmThetaOffset = leftArmThetaOffset * armMotorGearRatio;
         public static final double calculatedRightArmThetaOffset = rightArmThetaOffset * armMotorGearRatio;
 
-        /* Automatic Arm  Constants */
+        /* Automatic Arm Constants */
         public static final double armKS = 0.25;
         public static final double armKV = 0.12;
         public static final double armKA = 0.01;
@@ -135,12 +136,17 @@ public final class Constants {
         public static final double armThetaAtTrap = 45; // TODO: Potentially needs to be changed!
         public static final double armThetaAtAmp = 97; // TODO: Potentially needs to be changed!
 
+        public static final double armHeldKP = 0.005;
+        public static final double armHeldPIDMinimumRotationalMovement = 0;
+        public static final double maxHeldPIDArmThetaOffset = 2.5;
+
         public static final double calculatedMaxPIDArmThetaOffset = maxPIDArmThetaOffset * armMotorGearRatio;
         public static final double calculatedMaxPIDArmIntegrationZone = maxPIDArmIntegrationZone * armMotorGearRatio;
         public static final double calculatedArmThetaAtDefault = armThetaAtDefault * armMotorGearRatio;
         public static final double calculatedArmThetaAtTrap = armThetaAtTrap * armMotorGearRatio;
         public static final double calculatedArmThetaAtAmp = armThetaAtAmp * armMotorGearRatio;
         public static final double calculatedArmThetaAtSpeaker = armThetaAtSpeaker * armMotorGearRatio;
+        public static final double calculatedMaxHeldPIDArmThetaOffset = maxHeldPIDArmThetaOffset * armMotorGearRatio;
 
         /* Arm Maintenance Constants */
         public static final boolean armCalibrationMode = false;
