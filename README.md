@@ -1,17 +1,18 @@
 **CHANGELOG**:  <br> 
 &ensp;&ensp;1. INTEGRATED the CANivore to the robot code (includes all TalonFXs and CANCoders)  <br> 
-&ensp;&ensp;2. CHANGED (and subsequently, FIXED) the non-arm-calibration mode for arm movement  <br> 
-&ensp;&ensp;3. CHANGED Vision.java to become adapted to swerve drive, but it is likely VERY bad as of right now  <br>   
+&ensp;&ensp;2. REMOVED unused/detrimental code; namely, the AutoAlign command and example autonomous code  <br> 
+&ensp;&ensp;3. FIXED an issue with the (now deleted) AutoAlign command interfering with the swerve code  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
-&ensp;&ensp;1. The current default position **is incorrect**  <br> 
-&ensp;&ensp;2. *Potential* issue with arm angle offset values bugging the code  <br> 
-&ensp;&ensp;3. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 
-&ensp;&ensp;4. The new MotionMagic PID **does not run** its PID, instead only returning a message  <br> 
-&ensp;&ensp;5. *Potential* issue with the swerve subsystem's instant command not functioning properly  <br>   
+&ensp;&ensp;1. The code for the vision extension of swerve drive **does not work**  <br> 
+&ensp;&ensp;2. The current default position **is incorrect**  <br> 
+&ensp;&ensp;3. *Potential* issue with arm angle offset values bugging the code  <br> 
+&ensp;&ensp;4. The original PID within the Arms.java instant command method **has accuracy issues**  <br> 
+&ensp;&ensp;5. The new MotionMagic PID **does not run** its PID, instead only returning a message  <br> 
+&ensp;&ensp;6. *Potential* issue with the swerve subsystem's instant command not functioning properly  <br>   
 **TODO LIST**:  <br> 
 &ensp;&ensp;1. FIX the new MotionMagic PID instant command within the Arms.java subsystem  <br> 
 &ensp;&ensp;2. FIX the runJukebox instant command  <br> 
-&ensp;&ensp;3. TEST the Vision subsystem and AutoAlign command  <br> 
+&ensp;&ensp;3. FIX the limelight additions in the TeleopSwerve.java command  <br> 
 &ensp;&ensp;4. CREATE a viable vision code  <br>   
 **UNUSED CODE**:  <br> 
 &ensp;&ensp;1. AutoArm.java COMMAND  <br>   
@@ -45,4 +46,4 @@
 &ensp;&ensp;&ensp;&ensp;* Climber Downwards Movement: *HOLD* Right Trigger  <br> 
 &ensp;&ensp;&ensp;&ensp;* Get Weapons Info: *PRESS* Start-Button  <br>   
 
-**LAST UPDATED**: 3/5/24
+**LAST UPDATED**: 3/6/24
