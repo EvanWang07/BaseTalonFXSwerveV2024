@@ -30,43 +30,6 @@ public class AutoAlign extends Command {
         double distanceAlignVelocity = v_Vision.getTY() * Constants.Vision.visionTranslationKP;
         boolean m_autoAlign = autoAlign.getAsBoolean();
 
-        if (m_autoAlign) {
-            if (v_Vision.hasTarget()) {
-                double headingError = v_Vision.getTX();
-                double distanceError = v_Vision.getTY();
-                double rotationalAdjustment = 0.0;
-                double translationalAdjustment = 0.0;
-                boolean autoAlignCompleted = false;
-
-                if (Math.abs(headingError) > Constants.Vision.maxHorizontalAngleAlignError) {
-                    if (headingError < 0) {
-                        rotationalAdjustment = headingAlignVelocity + Constants.Vision.visionMinimumRotationalMovement;
-                    } else {
-                        rotationalAdjustment = headingAlignVelocity - Constants.Vision.visionMinimumRotationalMovement;
-                    }
-                    s_Swerve.drive(
-                        new Translation2d(0, 0), 
-                        rotationalAdjustment * Constants.Swerve.maxAngularVelocity, 
-                        false, 
-                        false
-                    );
-                } else if (Math.abs(distanceError) > Constants.Vision.distanceAlignSetpoint) {
-                    if (distanceError < 0) {
-                        translationalAdjustment = distanceAlignVelocity + Constants.Vision.visionMinimumTranslationalMovement;
-                    } else {
-                        translationalAdjustment = distanceAlignVelocity - Constants.Vision.visionMinimumTranslationalMovement;
-                    }
-                    s_Swerve.drive(
-                        new Translation2d(0, translationalAdjustment), 
-                        0, 
-                        false, 
-                        false
-                    );
-                } else {
-                    autoAlignCompleted = true;
-                    SmartDashboard.putBoolean("Automatic Target Completed", autoAlignCompleted);
-                }
-            }
-        }
+        
     }
 }

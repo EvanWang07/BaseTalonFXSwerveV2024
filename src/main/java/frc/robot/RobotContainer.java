@@ -68,11 +68,13 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
+                v_Vision, 
                 () -> -driver.getRawAxis(d_translationAxis), 
                 () -> -driver.getRawAxis(d_strafeAxis), 
                 () -> -driver.getRawAxis(d_rotationAxis), 
                 () -> d_robotCentric.getAsBoolean(),
-                () -> d_slowMode.getAsBoolean()
+                () -> d_slowMode.getAsBoolean(),
+                () -> d_angleAlign.getAsBoolean()
             )
         );
 
@@ -96,14 +98,6 @@ public class RobotContainer {
                 c_Climbers,
                 () -> weapons.getRawAxis(w_climbUpAxis),
                 () -> weapons.getRawAxis(w_climbDownAxis)
-            )
-        );
-
-        v_Vision.setDefaultCommand(
-            new AutoAlign(
-                v_Vision, 
-                s_Swerve, 
-                () -> d_angleAlign.getAsBoolean()
             )
         );
 
