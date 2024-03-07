@@ -1,7 +1,9 @@
 **CHANGELOG**:  <br> 
 &ensp;&ensp;1. INTEGRATED the CANivore to the robot code (includes all TalonFXs and CANCoders)  <br> 
 &ensp;&ensp;2. REMOVED unused/detrimental code; namely, the AutoAlign command and example autonomous code  <br> 
-&ensp;&ensp;3. FIXED an issue with the (now deleted) AutoAlign command interfering with the swerve code  <br>   
+&ensp;&ensp;3. RENAMED TeleopIntake.java to TeleopJukebox.java  <br> 
+&ensp;&ensp;4. ADDED A FIX to the runJukebox instant command within Jukebox.java  <br> 
+&ensp;&ensp;5. FIXED an issue with the (now deleted) AutoAlign command interfering with the swerve code  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
 &ensp;&ensp;1. The code for the vision extension of swerve drive **does not work**  <br> 
 &ensp;&ensp;2. The current default position **is incorrect**  <br> 

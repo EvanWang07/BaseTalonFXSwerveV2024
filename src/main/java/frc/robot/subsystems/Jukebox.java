@@ -33,7 +33,7 @@ public class Jukebox extends SubsystemBase {
     }
 
     public void setIntakeMotorSpeeds(double speed, boolean ignoreIntakeSensor) {
-        if (intakeSensor.get() || ignoreIntakeSensor) {
+        if ((!(checkSensorBreakage())) || ignoreIntakeSensor) {
             DJMotor.set(speed * Constants.Drive.basePercentDJMotorOutput);
         } else {
             brakeShooterMotors();
@@ -58,20 +58,27 @@ public class Jukebox extends SubsystemBase {
         rightShooterMotor.setIdleMode(IdleMode.kBrake);
     }
 
-    public void coastShooterMotors(){
+    public void coastShooterMotors() {
         leftShooterMotor.setIdleMode(IdleMode.kCoast);
         rightShooterMotor.setIdleMode(IdleMode.kCoast);
     }
 
+    public boolean checkSensorBreakage() { // Returns true if the beam is broken and false otherwise
+        if (!(intakeSensor.get())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void runJukebox(double setSpeed) {
         jukeboxTimer.reset();
-        double elapsedTime = jukeboxTimer.get();
-        while (!(jukeboxTimer.hasElapsed(3))) {
+        while (jukeboxTimer.get() < 2.5) {
             setShooterMotorSpeeds(setSpeed);
-            System.out.println(elapsedTime);
-            if (elapsedTime > 1.5) {
-                setIntakeMotorSpeeds(setSpeed, true);
+            if (jukeboxTimer.get() > 1.0) {
+                setIntakeMotorSpeeds(1.0, true);
             }
+            jukeboxTimer.advanceIfElapsed(0.25);
         }
         System.out.println("Brake!!!");
         brakeIntakeMotors();
@@ -79,7 +86,7 @@ public class Jukebox extends SubsystemBase {
     }
 
     public void displayJukeboxInfoSnapshot() {
-        if (!(intakeSensor.get())) {
+        if (checkSensorBreakage()) {
             sensorStatusMessage = "Object Detected!";
         } else {
             sensorStatusMessage = "Nothing Detected";

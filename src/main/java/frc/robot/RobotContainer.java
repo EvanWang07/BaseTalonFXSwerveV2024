@@ -87,9 +87,11 @@ public class RobotContainer {
         );
 
         j_Jukebox.setDefaultCommand(
-            new TeleopIntake(
+            new TeleopJukebox(
                 j_Jukebox,
-                () -> w_intakeNote.getAsBoolean() ? 1.0 : 0.0
+                () -> w_intakeNote.getAsBoolean() ? 1.0 : 0.0, 
+                () -> w_intakeNote.getAsBoolean(), 
+                () -> false
             )
         );
 
