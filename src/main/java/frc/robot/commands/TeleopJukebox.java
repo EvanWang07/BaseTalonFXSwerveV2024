@@ -35,9 +35,14 @@ public class TeleopJukebox extends Command {
         boolean j_useShooter = useShooter.getAsBoolean();
         if (j_useIntake && (!(j_Jukebox.checkSensorBreakage()))) {
             j_Jukebox.setIntakeMotorSpeeds(j_speed, false);
+            System.out.println("Intake Running");
+        } else {
+            j_Jukebox.brakeIntakeMotors();
         }
         if (j_useShooter) {
             j_Jukebox.setShooterMotorSpeeds(Constants.Jukebox.shooterSpeed);
+        } else {
+            j_Jukebox.brakeShooterMotors();
         }
     }
 

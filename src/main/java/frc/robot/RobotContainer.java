@@ -58,6 +58,7 @@ public class RobotContainer {
     private final Jukebox j_Jukebox = new Jukebox();
     private final Climbers c_Climbers = new Climbers();
     private final Vision v_Vision = new Vision();
+    private final Time t_Time = new Time();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -120,7 +121,7 @@ public class RobotContainer {
         d_getDriveInfoSnapshot.onTrue(new InstantCommand(() -> v_Vision.displayVisionInfoSnapshot()));
 
         /* Weapon Buttons */
-        w_shootNote.onTrue(new InstantCommand(() -> j_Jukebox.runJukebox(Constants.Jukebox.shooterSpeed)));
+        w_shootNote.onTrue(new AutoJukebox(j_Jukebox, t_Time));
         w_getWeaponInfoSnapshot.onTrue(new InstantCommand(() -> a_Arms.displayArmInfoSnapshot()));
         w_getWeaponInfoSnapshot.onTrue(new InstantCommand(() -> j_Jukebox.displayJukeboxInfoSnapshot()));
 

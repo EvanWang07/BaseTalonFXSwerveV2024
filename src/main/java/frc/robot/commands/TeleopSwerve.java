@@ -60,7 +60,7 @@ public class TeleopSwerve extends Command {
             if (v_Vision.hasTarget()) {
                 double headingError = v_Vision.getTX();
                 double distanceError = v_Vision.getTY();
-                System.out.println(v_Vision.getTX() + " | " + v_Vision.getTY());
+                // System.out.println(v_Vision.getTX() + " | " + v_Vision.getTY());
                 double rotationalAdjustment = 0.0;
                 double translationalAdjustment = 0.0;
                 boolean autoAlignCompleted = false;

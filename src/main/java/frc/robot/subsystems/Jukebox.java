@@ -17,7 +17,8 @@ public class Jukebox extends SubsystemBase {
     public CANSparkMax rightShooterMotor;
     public DigitalInput intakeSensor;
     public Timer jukeboxTimer;
-    String sensorStatusMessage;
+    public double JukeboxTime;
+    public String sensorStatusMessage;
 
     public Jukebox() {
         DJMotor = new CANSparkMax(Constants.Jukebox.DJMotorID, MotorType.kBrushless);
@@ -36,7 +37,7 @@ public class Jukebox extends SubsystemBase {
         if ((!(checkSensorBreakage())) || ignoreIntakeSensor) {
             DJMotor.set(speed * Constants.Drive.basePercentDJMotorOutput);
         } else {
-            brakeShooterMotors();
+            brakeIntakeMotors();
         }
     }
 
@@ -73,12 +74,11 @@ public class Jukebox extends SubsystemBase {
 
     public void runJukebox(double setSpeed) {
         jukeboxTimer.reset();
-        while (jukeboxTimer.get() < 2.5) {
+        while (JukeboxTime < 2.5) {
             setShooterMotorSpeeds(setSpeed);
-            if (jukeboxTimer.get() > 1.0) {
+            if (JukeboxTime > 1.0) {
                 setIntakeMotorSpeeds(1.0, true);
             }
-            jukeboxTimer.advanceIfElapsed(0.25);
         }
         System.out.println("Brake!!!");
         brakeIntakeMotors();
@@ -92,13 +92,13 @@ public class Jukebox extends SubsystemBase {
             sensorStatusMessage = "Nothing Detected";
         }
         if (Constants.Display.showJukeboxInfo) {
-            SmartDashboard.putNumber("Shooting Debug Timer", jukeboxTimer.get());
+            SmartDashboard.putNumber("Shooting Debug Timer", JukeboxTime);
             SmartDashboard.putString("Sensor Status", sensorStatusMessage);
         }
     }
 
-    // @Override
-    // public void periodic() {
+    @Override
+    public void periodic() {
         
-    // }
+    }
 }

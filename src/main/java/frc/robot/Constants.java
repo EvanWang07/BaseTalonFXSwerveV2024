@@ -28,8 +28,8 @@ public final class Constants {
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double maxBasePercentArmOutput = 0.6; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
-        public static final double basePercentDJMotorOutput = 0.4; // The percent motor output for the DJ motor
-        public static final double basePercentShooterMotorOutput = 0.6; // The percent motor output for the shooter motors
+        public static final double basePercentDJMotorOutput = 0.1; // The percent motor output for the DJ motor
+        public static final double basePercentShooterMotorOutput = 0.15; // The percent motor output for the shooter motors
         public static final double basePercentClimberOutput = 0.5; // The percent motor output for the climber motors
 
         /* Base Motor Positioning Constants */
@@ -99,7 +99,7 @@ public final class Constants {
         public static final int rightArmMotorID = 10;
         public static final boolean leftArmMotorInverted = false;
         public static final boolean rightArmMotorInverted = true;
-        public static final double armMotorGearRatio = 300; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
+        public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 
         /* Arm Bounds & Tolerance Constants */
@@ -136,7 +136,7 @@ public final class Constants {
         public static final double armThetaAtTrap = 45; // TODO: Potentially needs to be changed!
         public static final double armThetaAtAmp = 97; // TODO: Potentially needs to be changed!
 
-        public static final double armHeldKP = 0.005;
+        public static final double armHeldKP = 0.0001; // ORIGINALLY 0.005
         public static final double armHeldPIDMinimumRotationalMovement = 0;
         public static final double maxHeldPIDArmThetaOffset = 2.5;
 
