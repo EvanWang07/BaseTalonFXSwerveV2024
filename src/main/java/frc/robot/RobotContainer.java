@@ -32,8 +32,8 @@ public class RobotContainer {
 
     /* Weapon Controls */
     private final int w_rotationAxis = XboxController.Axis.kLeftY.value;
-    private final int w_climbUpAxis = XboxController.Axis.kLeftTrigger.value;
-    private final int w_climbDownAxis = XboxController.Axis.kRightTrigger.value;
+    private final int w_climbAxis = XboxController.Axis.kRightY.value;
+    private final int w_shooterAxis = XboxController.Axis.kRightTrigger.value;
 
     /* Driver Buttons */
     private final JoystickButton d_angleAlign = new JoystickButton(driver, XboxController.Button.kX.value);
@@ -47,7 +47,7 @@ public class RobotContainer {
     private final JoystickButton w_trapAutoArm = new JoystickButton(weapons, XboxController.Button.kA.value);
     private final JoystickButton w_ampAutoArm = new JoystickButton(weapons, XboxController.Button.kB.value);
     private final JoystickButton w_speakerAutoArm = new JoystickButton(weapons, XboxController.Button.kX.value);
-    private final JoystickButton w_shootNote = new JoystickButton(weapons, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton w_instantShootNote = new JoystickButton(weapons, XboxController.Button.kLeftBumper.value);
     private final JoystickButton w_intakeNote = new JoystickButton(weapons, XboxController.Button.kRightBumper.value);
     private final JoystickButton w_slowMode = new JoystickButton(weapons, XboxController.Button.kLeftStick.value);
     private final JoystickButton w_getWeaponInfoSnapshot = new JoystickButton(weapons, XboxController.Button.kStart.value);
@@ -58,13 +58,13 @@ public class RobotContainer {
     private final Jukebox j_Jukebox = new Jukebox();
     private final Climbers c_Climbers = new Climbers();
     private final Vision v_Vision = new Vision();
-    private final Time t_Time = new Time();
+    // private final Time t_Time = new Time();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         
         /* PathPlanner Registered Commands */
-        NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> j_Jukebox.runJukebox(Constants.Jukebox.shooterSpeed)));
+        NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> j_Jukebox.runJukebox(1)));
 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -90,17 +90,15 @@ public class RobotContainer {
         j_Jukebox.setDefaultCommand(
             new TeleopJukebox(
                 j_Jukebox,
-                () -> w_intakeNote.getAsBoolean() ? 1.0 : 0.0, 
-                () -> w_intakeNote.getAsBoolean(), 
-                () -> false
+                () -> weapons.getRawAxis(w_shooterAxis),  
+                () -> w_intakeNote.getAsBoolean()
             )
         );
 
         c_Climbers.setDefaultCommand(
             new TeleopClimb(
                 c_Climbers,
-                () -> weapons.getRawAxis(w_climbUpAxis),
-                () -> weapons.getRawAxis(w_climbDownAxis)
+                () -> weapons.getRawAxis(w_climbAxis)
             )
         );
 
@@ -121,7 +119,7 @@ public class RobotContainer {
         d_getDriveInfoSnapshot.onTrue(new InstantCommand(() -> v_Vision.displayVisionInfoSnapshot()));
 
         /* Weapon Buttons */
-        w_shootNote.onTrue(new AutoJukebox(j_Jukebox, t_Time));
+        w_instantShootNote.onTrue(new InstantCommand(() -> j_Jukebox.runJukebox(1.0)));
         w_getWeaponInfoSnapshot.onTrue(new InstantCommand(() -> a_Arms.displayArmInfoSnapshot()));
         w_getWeaponInfoSnapshot.onTrue(new InstantCommand(() -> j_Jukebox.displayJukeboxInfoSnapshot()));
 

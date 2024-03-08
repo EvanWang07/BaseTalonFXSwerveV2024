@@ -86,11 +86,12 @@ public final class Constants {
         public static final boolean leftShooterMotorInverted = false;
         public static final boolean rightShooterMotorInverted = false;
 
+        public static final double maxRPMThreshold = 3000.0; // Use a reasonable value. For reference, NEOS have an absolute max of 5676 RPM
+        public static final double shooterMotorRPMThreshold = maxRPMThreshold * Drive.basePercentShooterMotorOutput;
+        public static final double DJMotorRPMThreshold = maxRPMThreshold * Drive.basePercentDJMotorOutput;
+
         /* Intake Sensor Constants */
         public static final int intakeSensorPort = 0;
-
-        /* Shooter Constants */
-        public static final double shooterSpeed = 1;
     }
 
     public static final class Arms {
@@ -132,9 +133,9 @@ public final class Constants {
         public static final double maxPIDArmThetaOffset = 2.5;
         public static final double maxPIDArmIntegrationZone = 5;
         public static final double armThetaAtDefault = 10; // TODO: Potentially needs to be changed!
-        public static final double armThetaAtSpeaker = 29; // TODO: Potentially needs to be changed!
+        public static final double armThetaAtSpeaker = 58.032; // At the Speaker's Base
         public static final double armThetaAtTrap = 45; // TODO: Potentially needs to be changed!
-        public static final double armThetaAtAmp = 97; // TODO: Potentially needs to be changed!
+        public static final double armThetaAtAmp = 97.763; // 1 inch WITHIN the Amp
 
         public static final double armHeldKP = 0.0001; // ORIGINALLY 0.005
         public static final double armHeldPIDMinimumRotationalMovement = 0;

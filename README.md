@@ -1,10 +1,12 @@
 **CHANGELOG**:  <br> 
-&ensp;&ensp;1. REMOVED unused/detrimental code; namely, the AutoAlign command and example autonomous code  <br> 
-&ensp;&ensp;2. ADDED HeldAutoArm.java for held arm PIDs  <br> 
-&ensp;&ensp;3. RENAMED AutoArm.java to InstantAutoArm.java  <br> 
-&ensp;&ensp;4. RENAMED TeleopIntake.java to TeleopJukebox.java  <br> 
-&ensp;&ensp;5. ADDED A FIX to the runJukebox instant command within Jukebox.java  <br> 
-&ensp;&ensp;6. FIXED an issue with the (now deleted) AutoAlign command interfering with the swerve code  <br>   
+&ensp;&ensp;1. CHANGED several button bindings for efficiency and convenience  <br> 
+&ensp;&ensp;2. REMOVED unused/detrimental code; namely, the AutoAlign command and example autonomous code  <br> 
+&ensp;&ensp;3. ADDED HeldAutoArm.java for held arm PIDs  <br> 
+&ensp;&ensp;4. RENAMED AutoArm.java to InstantAutoArm.java  <br> 
+&ensp;&ensp;5. RENAMED TeleopIntake.java to TeleopJukebox.java  <br> 
+&ensp;&ensp;6. ADDED a fix to the runJukebox instant command within Jukebox.java  <br> 
+&ensp;&ensp;7. ADDED a fix to brake-related issues for the arms  <br> 
+&ensp;&ensp;8. FIXED an issue with the (now deleted) AutoAlign command interfering with the swerve code  <br>   
 **ISSUES & POTENTIAL ERRORS**:  <br> 
 &ensp;&ensp;1. The code for the vision extension of swerve drive **does not work**  <br> 
 &ensp;&ensp;2. The current default position **is incorrect**  <br> 
@@ -37,6 +39,7 @@
 &ensp;&ensp;&ensp;&ensp;* Get Driver Info: *PRESS* Start-Button  <br> 
 &ensp;&ensp;2. **WEAPONS CONTROLLER** (**PORT 1**): <br> 
 &ensp;&ensp;&ensp;&ensp;* Arm Movement: *MOVE* Left Joystick (y)  <br> 
+&ensp;&ensp;&ensp;&ensp;* Climber Movement: *MOVE* Right Joystick (y)  <br> 
 &ensp;&ensp;&ensp;&ensp;* Slow-Mode (Arm ONLY): *HOLD* Left Joystick **BUTTON**  <br> 
 &ensp;&ensp;&ensp;&ensp;* Arm PID to Reset Position: *PRESS* Y-Button **IF INSTANT PID**  <br> 
 &ensp;&ensp;&ensp;&ensp;* Arm PID to Reset Position: *HOLD* Y-Button **IF HELD PID**  <br> 
@@ -47,9 +50,8 @@
 &ensp;&ensp;&ensp;&ensp;* Arm PID to Speaker Position: *PRESS* X-Button **IF INSTANT PID**  <br> 
 &ensp;&ensp;&ensp;&ensp;* Arm PID to Speaker Position: *HOLD* X-Button **IF HELD PID**  <br> 
 &ensp;&ensp;&ensp;&ensp;* Intake Note: *HOLD* Right Bumper  <br> 
-&ensp;&ensp;&ensp;&ensp;* Shoot Note: *PRESS* Left Bumper  <br> 
-&ensp;&ensp;&ensp;&ensp;* Climber Upwards Movement: *HOLD* Left Trigger  <br> 
-&ensp;&ensp;&ensp;&ensp;* Climber Downwards Movement: *HOLD* Right Trigger  <br> 
+&ensp;&ensp;&ensp;&ensp;* Manually Shoot Note: *HOLD* Right Trigger  <br> 
+&ensp;&ensp;&ensp;&ensp;* Automatically Shoot Note: *PRESS* Left Bumper  <br> 
 &ensp;&ensp;&ensp;&ensp;* Get Weapons Info: *PRESS* Start-Button  <br>   
 
-**LAST UPDATED**: 3/7/24
+**LAST UPDATED**: 3/8/24

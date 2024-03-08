@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,8 +15,6 @@ public class Jukebox extends SubsystemBase {
     public CANSparkMax leftShooterMotor;
     public CANSparkMax rightShooterMotor;
     public DigitalInput intakeSensor;
-    public Timer jukeboxTimer;
-    public double JukeboxTime;
     public String sensorStatusMessage;
 
     public Jukebox() {
@@ -29,8 +26,6 @@ public class Jukebox extends SubsystemBase {
         rightShooterMotor.setInverted(Constants.Jukebox.rightShooterMotorInverted);
 
         intakeSensor = new DigitalInput(Constants.Jukebox.intakeSensorPort);
-        jukeboxTimer = new Timer();
-        jukeboxTimer.start();
     }
 
     public void setIntakeMotorSpeeds(double speed, boolean ignoreIntakeSensor) {
@@ -41,8 +36,12 @@ public class Jukebox extends SubsystemBase {
         }
     }
 
+    public double getIntakeMotorSpeed() {
+        return DJMotor.getEncoder().getVelocity();
+    }
+
     public void brakeIntakeMotors() {
-        DJMotor.setIdleMode(IdleMode.kBrake);
+        DJMotor.set(0);
     }
 
     public void coastIntakeMotors() {
@@ -54,9 +53,16 @@ public class Jukebox extends SubsystemBase {
         rightShooterMotor.set(speed * Constants.Drive.basePercentShooterMotorOutput);
     }
 
+    public double getAverageShooterSpeeds() {
+        double leftShooterSpeed = leftShooterMotor.getEncoder().getVelocity();
+        double rightShooterSpeed = rightShooterMotor.getEncoder().getVelocity();
+        double averageShooterSpeed = (leftShooterSpeed + rightShooterSpeed) / 2;
+        return averageShooterSpeed;
+    }
+
     public void brakeShooterMotors() {
-        leftShooterMotor.setIdleMode(IdleMode.kBrake);
-        rightShooterMotor.setIdleMode(IdleMode.kBrake);
+        leftShooterMotor.set(0);
+        rightShooterMotor.set(0);
     }
 
     public void coastShooterMotors() {
@@ -73,11 +79,10 @@ public class Jukebox extends SubsystemBase {
     }
 
     public void runJukebox(double setSpeed) {
-        jukeboxTimer.reset();
-        while (JukeboxTime < 2.5) {
+        while ((getAverageShooterSpeeds() < Constants.Jukebox.shooterMotorRPMThreshold) || (getIntakeMotorSpeed() < Constants.Jukebox.DJMotorRPMThreshold)) {
             setShooterMotorSpeeds(setSpeed);
-            if (JukeboxTime > 1.0) {
-                setIntakeMotorSpeeds(1.0, true);
+            if (getAverageShooterSpeeds() >= Constants.Jukebox.shooterMotorRPMThreshold) {
+                setIntakeMotorSpeeds(setSpeed, true);
             }
         }
         System.out.println("Brake!!!");
@@ -92,7 +97,6 @@ public class Jukebox extends SubsystemBase {
             sensorStatusMessage = "Nothing Detected";
         }
         if (Constants.Display.showJukeboxInfo) {
-            SmartDashboard.putNumber("Shooting Debug Timer", JukeboxTime);
             SmartDashboard.putString("Sensor Status", sensorStatusMessage);
         }
     }

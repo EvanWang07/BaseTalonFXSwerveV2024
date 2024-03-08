@@ -10,15 +10,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class TeleopClimb extends Command {
     private Climbers c_Climbers;
-    private DoubleSupplier speedUpSup;
-    private DoubleSupplier speedDownSup;
+    private DoubleSupplier speedSup;
     
-    public TeleopClimb(Climbers c_Climbers, DoubleSupplier speedUpSup, DoubleSupplier speedDownSup) {
+    public TeleopClimb(Climbers c_Climbers, DoubleSupplier speedSup) {
         this.c_Climbers = c_Climbers;
         addRequirements(c_Climbers);
 
-        this.speedUpSup = speedUpSup;
-        this.speedDownSup = speedDownSup;
+        this.speedSup = speedSup;
     }
 
     @Override
@@ -28,9 +26,8 @@ public class TeleopClimb extends Command {
 
     @Override
     public void execute() {
-        double c_upSpeed = MathUtil.applyDeadband(speedUpSup.getAsDouble(), Constants.Drive.climberTriggerDeadband);
-        double c_downSpeed = MathUtil.applyDeadband(speedDownSup.getAsDouble(), Constants.Drive.climberTriggerDeadband);
-        c_Climbers.setClimberMotorSpeeds(c_upSpeed - c_downSpeed);
+        double c_speed = MathUtil.applyDeadband(speedSup.getAsDouble(), Constants.Drive.climberTriggerDeadband);
+        c_Climbers.setClimberMotorSpeeds(c_speed);
     }
 
     @Override

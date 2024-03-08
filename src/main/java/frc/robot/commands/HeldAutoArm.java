@@ -47,7 +47,11 @@ public class HeldAutoArm extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        a_Arms.brakeArmMotors();
+        if (((Math.abs(setPoint.getAsDouble() - Constants.Arms.armLowerBoundTheta)) <= (5 * Constants.Arms.armMotorGearRatio)) || ((Math.abs(Constants.Arms.armUpperBoundTheta - setPoint.getAsDouble())) <= (5 * Constants.Arms.armMotorGearRatio))) {
+            a_Arms.brakeArmMotors(false);
+        } else {
+            a_Arms.brakeArmMotors(true);
+        }
     }
 
     @Override

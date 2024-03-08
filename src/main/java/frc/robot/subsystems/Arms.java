@@ -82,24 +82,33 @@ public class Arms extends SubsystemBase {
         }
     }
 
-    public void brakeArmMotors() {
-        // leftArm.setControl(Arm_request.withOutput(0));
-        // rightArm.setControl(Arm_request.withOutput(0));
-        leftArm.setNeutralMode(NeutralModeValue.Brake);
-        rightArm.setNeutralMode(NeutralModeValue.Brake);
+    public void brakeArmMotors(boolean useNeutralMode) {
+        if (useNeutralMode) {
+            leftArm.setNeutralMode(NeutralModeValue.Brake);
+            rightArm.setNeutralMode(NeutralModeValue.Brake);
+        } else {
+            leftArm.setControl(Arm_request.withOutput(0));
+            rightArm.setControl(Arm_request.withOutput(0));
+        }
         // leftArm.stopMotor();
         // rightArm.stopMotor();
     }
 
-    public void brakeLeftArmMotor() { // For manual arm calibration
-        // leftArm.setControl(Arm_request.withOutput(0));
-        leftArm.setNeutralMode(NeutralModeValue.Brake);
+    public void brakeLeftArmMotor(boolean useNeutralMode) { // For manual arm calibration
+        if (useNeutralMode) {
+            leftArm.setNeutralMode(NeutralModeValue.Brake);
+        } else {
+            leftArm.setControl(Arm_request.withOutput(0));
+        }
         // leftArm.stopMotor();
     }
 
-    public void brakeRightArmMotor() { // For manual arm calibration
-        // rightArm.setControl(Arm_request.withOutput(0));
-        rightArm.setNeutralMode(NeutralModeValue.Brake);
+    public void brakeRightArmMotor(boolean useNeutralMode) { // For manual arm calibration
+        if (useNeutralMode) {
+            rightArm.setNeutralMode(NeutralModeValue.Brake);
+        } else {
+            rightArm.setControl(Arm_request.withOutput(0));
+        }
         // rightArm.stopMotor();
     }
 
@@ -135,7 +144,11 @@ public class Arms extends SubsystemBase {
                 rightArm.setControl(Magic_arm_request.withPosition(setPointInRotations));
                 System.out.println("[Magic PID] Running. Current position: " + getAverageArmPosition() / Constants.Arms.armMotorGearRatio);
             }
-            brakeArmMotors();
+            if (((Math.abs(setPoint - Constants.Arms.armLowerBoundTheta)) <= (5 * Constants.Arms.armMotorGearRatio)) || ((Math.abs(Constants.Arms.armUpperBoundTheta - setPoint)) <= (5 * Constants.Arms.armMotorGearRatio))) {
+                brakeArmMotors(false);
+            } else {
+                brakeArmMotors(true);
+            }
             System.out.println("[Magic PID] Finished rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
             System.out.println("[Magic PID] An error of " + (Math.abs(getAverageArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
         } else {
@@ -162,7 +175,11 @@ public class Arms extends SubsystemBase {
                     setArmMotorSpeeds(newArmSpeed * Constants.Arms.percentAutomaticArmOutput);
                     System.out.println("[PID] Running. Current position: " + getAverageArmPosition() / Constants.Arms.armMotorGearRatio);
                 }
-                brakeArmMotors();
+                if (((Math.abs(setPoint - Constants.Arms.armLowerBoundTheta)) <= (5 * Constants.Arms.armMotorGearRatio)) || ((Math.abs(Constants.Arms.armUpperBoundTheta - setPoint)) <= (5 * Constants.Arms.armMotorGearRatio))) {
+                    brakeArmMotors(false);
+                } else {
+                    brakeArmMotors(true);
+                }
                 a_PIDController.close();
                 System.out.println("[PID] Finished rotating the arm motors to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
                 System.out.println("[PID] An error of " + (Math.abs(getAverageArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
@@ -190,7 +207,11 @@ public class Arms extends SubsystemBase {
                     setArmMotorSpeeds(newLeftArmSpeed * Constants.Arms.percentAutomaticArmOutput);
                     System.out.println("[PID] Running. Current left arm position: " + getLeftArmPosition() / Constants.Arms.armMotorGearRatio);
                 }
-                brakeLeftArmMotor();
+                if (((Math.abs(setPoint - Constants.Arms.armLowerBoundTheta)) <= (5 * Constants.Arms.armMotorGearRatio)) || ((Math.abs(Constants.Arms.armUpperBoundTheta - setPoint)) <= (5 * Constants.Arms.armMotorGearRatio))) {
+                    brakeLeftArmMotor(false);
+                } else {
+                    brakeLeftArmMotor(true);
+                }
                 a_PIDController.close();
                 System.out.println("[PID] Finished rotating the left arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
                 System.out.println("[PID] An error of " + (Math.abs(getLeftArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");
@@ -218,7 +239,11 @@ public class Arms extends SubsystemBase {
                     setArmMotorSpeeds(newRightArmSpeed * Constants.Arms.percentAutomaticArmOutput);
                     System.out.println("[PID] Running. Current right arm position: " + getRightArmPosition() / Constants.Arms.armMotorGearRatio);
                 }
-                brakeRightArmMotor();
+                if (((Math.abs(setPoint - Constants.Arms.armLowerBoundTheta)) <= (5 * Constants.Arms.armMotorGearRatio)) || ((Math.abs(Constants.Arms.armUpperBoundTheta - setPoint)) <= (5 * Constants.Arms.armMotorGearRatio))) {
+                    brakeRightArmMotor(false);
+                } else {
+                    brakeRightArmMotor(true);
+                }
                 a_PIDController.close();
                 System.out.println("[PID] finished rotating the right arm motor to " + (setPoint / Constants.Arms.armMotorGearRatio) + " degrees!");
                 System.out.println("[PID] An error of " + (Math.abs(getRightArmPosition() - setPoint) / Constants.Arms.armMotorGearRatio) + " degree(s) was detected!");

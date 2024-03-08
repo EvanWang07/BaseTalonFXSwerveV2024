@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Jukebox;
 
 import java.util.function.DoubleSupplier;
@@ -10,17 +9,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class TeleopJukebox extends Command {
     private Jukebox j_Jukebox;
-    private DoubleSupplier speedSup;
+    private DoubleSupplier shooterSpeedSup;
     private BooleanSupplier useIntake;
-    private BooleanSupplier useShooter;
     
-    public TeleopJukebox(Jukebox j_Jukebox, DoubleSupplier speedSup, BooleanSupplier useIntake, BooleanSupplier useShooter) {
+    public TeleopJukebox(Jukebox j_Jukebox, DoubleSupplier shooterSpeedSup, BooleanSupplier useIntake) {
         this.j_Jukebox = j_Jukebox;
         addRequirements(j_Jukebox);
 
-        this.speedSup = speedSup;
+        this.shooterSpeedSup = shooterSpeedSup;
         this.useIntake = useIntake;
-        this.useShooter = useShooter;
     }
 
     @Override
@@ -30,20 +27,14 @@ public class TeleopJukebox extends Command {
 
     @Override
     public void execute() {
-        double j_speed = speedSup.getAsDouble();
+        double j_shooterSpeed = shooterSpeedSup.getAsDouble();
         boolean j_useIntake = useIntake.getAsBoolean();
-        boolean j_useShooter = useShooter.getAsBoolean();
-        if (j_useIntake && (!(j_Jukebox.checkSensorBreakage()))) {
-            j_Jukebox.setIntakeMotorSpeeds(j_speed, false);
-            System.out.println("Intake Running");
+        if ((!(j_Jukebox.checkSensorBreakage())) && j_useIntake) {
+            j_Jukebox.setIntakeMotorSpeeds(1.0, false);
         } else {
             j_Jukebox.brakeIntakeMotors();
         }
-        if (j_useShooter) {
-            j_Jukebox.setShooterMotorSpeeds(Constants.Jukebox.shooterSpeed);
-        } else {
-            j_Jukebox.brakeShooterMotors();
-        }
+        j_Jukebox.setShooterMotorSpeeds(j_shooterSpeed);
     }
 
     @Override

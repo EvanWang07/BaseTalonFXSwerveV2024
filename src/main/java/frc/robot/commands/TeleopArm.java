@@ -46,13 +46,13 @@ public class TeleopArm extends Command {
                 if (a_speed < 0) {
                     a_Arms.setLeftArmMotorSpeed(a_speed);
                 } else {
-                    a_Arms.brakeLeftArmMotor();
+                    a_Arms.brakeLeftArmMotor(false);
                 }
             } else {
                 if (a_speed > 0) {
                     a_Arms.setLeftArmMotorSpeed(a_speed);
                 } else {
-                    a_Arms.brakeLeftArmMotor();
+                    a_Arms.brakeLeftArmMotor(false);
                 }
             }
 
@@ -63,13 +63,13 @@ public class TeleopArm extends Command {
                 if (a_speed < 0) {
                     a_Arms.setRightArmMotorSpeed(a_speed);
                 } else {
-                    a_Arms.brakeRightArmMotor();
+                    a_Arms.brakeRightArmMotor(false);
                 }
             } else {
                 if (a_speed > 0) {
                     a_Arms.setRightArmMotorSpeed(a_speed);
                 } else {
-                    a_Arms.brakeRightArmMotor();
+                    a_Arms.brakeRightArmMotor(false);
                 }
             }
         } else { // Both Left & Right Motors
@@ -110,11 +110,11 @@ public class TeleopArm extends Command {
                 if (a_leftArmCanMove && a_rightArmCanMove) {
                     a_Arms.setArmMotorSpeeds(a_speed);
                 } else {
-                    a_Arms.brakeArmMotors();
+                    a_Arms.brakeArmMotors(false);
                 }
 
             } else {
-                a_Arms.brakeArmMotors();
+                a_Arms.brakeArmMotors(false);
                 System.out.println("WARNING: Arms need calibration! [TeleopArm]");
             }
         }        
@@ -122,7 +122,7 @@ public class TeleopArm extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        a_Arms.brakeArmMotors();
+        a_Arms.brakeArmMotors(false);
     }
 
     @Override
