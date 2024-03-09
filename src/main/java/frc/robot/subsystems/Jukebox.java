@@ -40,6 +40,14 @@ public class Jukebox extends SubsystemBase {
         return DJMotor.getEncoder().getVelocity();
     }
 
+    public double getIntakeMotorPosition() { // Units in rotations
+        return DJMotor.getEncoder().getPosition();
+    }
+
+    public void setIntakeMotorPosition(double newPosition) {
+        DJMotor.getEncoder().setPosition(newPosition);
+    }
+
     public void brakeIntakeMotors() {
         DJMotor.set(0);
     }
@@ -60,6 +68,18 @@ public class Jukebox extends SubsystemBase {
         return averageShooterSpeed;
     }
 
+    public double getAverageShooterPosition() {
+        double leftShooterPosition = leftShooterMotor.getEncoder().getPosition();
+        double rightShooterPosition = rightShooterMotor.getEncoder().getPosition();
+        double averageShooterPosition = (leftShooterPosition + rightShooterPosition) / 2;
+        return averageShooterPosition;
+    }
+
+    public void setShooterPositions(double newPosition) { // Units in rotations
+        leftShooterMotor.getEncoder().setPosition(newPosition);
+        rightShooterMotor.getEncoder().setPosition(newPosition);
+    }
+
     public void brakeShooterMotors() {
         leftShooterMotor.set(0);
         rightShooterMotor.set(0);
@@ -78,10 +98,11 @@ public class Jukebox extends SubsystemBase {
         }
     }
 
-    public void runJukebox(double setSpeed) {
-        while ((getAverageShooterSpeeds() < Constants.Jukebox.shooterMotorRPMThreshold) || (getIntakeMotorSpeed() < Constants.Jukebox.DJMotorRPMThreshold)) {
+    public void runJukebox(double setSpeed) { // TODO: CODE NEEDS CHANGES!!! NEEDS BETTER LOGIC
+        setShooterPositions(0);
+        while (Math.abs(getAverageShooterPosition()) <= Math.abs(Constants.Jukebox.shooterMotorRPMThreshold / 50)) {
             setShooterMotorSpeeds(setSpeed);
-            if (getAverageShooterSpeeds() >= Constants.Jukebox.shooterMotorRPMThreshold) {
+            if (Math.abs(getAverageShooterPosition()) >= (0.65 * Math.abs(Constants.Jukebox.shooterMotorRPMThreshold / 50))) {
                 setIntakeMotorSpeeds(setSpeed, true);
             }
         }

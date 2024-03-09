@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.4682916236061486,
-      "y": 2.0471019059086473
+      "x": 0.5205136110017775,
+      "y": 7.217078658075891
     },
     "rotation": 0
   },
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "jorge"
+            "pathName": "A_Initial-Amp"
           }
         },
         {
@@ -26,19 +26,25 @@
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "Arm-to-Amp"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Note"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "Amp-OutsideA"
           }
         }
       ]

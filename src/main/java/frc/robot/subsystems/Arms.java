@@ -32,8 +32,8 @@ public class Arms extends SubsystemBase {
             Thread.sleep(1000);
             leftArm.setInverted(Constants.Arms.leftArmMotorInverted);
             rightArm.setInverted(Constants.Arms.rightArmMotorInverted);
-            leftArm.setPosition(Units.degreesToRotations(Constants.Drive.armMotorStartPosition));
-            rightArm.setPosition(Units.degreesToRotations(Constants.Drive.armMotorStartPosition));
+            leftArm.setPosition(Units.degreesToRotations(Constants.Drive.calculatedArmMotorStartPosition));
+            rightArm.setPosition(Units.degreesToRotations(Constants.Drive.calculatedArmMotorStartPosition));
             if (Constants.Display.showArmTheta) {
                 SmartDashboard.putNumber("Left Arm Position", (getLeftArmPosition() / Constants.Arms.armMotorGearRatio));
                 SmartDashboard.putNumber("Right Arm Position", (getRightArmPosition() / Constants.Arms.armMotorGearRatio));
@@ -127,6 +127,34 @@ public class Arms extends SubsystemBase {
     public double getAverageArmPosition() {
         double averageArmPosition = (getLeftArmPosition() + getRightArmPosition()) / 2;
         return averageArmPosition;
+    }
+
+    public void newAutoSetArmPosition(double setPoint, double minimumSpeed) {
+        if ((Constants.Arms.leftArmMotorInverted == leftArm.getInverted()) && (Constants.Arms.rightArmMotorInverted == rightArm.getInverted())) {
+            if (Math.abs(getLeftArmPosition() - getRightArmPosition()) <= Constants.Arms.armsMaxErrorTolerance) { // Checks if the motors are synchronized
+                double armPIDError = Math.abs(setPoint - getAverageArmPosition());
+                double armPIDRotationVelocity = armPIDError * Constants.Arms.armHeldKP;
+                double rotationalAdjustment = 0;
+                while (armPIDError > Constants.Arms.calculatedMaxHeldPIDArmThetaOffset) {
+                    if (setPoint < getAverageArmPosition()) {
+                        rotationalAdjustment = -armPIDRotationVelocity - minimumSpeed;
+                    } else {
+                        rotationalAdjustment = armPIDRotationVelocity + minimumSpeed;
+                    }
+
+                    setArmMotorSpeeds(rotationalAdjustment);
+                }
+                if (((Math.abs(setPoint - Constants.Arms.armLowerBoundTheta)) <= (5 * Constants.Arms.armMotorGearRatio)) || ((Math.abs(Constants.Arms.armUpperBoundTheta - setPoint)) <= (5 * Constants.Arms.armMotorGearRatio))) {
+                    brakeArmMotors(false);
+                } else {
+                    brakeArmMotors(true);
+                }
+            } else {
+                System.out.println("[PID] WARNING: Arms need calibration!");
+            }
+        } else {
+            System.out.println("[Arms] ERROR: Arm motor inverts are incorrect!");
+        }
     }
 
     public void motionMagicAutoSetArmPosition(double setPoint) {

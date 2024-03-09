@@ -24,16 +24,18 @@ public final class Constants {
         public static final double driveStickDeadband = 0.1;
         public static final double armStickDeadband = 0.1;
         public static final double climberTriggerDeadband = 0.1;
-        public static final double basePercentDriveOutput = 0.5; // The percent motor output for the swerve modules
+        public static final double basePercentDriveOutput = 0.8; // The percent motor output for the swerve modules
         public static final double percentBasePercentDriveOutput = 0.2; // The percent amount of basePercentDriveOutput; used in d_slowMode
         public static final double maxBasePercentArmOutput = 0.6; // The percent motor output for the arm motors
         public static final double percentMaxBasePercentArmOutput = 0.5; // The percent amount of maxBasePercentArmOutput; used in w_slowMode
-        public static final double basePercentDJMotorOutput = 0.1; // The percent motor output for the DJ motor
-        public static final double basePercentShooterMotorOutput = 0.15; // The percent motor output for the shooter motors
+        public static final double basePercentDJMotorOutput = 0.4; // The percent motor output for the DJ motor
+        public static final double basePercentShooterMotorOutput = 0.6; // The percent motor output for the shooter motors
         public static final double basePercentClimberOutput = 0.5; // The percent motor output for the climber motors
 
         /* Base Motor Positioning Constants */
-        public static final double armMotorStartPosition = 10; // TODO: NEEDS TO BE CHANGED!!!
+        public static final double armMotorStartPosition = 77;
+
+        public static final double calculatedArmMotorStartPosition = armMotorStartPosition * Arms.armMotorGearRatio;
 
         /* Controller Constants */
         public static final int driveController = 0;
@@ -100,7 +102,7 @@ public final class Constants {
         public static final int rightArmMotorID = 10;
         public static final boolean leftArmMotorInverted = false;
         public static final boolean rightArmMotorInverted = true;
-        public static final double armMotorGearRatio = 100; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
+        public static final double armMotorGearRatio = 300; // Essentially, the AMOUNT of motor rotations without a gearbox needed to visibly rotate the shaft ONCE
         public static final double armsMaxVoltage = 12;
 
         /* Arm Bounds & Tolerance Constants */
@@ -132,10 +134,10 @@ public final class Constants {
         public static final double percentAutomaticArmOutput = 0.1;
         public static final double maxPIDArmThetaOffset = 2.5;
         public static final double maxPIDArmIntegrationZone = 5;
-        public static final double armThetaAtDefault = 10; // TODO: Potentially needs to be changed!
-        public static final double armThetaAtSpeaker = 58.032; // At the Speaker's Base
-        public static final double armThetaAtTrap = 45; // TODO: Potentially needs to be changed!
-        public static final double armThetaAtAmp = 97.763; // 1 inch WITHIN the Amp
+        public static final double armThetaAtDefault = 10; // Y-Button. TODO: Potentially needs to be changed!
+        public static final double armThetaAtSpeaker = 18; // X-Button. At the Speaker's Base
+        public static final double armThetaAtUp = 90; // A-Button
+        public static final double armThetaAtAmp = 97.763; // B-Button. 1 inch WITHIN the Amp
 
         public static final double armHeldKP = 0.0001; // ORIGINALLY 0.005
         public static final double armHeldPIDMinimumRotationalMovement = 0;
@@ -144,7 +146,7 @@ public final class Constants {
         public static final double calculatedMaxPIDArmThetaOffset = maxPIDArmThetaOffset * armMotorGearRatio;
         public static final double calculatedMaxPIDArmIntegrationZone = maxPIDArmIntegrationZone * armMotorGearRatio;
         public static final double calculatedArmThetaAtDefault = armThetaAtDefault * armMotorGearRatio;
-        public static final double calculatedArmThetaAtTrap = armThetaAtTrap * armMotorGearRatio;
+        public static final double calculatedArmThetaAtUp = armThetaAtUp * armMotorGearRatio;
         public static final double calculatedArmThetaAtAmp = armThetaAtAmp * armMotorGearRatio;
         public static final double calculatedArmThetaAtSpeaker = armThetaAtSpeaker * armMotorGearRatio;
         public static final double calculatedMaxHeldPIDArmThetaOffset = maxHeldPIDArmThetaOffset * armMotorGearRatio;
