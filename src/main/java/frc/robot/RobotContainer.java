@@ -58,16 +58,16 @@ public class RobotContainer {
     private final Jukebox j_Jukebox = new Jukebox();
     private final Climbers c_Climbers = new Climbers();
     private final Vision v_Vision = new Vision();
-    // private final Time t_Time = new Time();
+    private final Time t_Time = new Time();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         
         /* PathPlanner Registered Commands */
-        NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> j_Jukebox.runJukebox(1)));
-        NamedCommands.registerCommand("Arm to Amp", new InstantCommand(() -> a_Arms.newAutoSetArmPosition(90, 0.0001)));
-        NamedCommands.registerCommand("Arm to Bottom", new InstantCommand(() -> a_Arms.newAutoSetArmPosition(5, 0.0001)).withTimeout(1));
-        NamedCommands.registerCommand("Arm to Speaker", new InstantCommand(() -> a_Arms.newAutoSetArmPosition(18, 0.0001)));
+        NamedCommands.registerCommand("Shoot Note", new AutoJukebox(t_Time, j_Jukebox).withTimeout(2.5));
+        NamedCommands.registerCommand("Arm to Amp", new InstantAutoArm(t_Time, a_Arms, Constants.Arms.calculatedArmThetaAtAmp).withTimeout(5.0));
+        NamedCommands.registerCommand("Arm to Bottom", new InstantAutoArm(t_Time, a_Arms, 500).withTimeout(5.0));
+        NamedCommands.registerCommand("Arm to Speaker", new InstantAutoArm(t_Time, a_Arms, Constants.Arms.calculatedArmThetaAtSpeaker).withTimeout(5.0));
 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(

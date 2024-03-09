@@ -37,11 +37,10 @@ public class HeldAutoArm extends Command {
                 } else {
                     rotationalAdjustment = armPIDRotationVelocity + Constants.Arms.armHeldPIDMinimumRotationalMovement;
                 }
+                a_Arms.setArmMotorSpeeds(rotationalAdjustment);
             } else {
                 System.out.println("WARNING: Arms need calibration! [HeldAutoArm]");
             }
-            
-            a_Arms.setArmMotorSpeeds(rotationalAdjustment);
         }
     }
 

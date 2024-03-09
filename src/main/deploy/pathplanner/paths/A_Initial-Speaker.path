@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.617175346309981,
-        "y": 5.566863856374023
+        "x": 2.5,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 1.3665098068109627,
-        "y": 6.36063806478758
+        "x": 2.2493344605009815,
+        "y": 6.343774208413557
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Inits",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
