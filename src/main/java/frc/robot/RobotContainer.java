@@ -44,7 +44,7 @@ public class RobotContainer {
 
     /* Weapons Buttons */
     private final JoystickButton w_resetArm = new JoystickButton(weapons, XboxController.Button.kY.value);
-    private final JoystickButton w_trapAutoArm = new JoystickButton(weapons, XboxController.Button.kA.value);
+    private final JoystickButton w_upAutoArm = new JoystickButton(weapons, XboxController.Button.kA.value);
     private final JoystickButton w_ampAutoArm = new JoystickButton(weapons, XboxController.Button.kB.value);
     private final JoystickButton w_speakerAutoArm = new JoystickButton(weapons, XboxController.Button.kX.value);
     private final JoystickButton w_instantShootNote = new JoystickButton(weapons, XboxController.Button.kLeftBumper.value);
@@ -65,6 +65,9 @@ public class RobotContainer {
         
         /* PathPlanner Registered Commands */
         NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> j_Jukebox.runJukebox(1)));
+        NamedCommands.registerCommand("Arm to Amp", new InstantCommand(() -> a_Arms.newAutoSetArmPosition(90, 0.0001)));
+        NamedCommands.registerCommand("Arm to Bottom", new InstantCommand(() -> a_Arms.newAutoSetArmPosition(5, 0.0001)).withTimeout(1));
+        NamedCommands.registerCommand("Arm to Speaker", new InstantCommand(() -> a_Arms.newAutoSetArmPosition(18, 0.0001)));
 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -126,29 +129,29 @@ public class RobotContainer {
         if (Constants.Drive.useInstantPID) {
             if (Constants.Drive.useMotionMagicPID) {
                 w_resetArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
-                w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+                w_upAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtUp)));
                 w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
                 w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.motionMagicAutoSetArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
             } else {
                 if (Constants.Drive.useIndividualMotorPID) {
                     w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
                     w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
-                    w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
-                    w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+                    w_upAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtUp)));
+                    w_upAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtUp)));
                     w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
                     w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
                     w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetLeftArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
                     w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetRightArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
                 } else {
                     w_resetArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtDefault)));
-                    w_trapAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtTrap)));
+                    w_upAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtUp)));
                     w_ampAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtAmp)));
                     w_speakerAutoArm.onTrue(new InstantCommand(() -> a_Arms.autoSetArmPosition(Constants.Arms.calculatedArmThetaAtSpeaker)));
                 }
             }
         } else {
             w_resetArm.whileTrue(new HeldAutoArm(a_Arms, () -> Constants.Arms.calculatedArmThetaAtDefault));
-            w_trapAutoArm.whileTrue(new HeldAutoArm(a_Arms, () -> Constants.Arms.calculatedArmThetaAtTrap));
+            w_upAutoArm.whileTrue(new HeldAutoArm(a_Arms, () -> Constants.Arms.calculatedArmThetaAtUp));
             w_ampAutoArm.whileTrue(new HeldAutoArm(a_Arms, () -> Constants.Arms.calculatedArmThetaAtAmp));
             w_speakerAutoArm.whileTrue(new HeldAutoArm(a_Arms, () -> Constants.Arms.calculatedArmThetaAtSpeaker));
         }
@@ -161,6 +164,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // The "BASIC Autonomous Path" will run
-        return new PathPlannerAuto("jorge");
+        return new PathPlannerAuto("straightforward");
     }
 }
