@@ -57,7 +57,7 @@ public class InstantAutoArm extends Command {
 
     @Override
     public boolean isFinished() {
-        if (t_Time.getTime() <= 5) {
+        if (t_Time.getTime() <= 3) {
             return false;
         } else {
             return true;

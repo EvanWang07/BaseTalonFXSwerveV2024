@@ -64,10 +64,12 @@ public class RobotContainer {
     public RobotContainer() {
         
         /* PathPlanner Registered Commands */
+        NamedCommands.registerCommand("Intake Note", new AutoIntake(t_Time, j_Jukebox).withTimeout(1.5));
         NamedCommands.registerCommand("Shoot Note", new AutoJukebox(t_Time, j_Jukebox).withTimeout(2.5));
-        NamedCommands.registerCommand("Arm to Amp", new InstantAutoArm(t_Time, a_Arms, Constants.Arms.calculatedArmThetaAtAmp).withTimeout(5.0));
-        NamedCommands.registerCommand("Arm to Bottom", new InstantAutoArm(t_Time, a_Arms, 500).withTimeout(5.0));
-        NamedCommands.registerCommand("Arm to Speaker", new InstantAutoArm(t_Time, a_Arms, Constants.Arms.calculatedArmThetaAtSpeaker).withTimeout(5.0));
+        NamedCommands.registerCommand("Arm to Amp", new InstantAutoArm(t_Time, a_Arms, Constants.Arms.calculatedArmThetaAtAmp).withTimeout(2.25));
+        NamedCommands.registerCommand("Arm to Bottom", new InstantAutoArm(t_Time, a_Arms, 500).withTimeout(1.25));
+        NamedCommands.registerCommand("Arm to Speaker", new InstantAutoArm(t_Time, a_Arms, Constants.Arms.calculatedArmThetaAtSpeaker).withTimeout(3));
+        NamedCommands.registerCommand("Fast Arm to Speaker", new InstantAutoArm(t_Time, a_Arms, Constants.Arms.calculatedArmThetaAtSpeaker).withTimeout(1.5));
 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -163,7 +165,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // The "BASIC Autonomous Path" will run
-        return new PathPlannerAuto("straightforward");
+        // The PathPlanner path will run
+        return new PathPlannerAuto("TOPSPEAKER");
     }
 }
