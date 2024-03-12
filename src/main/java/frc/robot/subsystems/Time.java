@@ -22,6 +22,6 @@ public class Time extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.getNumber("Weapon Timer", getTime());
+        SmartDashboard.putNumber("Weapon Timer", getTime());
     }
 }
